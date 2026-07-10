@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  output: 'standalone',
   // Allow the Next.js dev server to serve /_next/* assets to the Cloudflare
   // tunnel origin (and any *.trycloudflare.com host).
   allowedDevOrigins: ["*.trycloudflare.com", "trycloudflare.com"],
