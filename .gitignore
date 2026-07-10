@@ -1,0 +1,9 @@
+node_modules
+.next
+/build
+*.log
+.DS_Store
+# Keep .env for local zero-friction setup (it only points to a local SQLite file)
+prisma/dev.db
+prisma/dev.db-journal
+prisma/migrations/
