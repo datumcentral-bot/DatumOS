@@ -1,0 +1,4 @@
+# Public URL Configuration
+# Set this to your public domain URL for production
+
+http://localhost:3000
