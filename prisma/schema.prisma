@@ -1,8 +1,3 @@
-// ============================================================================
-// DatumOS v13 — Prisma schema (SQLite)
-// Full BIM + ClickUp-style PM + WebRTC Meetings
-// ============================================================================
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -13,35 +8,34 @@ datasource db {
 }
 
 model User {
-  id          String   @id @default(cuid())
-  name        String
-  email       String   @unique
-  password    String?
-  role        String   @default("MEMBER")
-  title       String?
-  division    String?
-  avatarHue   String?
-  capacityHrs Float    @default(40)
-  active      Boolean  @default(true)
-  createdAt   DateTime @default(now())
-
-  assignments         ProjectAssignment[]
-  tasks               Task[]              @relation("TaskAssignee")
-  timesheets          TimesheetEntry[]
-  qaSignoffs          QaSignoff[]
-  raisedRfis          Rfi[]               @relation("RfiRaisedBy")
-  outreach            OutreachActivity[]
-  resourceAllocations ResourceAllocation[]
-  sentMessages        InternalMessage[]   @relation("MessageAuthor")
-  comments            Comment[]
-  timeEntries         TimeEntry[]
-  meetingParticipants MeetingParticipant[]
-  actionItems         ActionItem[]        @relation("ActionItemAssignee")
-  savedViews          SavedView[]
-  starredItems        StarredItem[]
+  id                   String                @id @default(cuid())
+  name                 String
+  email                String                @unique
+  password             String?
+  role                 String                @default("MEMBER")
+  title                String?
+  division             String?
+  avatarHue            String?
+  capacityHrs          Float                 @default(40)
+  active               Boolean               @default(true)
+  createdAt            DateTime              @default(now())
+  actionItems          ActionItem[]          @relation("ActionItemAssignee")
+  activityLogs         ActivityLog[]
+  comments             Comment[]
+  sentMessages         InternalMessage[]     @relation("MessageAuthor")
+  meetingParticipants  MeetingParticipant[]
+  modelProductions     ModelProduction[]
+  outreach             OutreachActivity[]
+  assignments          ProjectAssignment[]
+  qaSignoffs           QaSignoff[]
+  resourceAllocations  ResourceAllocation[]
+  raisedRfis           Rfi[]                 @relation("RfiRaisedBy")
+  savedViews           SavedView[]
+  starredItems         StarredItem[]
   subcontractorMembers SubcontractorMember[]
-  modelProductions    ModelProduction[]
-  activityLogs        ActivityLog[]
+  tasks                Task[]                @relation("TaskAssignee")
+  timeEntries          TimeEntry[]
+  timesheets           TimesheetEntry[]
 }
 
 model ClientUser {
@@ -53,53 +47,51 @@ model ClientUser {
 }
 
 model Client {
-  id              String   @id @default(cuid())
-  companyName     String
-  industry        String?
-  country         String   @default("")
-  city            String?
-  address         String?
-  contactName     String   @default("")
-  contactEmail    String   @default("")
-  contactPhone    String?
-  website         String?
-  timezone        String?
-  logoHue         String?
-  notes           String?
-  status          String   @default("ACTIVE")
-  tier            String   @default("TIER2")
-  leadMember      String?
-  repTeam         String?
-  priority        String   @default("MEDIUM")
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-
-  projects        Project[]
-  invoices        Invoice[]
-  portalUsers     ClientUser[]
-  requirements    ClientRequirement[]
-  assessments     ClientAssessment[]
-  documents       ClientDocument[]
-  contacts        ClientContact[]
-  leads           Lead[]
+  id               String              @id @default(cuid())
+  companyName      String
+  industry         String?
+  country          String              @default("")
+  city             String?
+  address          String?
+  contactName      String              @default("")
+  contactEmail     String              @default("")
+  contactPhone     String?
+  website          String?
+  timezone         String?
+  logoHue          String?
+  notes            String?
+  status           String              @default("ACTIVE")
+  tier             String              @default("TIER2")
+  leadMember       String?
+  repTeam          String?
+  priority         String              @default("MEDIUM")
+  createdAt        DateTime            @default(now())
+  updatedAt        DateTime            @updatedAt
+  assessments      ClientAssessment[]
+  contacts         ClientContact[]
+  documents        ClientDocument[]
+  requirements     ClientRequirement[]
+  portalUsers      ClientUser[]
   financialEntries FinancialEntry[]
+  invoices         Invoice[]
+  leads            Lead[]
+  projects         Project[]
 }
 
 model ClientContact {
   id        String  @id @default(cuid())
   clientId  String
-  client    Client  @relation(fields: [clientId], references: [id], onDelete: Cascade)
   name      String
   role      String?
   email     String?
   phone     String?
   isPrimary Boolean @default(false)
+  client    Client  @relation(fields: [clientId], references: [id], onDelete: Cascade)
 }
 
 model ClientRequirement {
   id          String   @id @default(cuid())
   clientId    String
-  client      Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
   title       String
   description String?
   category    String   @default("GENERAL")
@@ -107,243 +99,240 @@ model ClientRequirement {
   status      String   @default("OPEN")
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  client      Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
 }
 
 model ClientAssessment {
-  id          String   @id @default(cuid())
-  clientId    String
-  client      Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
-  title       String
-  criteria    String?
-  score       Float    @default(0)
-  maxScore    Float    @default(10)
-  notes       String?
-  assessedAt  DateTime @default(now())
-  createdAt   DateTime @default(now())
+  id         String   @id @default(cuid())
+  clientId   String
+  title      String
+  criteria   String?
+  score      Float    @default(0)
+  maxScore   Float    @default(10)
+  notes      String?
+  assessedAt DateTime @default(now())
+  createdAt  DateTime @default(now())
+  client     Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
 }
 
 model ClientDocument {
   id         String   @id @default(cuid())
   clientId   String
-  client     Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
   name       String
   fileType   String?
   fileSize   Int?
   url        String?
   uploadedAt DateTime @default(now())
+  client     Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
 }
 
 model Division {
-  id          String  @id @default(cuid())
-  code        String  @unique
-  name        String
-  description String?
-  colorHex    String  @default("#234b84")
-  isFlagship  Boolean @default(false)
-
+  id               String            @id @default(cuid())
+  code             String            @unique
+  name             String
+  description      String?
+  colorHex         String            @default("#234b84")
+  isFlagship       Boolean           @default(false)
   projectDivisions ProjectDivision[]
 }
 
 model Project {
-  id              String   @id @default(cuid())
-  name            String
-  code            String?
-  clientId        String?
-  client          Client?  @relation(fields: [clientId], references: [id])
-  description     String?
-  status          String   @default("ACTIVE")
-  phase           String?
-  startDate       DateTime?
-  endDate         DateTime?
-  budget          Float?
-  contractValue   Float?
-  bimLevel        String?
-  isoStage        String?
-  location        String?
-  country         String?
-  healthScore     Int      @default(75)
-  health          String?
-  healthNote      String?
-  stage           String?
-  coverHue        String?
-  progressPct     Int      @default(0)
-  actualHrs       Float?
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-
-  assignments     ProjectAssignment[]
-  divisions       ProjectDivision[]
-  tasks           Task[]
-  milestones      Milestone[]
-  deliverables    Deliverable[]
-  invoices        Invoice[]
-  risks           Risk[]
-  rfis            Rfi[]
-  qaSignoffs      QaSignoff[]
-  timesheets      TimesheetEntry[]
-  resourceAllocations ResourceAllocation[]
-  projectFiles    ProjectFile[]
-  meetings        Meeting[]
-  beps            Bep[]
-  midps           Midp[]
-  tidps           Tidp[]
-  eirs            Eir[]
-  airs            Air[]
-  cdeDocs         CdeDocument[]
-  lodSpecs        LodSpec[]
-  clashDetections ClashDetection[]
-  responsibilityMatrix ResponsibilityMatrix[]
-  namingConventions NamingConvention[]
-  comments        Comment[]  @relation("ProjectComments")
-  attachments     Attachment[] @relation("ProjectAttachments")
-  tags            ProjectTag[]
+  id                       String                    @id @default(cuid())
+  name                     String
+  code                     String?
+  clientId                 String?
+  description              String?
+  status                   String                    @default("ACTIVE")
+  phase                    String?
+  startDate                DateTime?
+  endDate                  DateTime?
+  budget                   Float?
+  contractValue            Float?
+  bimLevel                 String?
+  isoStage                 String?
+  location                 String?
+  country                  String?
+  healthScore              Int                       @default(75)
+  health                   String?
+  healthNote               String?
+  stage                    String?
+  coverHue                 String?
+  progressPct              Int                       @default(0)
+  actualHrs                Float?
+  createdAt                DateTime                  @default(now())
+  updatedAt                DateTime                  @updatedAt
+  airs                     Air[]
+  approvals                Approval[]
+  attachments              Attachment[]              @relation("ProjectAttachments")
+  beps                     Bep[]
+  bimCoordSchedules        BimCoordSchedule[]
+  bimDeliveryMilestones    BimDeliveryMilestone[]
+  bimScopeMatrix           BimScopeMatrix[]
+  bimVerifyChecks          BimVerifyCheck[]
+  cdeDocs                  CdeDocument[]
+  clashes                  Clash[]
+  clashDetections          ClashDetection[]
+  messages                 ClientMessage[]
+  comments                 Comment[]                 @relation("ProjectComments")
+  deliverables             Deliverable[]
+  deliverySchedules        DeliverySchedule[]
+  documents                Document[]
+  eirs                     Eir[]
+  expenses                 Expense[]
+  financialEntries         FinancialEntry[]
+  ganttTasks               GanttTask[]
+  invoices                 Invoice[]
+  isoComplianceItems       IsoComplianceItem[]
+  lodSpecs                 LodSpec[]
+  meetings                 Meeting[]
+  midps                    Midp[]
+  milestones               Milestone[]
+  modelProductions         ModelProduction[]
+  namingConventions        NamingConvention[]
+  client                   Client?                   @relation(fields: [clientId], references: [id])
+  assignments              ProjectAssignment[]
+  divisions                ProjectDivision[]
+  projectFiles             ProjectFile[]
+  folders                  ProjectFolder[]
+  tags                     ProjectTag[]
+  qaSignoffs               QaSignoff[]
+  resourceAllocations      ResourceAllocation[]
+  responsibilityMatrix     ResponsibilityMatrix[]
+  rfis                     Rfi[]
+  risks                    Risk[]
+  scheduleItems            ScheduleItem[]
+  scopes                   ScopeOfWork[]
+  statusReports            StatusReport[]
   subcontractorAssignments SubcontractorAssignment[]
-  scheduleItems   ScheduleItem[]
-  modelProductions ModelProduction[]
-  bimCoordSchedules BimCoordSchedule[]
-  bimDeliveryMilestones BimDeliveryMilestone[]
-  bimScopeMatrix    BimScopeMatrix[]
-  bimVerifyChecks   BimVerifyCheck[]
-  deliverySchedules DeliverySchedule[]
-  financialEntries  FinancialEntry[]
-  isoComplianceItems IsoComplianceItem[]
-  folders         ProjectFolder[]
-  scopes          ScopeOfWork[]
-  documents       Document[]
-  clashes         Clash[]
-  statusReports   StatusReport[]
-  approvals       Approval[]
-  messages        ClientMessage[]
-  expenses        Expense[]
-  ganttTasks      GanttTask[]
+  tasks                    Task[]
+  tidps                    Tidp[]
+  timesheets               TimesheetEntry[]
 }
 
 model ProjectAssignment {
   id        String  @id @default(cuid())
   projectId String
-  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
   userId    String
-  user      User    @relation(fields: [userId], references: [id])
   role      String?
   isLead    Boolean @default(false)
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  user      User    @relation(fields: [userId], references: [id])
 }
 
 model ProjectDivision {
   id         String   @id @default(cuid())
   projectId  String
-  project    Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
   divisionId String
   division   Division @relation(fields: [divisionId], references: [id])
+  project    Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
 }
 
 model ProjectFile {
-  id          String   @id @default(cuid())
-  projectId   String
-  project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  name        String
-  fileType    String?
-  fileSize    Int?
-  url         String?
-  version     String   @default("v001")
-  status      String   @default("WIP")
-  discipline  String?
-  uploadedAt  DateTime @default(now())
-  uploadedBy  String?
+  id         String   @id @default(cuid())
+  projectId  String
+  name       String
+  fileType   String?
+  fileSize   Int?
+  url        String?
+  version    String   @default("v001")
+  status     String   @default("WIP")
+  discipline String?
+  uploadedAt DateTime @default(now())
+  uploadedBy String?
+  project    Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
 }
 
 model Task {
-  id           String    @id @default(cuid())
-  title        String
-  description  String?
-  projectId    String?
-  project      Project?  @relation(fields: [projectId], references: [id])
-  assigneeId   String?
-  assignee     User?     @relation("TaskAssignee", fields: [assigneeId], references: [id])
-  status       String    @default("TODO")
-  priority     String    @default("MEDIUM")
-  dueDate      DateTime?
-  startDate    DateTime?
-  estimatedHrs Float?
-  loggedHrs    Float     @default(0)
-  actualHrs    Float?
-  divisionCode String?
-  sopId        String?
-  sop          Sop?      @relation(fields: [sopId], references: [id])
-  scopeId      String?
-  scope        ScopeOfWork? @relation(fields: [scopeId], references: [id])
-  cdeState     String?   @default("S0")
-  qaRequired   Boolean?  @default(true)
-  orderIndex   Int       @default(0)
-  parentId     String?
-  parent       Task?     @relation("SubTasks", fields: [parentId], references: [id])
-  subtasks     Task[]    @relation("SubTasks")
-  tags         String?
-  customFields String?
-  isTemplate   Boolean   @default(false)
-  templateName String?
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
-
-  timesheets   TimesheetEntry[]
-  comments     Comment[]   @relation("TaskComments")
-  attachments  Attachment[] @relation("TaskAttachments")
-  timeEntries  TimeEntry[]
-  blockingDeps TaskDependency[] @relation("BlockingTask")
-  blockedByDeps TaskDependency[] @relation("BlockedByTask")
-  subtaskItems SubtaskItem[]
-  checklist    TaskChecklistItem[]
-
+  id            String              @id @default(cuid())
+  title         String
+  description   String?
+  projectId     String?
+  assigneeId    String?
+  status        String              @default("TODO")
+  priority      String              @default("MEDIUM")
+  dueDate       DateTime?
+  startDate     DateTime?
+  estimatedHrs  Float?
+  loggedHrs     Float               @default(0)
+  actualHrs     Float?
+  divisionCode  String?
+  sopId         String?
+  scopeId       String?
+  cdeState      String?             @default("S0")
+  qaRequired    Boolean?            @default(true)
+  orderIndex    Int                 @default(0)
+  parentId      String?
+  tags          String?
+  customFields  String?
+  isTemplate    Boolean             @default(false)
+  templateName  String?
+  createdAt     DateTime            @default(now())
+  updatedAt     DateTime            @updatedAt
+  attachments   Attachment[]        @relation("TaskAttachments")
+  comments      Comment[]           @relation("TaskComments")
+  subtaskItems  SubtaskItem[]
+  assignee      User?               @relation("TaskAssignee", fields: [assigneeId], references: [id])
+  parent        Task?               @relation("SubTasks", fields: [parentId], references: [id])
+  subtasks      Task[]              @relation("SubTasks")
+  project       Project?            @relation(fields: [projectId], references: [id])
+  scope         ScopeOfWork?        @relation(fields: [scopeId], references: [id])
+  sop           Sop?                @relation(fields: [sopId], references: [id])
+  checklist     TaskChecklistItem[]
+  blockedByDeps TaskDependency[]    @relation("BlockedByTask")
+  blockingDeps  TaskDependency[]    @relation("BlockingTask")
+  timeEntries   TimeEntry[]
+  timesheets    TimesheetEntry[]
 }
 
 model TaskDependency {
-  id            String @id @default(cuid())
+  id             String @id @default(cuid())
   blockingTaskId String
-  blockingTask  Task   @relation("BlockingTask", fields: [blockingTaskId], references: [id], onDelete: Cascade)
-  blockedTaskId String
-  blockedTask   Task   @relation("BlockedByTask", fields: [blockedTaskId], references: [id], onDelete: Cascade)
-  type          String @default("BLOCKS")
+  blockedTaskId  String
+  type           String @default("BLOCKS")
+  blockedTask    Task   @relation("BlockedByTask", fields: [blockedTaskId], references: [id], onDelete: Cascade)
+  blockingTask   Task   @relation("BlockingTask", fields: [blockingTaskId], references: [id], onDelete: Cascade)
 }
 
 model TimeEntry {
-  id          String   @id @default(cuid())
+  id          String    @id @default(cuid())
   taskId      String
-  task        Task     @relation(fields: [taskId], references: [id], onDelete: Cascade)
   userId      String
-  user        User     @relation(fields: [userId], references: [id])
   startedAt   DateTime
   stoppedAt   DateTime?
   durationMin Int?
   notes       String?
-  createdAt   DateTime @default(now())
+  createdAt   DateTime  @default(now())
+  task        Task      @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  user        User      @relation(fields: [userId], references: [id])
 }
 
 model Comment {
   id        String   @id @default(cuid())
   body      String
   authorId  String
-  author    User     @relation(fields: [authorId], references: [id])
   taskId    String?
-  task      Task?    @relation("TaskComments", fields: [taskId], references: [id], onDelete: Cascade)
   projectId String?
-  project   Project? @relation("ProjectComments", fields: [projectId], references: [id], onDelete: Cascade)
   meetingId String?
-  meeting   Meeting? @relation(fields: [meetingId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  author    User     @relation(fields: [authorId], references: [id])
+  meeting   Meeting? @relation(fields: [meetingId], references: [id], onDelete: Cascade)
+  project   Project? @relation("ProjectComments", fields: [projectId], references: [id], onDelete: Cascade)
+  task      Task?    @relation("TaskComments", fields: [taskId], references: [id], onDelete: Cascade)
 }
 
 model Attachment {
-  id        String   @id @default(cuid())
-  name      String
-  fileType  String?
-  fileSize  Int?
-  url       String?
-  taskId    String?
-  task      Task?    @relation("TaskAttachments", fields: [taskId], references: [id], onDelete: Cascade)
-  projectId String?
-  project   Project? @relation("ProjectAttachments", fields: [projectId], references: [id], onDelete: Cascade)
+  id         String   @id @default(cuid())
+  name       String
+  fileType   String?
+  fileSize   Int?
+  url        String?
+  taskId     String?
+  projectId  String?
   uploadedAt DateTime @default(now())
   uploadedBy String?
+  project    Project? @relation("ProjectAttachments", fields: [projectId], references: [id], onDelete: Cascade)
+  task       Task?    @relation("TaskAttachments", fields: [taskId], references: [id], onDelete: Cascade)
 }
 
 model Tag {
@@ -356,48 +345,47 @@ model Tag {
 model ProjectTag {
   id        String  @id @default(cuid())
   projectId String
-  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
   tagId     String
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
   tag       Tag     @relation(fields: [tagId], references: [id], onDelete: Cascade)
 }
 
 model SavedView {
-  id         String   @id @default(cuid())
-  userId     String
-  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  name       String
-  module     String
-  filters    String?
-  sortBy     String?
-  viewType   String   @default("LIST")
-  createdAt  DateTime @default(now())
+  id        String   @id @default(cuid())
+  userId    String
+  name      String
+  module    String
+  filters   String?
+  sortBy    String?
+  viewType  String   @default("LIST")
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model StarredItem {
   id         String   @id @default(cuid())
   userId     String
-  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   entityType String
   entityId   String
   createdAt  DateTime @default(now())
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Milestone {
   id          String    @id @default(cuid())
   projectId   String
-  project     Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
   title       String
   description String?
   dueDate     DateTime?
   status      String    @default("PENDING")
   completedAt DateTime?
   createdAt   DateTime  @default(now())
+  project     Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
 }
 
 model Deliverable {
   id          String    @id @default(cuid())
   projectId   String
-  project     Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
   title       String
   description String?
   dueDate     DateTime?
@@ -405,200 +393,196 @@ model Deliverable {
   discipline  String?
   format      String?
   createdAt   DateTime  @default(now())
+  project     Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
 }
 
 model Bep {
-  id          String   @id @default(cuid())
-  projectId   String
-  project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  title       String
-  version     String   @default("1.0")
-  status      String   @default("DRAFT")
-  projectInfo String?
-  objectives  String?
-  standards   String?
-  software    String?
+  id           String   @id @default(cuid())
+  projectId    String
+  title        String
+  version      String   @default("1.0")
+  status       String   @default("DRAFT")
+  projectInfo  String?
+  objectives   String?
+  standards    String?
+  software     String?
   coordination String?
-  qualityPlan String?
+  qualityPlan  String?
   deliveryPlan String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  project      Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
 }
 
 model Midp {
-  id          String     @id @default(cuid())
-  projectId   String
-  project     Project    @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  title       String
-  version     String     @default("1.0")
-  status      String     @default("DRAFT")
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
-
-  tidps       Tidp[]
+  id           String            @id @default(cuid())
+  projectId    String
+  title        String
+  version      String            @default("1.0")
+  status       String            @default("DRAFT")
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
+  project      Project           @relation(fields: [projectId], references: [id], onDelete: Cascade)
   deliverables MidpDeliverable[]
+  tidps        Tidp[]
 }
 
 model MidpDeliverable {
-  id           String   @id @default(cuid())
-  midpId       String
-  midp         Midp     @relation(fields: [midpId], references: [id], onDelete: Cascade)
-  title        String
-  discipline   String?
-  format       String?
-  lodLevel     String?
-  dueDate      DateTime?
-  status       String   @default("PENDING")
-  responsible  String?
-  notes        String?
-  createdAt    DateTime @default(now())
+  id          String    @id @default(cuid())
+  midpId      String
+  title       String
+  discipline  String?
+  format      String?
+  lodLevel    String?
+  dueDate     DateTime?
+  status      String    @default("PENDING")
+  responsible String?
+  notes       String?
+  createdAt   DateTime  @default(now())
+  midp        Midp      @relation(fields: [midpId], references: [id], onDelete: Cascade)
 }
 
 model Tidp {
-  id          String   @id @default(cuid())
+  id          String     @id @default(cuid())
   midpId      String
-  midp        Midp     @relation(fields: [midpId], references: [id], onDelete: Cascade)
   projectId   String
-  project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
   title       String
   discipline  String?
   responsible String?
-  status      String   @default("DRAFT")
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
+  status      String     @default("DRAFT")
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  midp        Midp       @relation(fields: [midpId], references: [id], onDelete: Cascade)
+  project     Project    @relation(fields: [projectId], references: [id], onDelete: Cascade)
   items       TidpItem[]
 }
 
 model TidpItem {
-  id          String   @id @default(cuid())
-  tidpId      String
-  tidp        Tidp     @relation(fields: [tidpId], references: [id], onDelete: Cascade)
-  title       String
-  format      String?
-  lodLevel    String?
-  dueDate     DateTime?
-  status      String   @default("PENDING")
-  notes       String?
-  createdAt   DateTime @default(now())
+  id        String    @id @default(cuid())
+  tidpId    String
+  title     String
+  format    String?
+  lodLevel  String?
+  dueDate   DateTime?
+  status    String    @default("PENDING")
+  notes     String?
+  createdAt DateTime  @default(now())
+  tidp      Tidp      @relation(fields: [tidpId], references: [id], onDelete: Cascade)
 }
 
 model Eir {
-  id          String    @id @default(cuid())
-  projectId   String
-  project     Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  title       String
-  version     String    @default("1.0")
-  status      String    @default("DRAFT")
-  purpose     String?
-  scope       String?
+  id           String       @id @default(cuid())
+  projectId    String
+  title        String
+  version      String       @default("1.0")
+  status       String       @default("DRAFT")
+  purpose      String?
+  scope        String?
   requirements String?
   deliverables String?
-  standards   String?
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-
-  sections    EirSection[]
+  standards    String?
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  project      Project      @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  sections     EirSection[]
 }
 
 model EirSection {
-  id          String   @id @default(cuid())
-  eirId       String
-  eir         Eir      @relation(fields: [eirId], references: [id], onDelete: Cascade)
-  sectionNo   String
-  title       String
-  content     String?
-  status      String   @default("IN_PROGRESS")
-  orderIndex  Int      @default(0)
+  id         String  @id @default(cuid())
+  eirId      String
+  sectionNo  String
+  title      String
+  content    String?
+  status     String  @default("IN_PROGRESS")
+  orderIndex Int     @default(0)
+  eir        Eir     @relation(fields: [eirId], references: [id], onDelete: Cascade)
 }
 
 model Air {
-  id          String    @id @default(cuid())
-  projectId   String
-  project     Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  title       String
-  version     String    @default("1.0")
-  status      String    @default("DRAFT")
-  assetType   String?
+  id           String       @id @default(cuid())
+  projectId    String
+  title        String
+  version      String       @default("1.0")
+  status       String       @default("DRAFT")
+  assetType    String?
   requirements String?
-  dataFields  String?
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-
-  sections    AirSection[]
+  dataFields   String?
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  project      Project      @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  sections     AirSection[]
 }
 
 model AirSection {
-  id          String   @id @default(cuid())
-  airId       String
-  air         Air      @relation(fields: [airId], references: [id], onDelete: Cascade)
-  sectionNo   String
-  title       String
-  content     String?
-  status      String   @default("IN_PROGRESS")
-  orderIndex  Int      @default(0)
+  id         String  @id @default(cuid())
+  airId      String
+  sectionNo  String
+  title      String
+  content    String?
+  status     String  @default("IN_PROGRESS")
+  orderIndex Int     @default(0)
+  air        Air     @relation(fields: [airId], references: [id], onDelete: Cascade)
 }
 
 model CdeDocument {
-  id          String   @id @default(cuid())
-  projectId   String
-  project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  name        String
-  docCode     String?
-  revision    String   @default("P01")
-  status      String   @default("WIP")
-  discipline  String?
-  fileType    String?
-  fileSize    Int?
-  url         String?
-  fileUrl     String?
-  fileName    String?
-  fileMime    String?
-  owner       String?
-  access      String   @default("PRIVATE")
-  approvalStatus String @default("PENDING")
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id             String   @id @default(cuid())
+  projectId      String
+  name           String
+  docCode        String?
+  revision       String   @default("P01")
+  status         String   @default("WIP")
+  discipline     String?
+  fileType       String?
+  fileSize       Int?
+  url            String?
+  fileUrl        String?
+  fileName       String?
+  fileMime       String?
+  owner          String?
+  access         String   @default("PRIVATE")
+  approvalStatus String   @default("PENDING")
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  project        Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
 }
 
 model LodSpec {
-  id          String   @id @default(cuid())
-  projectId   String
-  project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  element     String
-  discipline  String?
-  lodLevel    String   @default("LOD 200")
-  loaLevel    String?
-  purpose     String?
-  notes       String?
-  createdAt   DateTime @default(now())
+  id         String   @id @default(cuid())
+  projectId  String
+  element    String
+  discipline String?
+  lodLevel   String   @default("LOD 200")
+  loaLevel   String?
+  purpose    String?
+  notes      String?
+  createdAt  DateTime @default(now())
+  project    Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
 }
 
 model ClashDetection {
-  id           String   @id @default(cuid())
-  projectId    String?
-  project      Project? @relation(fields: [projectId], references: [id])
-  title        String
-  description  String?
-  discipline1  String?
-  discipline2  String?
-  severity     String   @default("MEDIUM")
-  status       String   @default("OPEN")
-  assignedTo   String?
-  detectedAt   DateTime @default(now())
-  resolvedAt   DateTime?
-  notes        String?
+  id               String    @id @default(cuid())
+  projectId        String?
+  title            String
+  description      String?
+  discipline1      String?
+  discipline2      String?
+  severity         String    @default("MEDIUM")
+  status           String    @default("OPEN")
+  assignedTo       String?
+  detectedAt       DateTime  @default(now())
+  resolvedAt       DateTime?
+  notes            String?
   aiSeverity       String?
   aiCategory       String?
   aiRecommendation String?
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  project          Project?  @relation(fields: [projectId], references: [id])
 }
 
 model ResponsibilityMatrix {
   id          String   @id @default(cuid())
   projectId   String?
-  project     Project? @relation(fields: [projectId], references: [id])
   discipline  String
   deliverable String
   role        String
@@ -608,164 +592,160 @@ model ResponsibilityMatrix {
   informed    String?
   notes       String?
   createdAt   DateTime @default(now())
+  project     Project? @relation(fields: [projectId], references: [id])
 }
 
 model NamingConvention {
   id          String   @id @default(cuid())
   projectId   String?
-  project     Project? @relation(fields: [projectId], references: [id])
   name        String
   pattern     String
   description String?
   fields      String?
   example     String?
   createdAt   DateTime @default(now())
+  project     Project? @relation(fields: [projectId], references: [id])
 }
 
 model Meeting {
-  id           String   @id @default(cuid())
+  id           String               @id @default(cuid())
   projectId    String?
-  project      Project? @relation(fields: [projectId], references: [id])
   title        String
   description  String?
   scheduledAt  DateTime
-  duration     Int      @default(60)
-  status       String   @default("SCHEDULED")
+  duration     Int                  @default(60)
+  status       String               @default("SCHEDULED")
   location     String?
-  isVirtual    Boolean  @default(true)
+  isVirtual    Boolean              @default(true)
   roomId       String?
   recordingUrl String?
   agenda       String?
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-
-  participants MeetingParticipant[]
-  minutes      MeetingMinute[]
+  createdAt    DateTime             @default(now())
+  updatedAt    DateTime             @updatedAt
   actionItems  ActionItem[]
   comments     Comment[]
+  project      Project?             @relation(fields: [projectId], references: [id])
+  minutes      MeetingMinute[]
   notes        MeetingNote[]
+  participants MeetingParticipant[]
 }
 
 model MeetingParticipant {
   id        String  @id @default(cuid())
   meetingId String
-  meeting   Meeting @relation(fields: [meetingId], references: [id], onDelete: Cascade)
   userId    String?
-  user      User?   @relation(fields: [userId], references: [id])
   name      String
   email     String?
   role      String  @default("ATTENDEE")
   attended  Boolean @default(false)
+  meeting   Meeting @relation(fields: [meetingId], references: [id], onDelete: Cascade)
+  user      User?   @relation(fields: [userId], references: [id])
 }
 
 model MeetingMinute {
-  id        String   @id @default(cuid())
-  meetingId String
-  meeting   Meeting  @relation(fields: [meetingId], references: [id], onDelete: Cascade)
-  section   String
-  content   String
-  orderIndex Int     @default(0)
-  createdAt DateTime @default(now())
+  id         String   @id @default(cuid())
+  meetingId  String
+  section    String
+  content    String
+  orderIndex Int      @default(0)
+  createdAt  DateTime @default(now())
+  meeting    Meeting  @relation(fields: [meetingId], references: [id], onDelete: Cascade)
 }
 
 model ActionItem {
   id          String    @id @default(cuid())
   meetingId   String
-  meeting     Meeting   @relation(fields: [meetingId], references: [id], onDelete: Cascade)
   title       String
   description String?
   assigneeId  String?
-  assignee    User?     @relation("ActionItemAssignee", fields: [assigneeId], references: [id])
   dueDate     DateTime?
   status      String    @default("OPEN")
   createdAt   DateTime  @default(now())
+  assignee    User?     @relation("ActionItemAssignee", fields: [assigneeId], references: [id])
+  meeting     Meeting   @relation(fields: [meetingId], references: [id], onDelete: Cascade)
 }
 
 model Lead {
-  id              String   @id @default(cuid())
-  company         String
-  contactName     String
-  contactEmail    String?
-  contactPhone    String?
-  country         String?
-  source          String?
-  serviceInterest String?
-  estValue        Float    @default(0)
-  stage           String   @default("TO_CONTACT")
-  probability     Int      @default(10)
-  ownerName       String?
-  notes           String?
-  orderIndex      Int      @default(0)
+  id                  String   @id @default(cuid())
+  company             String
+  contactName         String
+  contactEmail        String?
+  contactPhone        String?
+  country             String?
+  source              String?
+  serviceInterest     String?
+  estValue            Float    @default(0)
+  stage               String   @default("TO_CONTACT")
+  probability         Int      @default(10)
+  ownerName           String?
+  notes               String?
+  orderIndex          Int      @default(0)
   convertedToClientId String?
-  convertedClient Client?  @relation(fields: [convertedToClientId], references: [id])
-  aiScore         Int?
-  aiScoreLabel    String?
-  aiInsight       String?
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  aiScore             Int?
+  aiScoreLabel        String?
+  aiInsight           String?
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+  convertedClient     Client?  @relation(fields: [convertedToClientId], references: [id])
 }
 
 model Invoice {
-  id          String    @id @default(cuid())
-  invoiceNo   String    @unique
+  id          String            @id @default(cuid())
+  invoiceNo   String            @unique
   clientId    String?
-  client      Client?   @relation(fields: [clientId], references: [id])
   projectId   String?
-  project     Project?  @relation(fields: [projectId], references: [id])
   amount      Float
-  currency    String    @default("AED")
-  status      String    @default("DRAFT")
-  issueDate   DateTime  @default(now())
+  currency    String            @default("AED")
+  status      String            @default("DRAFT")
+  issueDate   DateTime          @default(now())
   dueDate     DateTime?
   paidDate    DateTime?
   description String?
   lineItems   String?
   notes       String?
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  client      Client?           @relation(fields: [clientId], references: [id])
+  project     Project?          @relation(fields: [projectId], references: [id])
   items       InvoiceLineItem[]
 }
 
 model Subcontractor {
-  id              String   @id @default(cuid())
-  companyName     String
-  specialization  String?
-  specialty       String?
-  contactPerson   String?
-  contactName     String?
-  contactEmail    String?
-  contactPhone    String?
-  country         String?
-  rating          Float    @default(0)
-  status          String   @default("ACTIVE")
-  active          Boolean  @default(true)
-  notes           String?
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-
-  members         SubcontractorMember[]
-  assignments     SubcontractorAssignment[]
+  id             String                    @id @default(cuid())
+  companyName    String
+  specialization String?
+  specialty      String?
+  contactPerson  String?
+  contactName    String?
+  contactEmail   String?
+  contactPhone   String?
+  country        String?
+  rating         Float                     @default(0)
+  status         String                    @default("ACTIVE")
+  active         Boolean                   @default(true)
+  notes          String?
+  createdAt      DateTime                  @default(now())
+  updatedAt      DateTime                  @updatedAt
+  assignments    SubcontractorAssignment[]
+  members        SubcontractorMember[]
 }
 
 model SubcontractorMember {
-  id               String        @id @default(cuid())
-  subcontractorId  String
-  subcontractor    Subcontractor @relation(fields: [subcontractorId], references: [id], onDelete: Cascade)
-  userId           String?
-  user             User?         @relation(fields: [userId], references: [id])
-  name             String
-  role             String?
-  email            String?
-  phone            String?
+  id              String        @id @default(cuid())
+  subcontractorId String
+  userId          String?
+  name            String
+  role            String?
+  email           String?
+  phone           String?
+  subcontractor   Subcontractor @relation(fields: [subcontractorId], references: [id], onDelete: Cascade)
+  user            User?         @relation(fields: [userId], references: [id])
 }
 
 model SubcontractorAssignment {
   id               String        @id @default(cuid())
   subcontractorId  String
-  subcontractor    Subcontractor @relation(fields: [subcontractorId], references: [id], onDelete: Cascade)
   projectId        String
-  project          Project       @relation(fields: [projectId], references: [id], onDelete: Cascade)
   scope            String?
   startDate        DateTime?
   endDate          DateTime?
@@ -773,26 +753,28 @@ model SubcontractorAssignment {
   performanceScore Float?
   notes            String?
   createdAt        DateTime      @default(now())
+  project          Project       @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  subcontractor    Subcontractor @relation(fields: [subcontractorId], references: [id], onDelete: Cascade)
 }
 
 model Risk {
-  id           String   @id @default(cuid())
-  projectId    String?
-  project      Project? @relation(fields: [projectId], references: [id])
-  title        String
-  description  String?
-  category     String?
-  probability  String   @default("MEDIUM")
-  impact       String   @default("MEDIUM")
-  riskScore    Int      @default(0)
-  status       String   @default("OPEN")
-  mitigation   String?
-  contingency  String?
-  owner        String?
-  reviewDate   DateTime?
-  trend        String?  @default("STABLE")
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id          String    @id @default(cuid())
+  projectId   String?
+  title       String
+  description String?
+  category    String?
+  probability String    @default("MEDIUM")
+  impact      String    @default("MEDIUM")
+  riskScore   Int       @default(0)
+  status      String    @default("OPEN")
+  mitigation  String?
+  contingency String?
+  owner       String?
+  reviewDate  DateTime?
+  trend       String?   @default("STABLE")
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  project     Project?  @relation(fields: [projectId], references: [id])
 }
 
 model Lesson {
@@ -808,124 +790,123 @@ model Lesson {
 }
 
 model Rfi {
-  id          String   @id @default(cuid())
+  id          String    @id @default(cuid())
   projectId   String
-  project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
   raisedById  String
-  raisedBy    User     @relation("RfiRaisedBy", fields: [raisedById], references: [id])
   title       String
   description String?
   discipline  String?
-  priority    String   @default("MEDIUM")
-  status      String   @default("OPEN")
+  priority    String    @default("MEDIUM")
+  status      String    @default("OPEN")
   response    String?
   dueDate     DateTime?
   closedAt    DateTime?
-  createdAt   DateTime @default(now())
+  createdAt   DateTime  @default(now())
+  project     Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  raisedBy    User      @relation("RfiRaisedBy", fields: [raisedById], references: [id])
 }
 
 model QaSignoff {
   id        String   @id @default(cuid())
   projectId String
-  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
   userId    String
-  user      User     @relation(fields: [userId], references: [id])
   stage     String
   notes     String?
   signedAt  DateTime @default(now())
+  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id])
 }
 
 model TimesheetEntry {
   id        String   @id @default(cuid())
   userId    String
-  user      User     @relation(fields: [userId], references: [id])
   projectId String?
-  project   Project? @relation(fields: [projectId], references: [id])
   taskId    String?
-  task      Task?    @relation(fields: [taskId], references: [id])
   date      DateTime
   hours     Float
   notes     String?
   createdAt DateTime @default(now())
+  project   Project? @relation(fields: [projectId], references: [id])
+  task      Task?    @relation(fields: [taskId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
 }
 
 model ResourceAllocation {
   id        String   @id @default(cuid())
   userId    String
-  user      User     @relation(fields: [userId], references: [id])
   projectId String?
-  project   Project? @relation(fields: [projectId], references: [id])
   weekStart DateTime
   hours     Float    @default(0)
   notes     String?
+  project   Project? @relation(fields: [projectId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
 }
 
 model OutreachActivity {
   id        String   @id @default(cuid())
   date      DateTime
   userId    String
-  user      User     @relation(fields: [userId], references: [id])
   target    Int      @default(25)
   completed Int      @default(0)
   meetings  Int      @default(0)
   replies   Int      @default(0)
   notes     String?
+  user      User     @relation(fields: [userId], references: [id])
 }
 
 model InternalMessage {
   id        String   @id @default(cuid())
   authorId  String
-  author    User     @relation("MessageAuthor", fields: [authorId], references: [id])
   channel   String   @default("GENERAL")
   body      String
   createdAt DateTime @default(now())
+  author    User     @relation("MessageAuthor", fields: [authorId], references: [id])
 }
 
 model KpiMetric {
-  id          String   @id @default(cuid())
-  projectId   String?
-  name        String
-  value       Float
-  target      Float?
-  unit        String?
-  category    String?
-  period      String?
-  recordedAt  DateTime @default(now())
-  notes       String?
+  id         String   @id @default(cuid())
+  projectId  String?
+  name       String
+  value      Float
+  target     Float?
+  unit       String?
+  category   String?
+  period     String?
+  recordedAt DateTime @default(now())
+  notes      String?
 }
 
 model Sop {
-  id          String   @id @default(cuid())
-  title       String
-  code        String?
-  division    String?
+  id           String             @id @default(cuid())
+  title        String
+  code         String?
+  division     String?
   divisionCode String?
-  category    String?
-  version     String   @default("1.0")
-  status      String   @default("ACTIVE")
-  steps       String?
-  checklist   String?
-  notes       String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  items       SopChecklistItem[]
-  tasks       Task[]
+  category     String?
+  version      String             @default("1.0")
+  status       String             @default("ACTIVE")
+  steps        String?
+  checklist    String?
+  notes        String?
+  createdAt    DateTime           @default(now())
+  updatedAt    DateTime           @updatedAt
+  items        SopChecklistItem[]
+  tasks        Task[]
 }
 
 model CoordinationItem {
-  id          String   @id @default(cuid())
+  id          String    @id @default(cuid())
   projectId   String?
   title       String
   description String?
   discipline  String?
-  priority    String   @default("MEDIUM")
-  status      String   @default("OPEN")
+  priority    String    @default("MEDIUM")
+  status      String    @default("OPEN")
   assignedTo  String?
   dueDate     DateTime?
   response    String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 }
 
 model PrequalSubmission {
@@ -940,67 +921,60 @@ model PrequalSubmission {
 }
 
 model ScheduleItem {
-  id          String    @id @default(cuid())
+  id          String   @id @default(cuid())
   projectId   String?
-  project     Project?  @relation(fields: [projectId], references: [id])
   title       String
   startDate   DateTime
   endDate     DateTime
   duration    Int?
-  status      String    @default("PLANNED")
-  progress    Int       @default(0)
+  status      String   @default("PLANNED")
+  progress    Int      @default(0)
   predecessor String?
   resource    String?
   notes       String?
-  createdAt   DateTime  @default(now())
-}
-
-// ============================================================================
-// AUTH — separate table so credentials are isolated from the User profile
-// ============================================================================
-model AuthUser {
-  id                 String   @id @default(cuid())
-  email              String   @unique
-  name               String
-  passwordHash       String
-  role               String   @default("MEMBER")
-  active             Boolean  @default(true)
-  linkedEntityId     String?
-  linkedEntityType   String?
-  createdAt          DateTime @default(now())
-  updatedAt          DateTime @updatedAt
-}
-
-// ============================================================================
-// BIM — Model Production Delivery Table & Coordination Schedule
-// ============================================================================
-model ModelProduction {
-  id          String   @id @default(cuid())
-  projectId   String?
+  createdAt   DateTime @default(now())
   project     Project? @relation(fields: [projectId], references: [id])
+}
+
+model AuthUser {
+  id               String   @id @default(cuid())
+  email            String   @unique
+  name             String
+  passwordHash     String
+  role             String   @default("MEMBER")
+  active           Boolean  @default(true)
+  linkedEntityId   String?
+  linkedEntityType String?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model ModelProduction {
+  id          String    @id @default(cuid())
+  projectId   String?
   discipline  String
   element     String
   deliverable String
-  format      String   @default("RVT")
-  lodRequired String   @default("LOD 300")
+  format      String    @default("RVT")
+  lodRequired String    @default("LOD 300")
   assigneeId  String?
-  assignee    User?    @relation(fields: [assigneeId], references: [id])
   plannedDate DateTime?
   actualDate  DateTime?
-  status      String   @default("NOT_STARTED")
+  status      String    @default("NOT_STARTED")
   notes       String?
   fileUrl     String?
   fileName    String?
   fileSize    Int?
   fileMime    String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  assignee    User?     @relation(fields: [assigneeId], references: [id])
+  project     Project?  @relation(fields: [projectId], references: [id])
 }
 
 model BimCoordSchedule {
   id          String   @id @default(cuid())
   projectId   String?
-  project     Project? @relation(fields: [projectId], references: [id])
   title       String
   meetingDate DateTime
   location    String?
@@ -1011,26 +985,27 @@ model BimCoordSchedule {
   status      String   @default("SCHEDULED")
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  project     Project? @relation(fields: [projectId], references: [id])
 }
 
 model BimDeliveryMilestone {
-  id          String   @id @default(cuid())
+  id          String    @id @default(cuid())
   projectId   String?
-  project     Project? @relation(fields: [projectId], references: [id])
   title       String
   description String?
   dueDate     DateTime
   completedAt DateTime?
-  status      String   @default("PENDING")
+  status      String    @default("PENDING")
   responsible String?
   notes       String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  project     Project?  @relation(fields: [projectId], references: [id])
 }
+
 model BimScopeMatrix {
   id          String   @id @default(cuid())
   projectId   String?
-  project     Project? @relation(fields: [projectId], references: [id])
   element     String
   discipline  String
   lodRequired String   @default("LOD 300")
@@ -1040,178 +1015,173 @@ model BimScopeMatrix {
   notes       String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  project     Project? @relation(fields: [projectId], references: [id])
 }
 
 model BimVerifyCheck {
-  id          String   @id @default(cuid())
-  projectId   String?
-  project     Project? @relation(fields: [projectId], references: [id])
-  category    String
-  checkItem   String
-  status      String   @default("PENDING")
-  result      String?
-  notes       String?
-  checkedBy   String?
-  checkedAt   DateTime?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id        String    @id @default(cuid())
+  projectId String?
+  category  String
+  checkItem String
+  status    String    @default("PENDING")
+  result    String?
+  notes     String?
+  checkedBy String?
+  checkedAt DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  project   Project?  @relation(fields: [projectId], references: [id])
 }
 
 model DeliverySchedule {
-  id          String   @id @default(cuid())
+  id          String    @id @default(cuid())
   projectId   String?
-  project     Project? @relation(fields: [projectId], references: [id])
   title       String
   description String?
   startDate   DateTime?
   endDate     DateTime?
-  status      String   @default("PLANNED")
+  status      String    @default("PLANNED")
   responsible String?
   deliverable String?
   notes       String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  project     Project?  @relation(fields: [projectId], references: [id])
 }
 
 model FinancialEntry {
-  id          String   @id @default(cuid())
-  projectId   String?
-  project     Project? @relation(fields: [projectId], references: [id])
-  clientId    String?
-  client      Client?  @relation(fields: [clientId], references: [id])
-  type        String   @default("INVOICE")
-  title       String
-  amount      Float
-  currency    String   @default("AED")
-  status      String   @default("DRAFT")
-  dueDate     DateTime?
-  paidDate    DateTime?
-  notes       String?
-  invoiceNo   String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id        String    @id @default(cuid())
+  projectId String?
+  clientId  String?
+  type      String    @default("INVOICE")
+  title     String
+  amount    Float
+  currency  String    @default("AED")
+  status    String    @default("DRAFT")
+  dueDate   DateTime?
+  paidDate  DateTime?
+  notes     String?
+  invoiceNo String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  client    Client?   @relation(fields: [clientId], references: [id])
+  project   Project?  @relation(fields: [projectId], references: [id])
 }
 
 model IsoComplianceItem {
-  id          String   @id @default(cuid())
+  id          String    @id @default(cuid())
   projectId   String?
-  project     Project? @relation(fields: [projectId], references: [id])
   clause      String
   title       String
   description String?
-  status      String   @default("NOT_STARTED")
+  status      String    @default("NOT_STARTED")
   evidence    String?
   responsible String?
   dueDate     DateTime?
   notes       String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  project     Project?  @relation(fields: [projectId], references: [id])
+}
+
+model ActivityLog {
+  id        String   @id @default(cuid())
+  userId    String?
+  actor     String?
+  action    String
+  entity    String
+  entityId  String?
+  details   String?
+  summary   String?
+  portal    String?
+  ipAddress String?
+  createdAt DateTime @default(now())
+  user      User?    @relation(fields: [userId], references: [id])
+}
+
+model AppointingParty {
+  id           String   @id @default(cuid())
+  name         String
+  organization String?
+  role         String?
+  contactName  String?
+  contactEmail String?
+  contactPhone String?
+  country      String?
+  notes        String?
+  status       String   @default("ACTIVE")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model ExternalStakeholder {
+  id           String   @id @default(cuid())
+  name         String
+  organization String?
+  role         String?
+  contactEmail String?
+  contactPhone String?
+  projectId    String?
+  notes        String?
+  status       String   @default("ACTIVE")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model MobilizationItem {
+  id          String    @id @default(cuid())
+  task        String
+  responsible String?
+  dueDate     DateTime?
+  status      String    @default("PENDING")
+  projectId   String?
+  notes       String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model RaciEntry {
+  id        String   @id @default(cuid())
+  task      String
+  person    String
+  role      String   @default("R")
+  projectId String?
+  notes     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model BimMeeting {
+  id          String    @id @default(cuid())
+  title       String
+  date        DateTime?
+  attendees   String?
+  agenda      String?
+  minutes     String?
+  actionItems String?
+  projectId   String?
+  status      String    @default("SCHEDULED")
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model KnowledgeArticle {
+  id          String   @id @default(cuid())
+  title       String
+  category    String
+  subcategory String?
+  content     String
+  tags        String?
+  fileUrl     String?
+  visibility  String   @default("ALL")
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
 
-model ActivityLog {
-  id          String   @id @default(cuid())
-  userId      String?
-  user        User?    @relation(fields: [userId], references: [id])
-  actor       String?
-  action      String
-  entity      String
-  entityId    String?
-  details     String?
-  summary     String?
-  portal      String?
-  ipAddress   String?
-  createdAt   DateTime @default(now())
-}
-// ─── STRATEGIC OPERATIONS ───────────────────────────────────────────────────
-
-model AppointingParty {
-  id            String   @id @default(cuid())
-  name          String
-  organization  String?
-  role          String?
-  contactName   String?
-  contactEmail  String?
-  contactPhone  String?
-  country       String?
-  notes         String?
-  status        String   @default("ACTIVE")
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-}
-
-model ExternalStakeholder {
-  id            String   @id @default(cuid())
-  name          String
-  organization  String?
-  role          String?
-  contactEmail  String?
-  contactPhone  String?
-  projectId     String?
-  notes         String?
-  status        String   @default("ACTIVE")
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-}
-
-// ─── PROJECT CONTROLS ────────────────────────────────────────────────────────
-
-model MobilizationItem {
-  id            String   @id @default(cuid())
-  task          String
-  responsible   String?
-  dueDate       DateTime?
-  status        String   @default("PENDING")
-  projectId     String?
-  notes         String?
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-}
-
-model RaciEntry {
-  id            String   @id @default(cuid())
-  task          String
-  person        String
-  role          String   @default("R")
-  projectId     String?
-  notes         String?
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-}
-
-model BimMeeting {
-  id            String   @id @default(cuid())
-  title         String
-  date          DateTime?
-  attendees     String?
-  agenda        String?
-  minutes       String?
-  actionItems   String?
-  projectId     String?
-  status        String   @default("SCHEDULED")
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-}
-
-// ─── KNOWLEDGE BASE ──────────────────────────────────────────────────────────
-
-model KnowledgeArticle {
-  id            String   @id @default(cuid())
-  title         String
-  category      String
-  subcategory   String?
-  content       String
-  tags          String?
-  fileUrl       String?
-  visibility    String   @default("ALL")  // ALL, DIRECTOR, MEMBER, CLIENT
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-}
-// ─── NOTIFICATIONS ────────────────────────────────────────────────────────────
-
 model Notification {
   id        String   @id @default(cuid())
   userId    String?
-  type      String   // task_assigned | invoice_overdue | risk_escalated | meeting_reminder | clash_new | general
+  type      String
   title     String
   message   String
   link      String?
@@ -1219,144 +1189,138 @@ model Notification {
   createdAt DateTime @default(now())
 }
 
-// ─── SETTINGS ─────────────────────────────────────────────────────────────────
-
 model SystemSettings {
-  id            String   @id @default(cuid())
-  key           String   @unique
-  value         String
-  category      String   @default("general")
-  updatedAt     DateTime @updatedAt
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String
+  category  String   @default("general")
+  updatedAt DateTime @updatedAt
 }
-
-// ─── SUBTASK ITEMS ────────────────────────────────────────────────────────────
 
 model SubtaskItem {
   id        String   @id @default(cuid())
   taskId    String
-  task      Task     @relation(fields: [taskId], references: [id], onDelete: Cascade)
   title     String
   done      Boolean  @default(false)
   createdAt DateTime @default(now())
+  task      Task     @relation(fields: [taskId], references: [id], onDelete: Cascade)
 }
-// ─── v28: GoHighLevel-inspired modules ────────────────────────────────────────
 
 model Conversation {
-  id              String    @id @default(cuid())
-  contactName     String
-  contactEmail    String?
-  contactCompany  String?
-  lastMessage     String?
-  lastMessageAt   DateTime  @default(now())
-  unreadCount     Int       @default(0)
-  status          String    @default("OPEN")   // OPEN | CLOSED | SNOOZED
-  channel         String    @default("EMAIL")  // EMAIL | SMS | CHAT | INTERNAL
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
-
-  messages        ConvMessage[]
+  id             String        @id @default(cuid())
+  contactName    String
+  contactEmail   String?
+  contactCompany String?
+  lastMessage    String?
+  lastMessageAt  DateTime      @default(now())
+  unreadCount    Int           @default(0)
+  status         String        @default("OPEN")
+  channel        String        @default("EMAIL")
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  messages       ConvMessage[]
 }
 
 model ConvMessage {
-  id              String       @id @default(cuid())
-  conversationId  String
-  conversation    Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
-  content         String
-  type            String       @default("EMAIL")    // EMAIL | SMS | NOTE | INTERNAL
-  direction       String       @default("INBOUND")  // INBOUND | OUTBOUND
-  senderName      String?
-  createdAt       DateTime     @default(now())
+  id             String       @id @default(cuid())
+  conversationId String
+  content        String
+  type           String       @default("EMAIL")
+  direction      String       @default("INBOUND")
+  senderName     String?
+  createdAt      DateTime     @default(now())
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
 }
 
 model Campaign {
-  id              String    @id @default(cuid())
-  name            String
-  subject         String?
-  body            String?
-  status          String    @default("DRAFT")  // DRAFT | ACTIVE | COMPLETED | PAUSED
-  targetAudience  String?
-  sentCount       Int       @default(0)
-  openCount       Int       @default(0)
-  clickCount      Int       @default(0)
-  replyCount      Int       @default(0)
-  scheduledAt     DateTime?
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
+  id             String    @id @default(cuid())
+  name           String
+  subject        String?
+  body           String?
+  status         String    @default("DRAFT")
+  targetAudience String?
+  sentCount      Int       @default(0)
+  openCount      Int       @default(0)
+  clickCount     Int       @default(0)
+  replyCount     Int       @default(0)
+  scheduledAt    DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
 }
 
 model DatumForm {
-  id              String          @id @default(cuid())
+  id              String           @id @default(cuid())
   name            String
   description     String?
-  fields          String?         // JSON array of field definitions
-  status          String          @default("ACTIVE")  // ACTIVE | DRAFT | ARCHIVED
-  submissionCount Int             @default(0)
-  createdAt       DateTime        @default(now())
-  updatedAt       DateTime        @updatedAt
-
+  fields          String?
+  status          String           @default("ACTIVE")
+  submissionCount Int              @default(0)
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
   submissions     FormSubmission[]
 }
 
 model FormSubmission {
-  id          String     @id @default(cuid())
+  id          String    @id @default(cuid())
   formId      String
-  form        DatumForm  @relation(fields: [formId], references: [id], onDelete: Cascade)
-  data        String?    // JSON of submitted field values
-  submittedAt DateTime   @default(now())
+  data        String?
+  submittedAt DateTime  @default(now())
   ipAddress   String?
+  form        DatumForm @relation(fields: [formId], references: [id], onDelete: Cascade)
 }
 
 model Appointment {
-  id          String    @id @default(cuid())
+  id          String   @id @default(cuid())
   title       String
   description String?
-  type        String    @default("CLIENT_MEETING")  // CLIENT_MEETING | BIM_COORDINATION | SITE_VISIT | INTERNAL_REVIEW | TRAINING
+  type        String   @default("CLIENT_MEETING")
   startTime   DateTime
   endTime     DateTime
-  attendees   String?   // JSON array of names/emails
+  attendees   String?
   location    String?
-  status      String    @default("CONFIRMED")  // CONFIRMED | PENDING | CANCELLED | COMPLETED
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  status      String   @default("CONFIRMED")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 model Automation {
-  id              String    @id @default(cuid())
-  name            String
-  description     String?
-  trigger         String    // e.g. "New Lead Created", "Invoice Overdue"
-  actions         String?   // JSON array of action steps
-  status          String    @default("ACTIVE")  // ACTIVE | PAUSED | DRAFT
-  executionCount  Int       @default(0)
-  lastExecutedAt  DateTime?
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
+  id             String    @id @default(cuid())
+  name           String
+  description    String?
+  trigger        String
+  actions        String?
+  status         String    @default("ACTIVE")
+  executionCount Int       @default(0)
+  lastExecutedAt DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
 }
 
 model Review {
-  id          String    @id @default(cuid())
+  id          String   @id @default(cuid())
   clientName  String
   projectName String?
-  rating      Int       @default(5)  // 1-5
+  rating      Int      @default(5)
   content     String?
-  status      String    @default("PUBLISHED")  // PUBLISHED | PENDING | HIDDEN
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  status      String   @default("PUBLISHED")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 model ChatMessage {
-  id              String       @id @default(cuid())
-  conversationId  String
-  content         String
-  type            String       @default("EMAIL")    // EMAIL | SMS | NOTE | INTERNAL
-  direction       String       @default("INBOUND")  // INBOUND | OUTBOUND
-  senderName      String?
-  createdAt       DateTime     @default(now())
+  id             String   @id @default(cuid())
+  conversationId String
+  content        String
+  type           String   @default("EMAIL")
+  direction      String   @default("INBOUND")
+  senderName     String?
+  createdAt      DateTime @default(now())
 }
+
 model AIChatMessage {
   id        String   @id @default(cuid())
   sessionId String
-  role      String   @default("USER")   // USER | ASSISTANT
+  role      String   @default("USER")
   content   String
   createdAt DateTime @default(now())
 }
@@ -1365,190 +1329,186 @@ model Integration {
   id          String   @id @default(cuid())
   name        String
   slug        String   @unique
-  category    String   // SOCIAL | AUTOMATION | EMAIL | COMMUNICATION | PAYMENT | ANALYTICS | BIM
+  category    String
   icon        String?
   description String?
-  status      String   @default("DISCONNECTED") // CONNECTED | DISCONNECTED | ERROR
-  credentials String?  // JSON string of credentials
+  status      String   @default("DISCONNECTED")
+  credentials String?
   webhookUrl  String?
   apiKey      String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
 
-// ─── MISSING MODELS EXPECTED BY API ROUTES & SERVER ACTIONS ───────────────────
-
 model ProjectFolder {
-  id         String @id @default(cuid())
+  id         String  @id @default(cuid())
   projectId  String
-  project    Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
   name       String
   parentId   String?
-  orderIndex Int    @default(0)
+  orderIndex Int     @default(0)
+  project    Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
 }
 
 model SopChecklistItem {
   id         String @id @default(cuid())
   sopId      String
-  sop        Sop    @relation(fields: [sopId], references: [id], onDelete: Cascade)
   label      String
   orderIndex Int    @default(0)
+  sop        Sop    @relation(fields: [sopId], references: [id], onDelete: Cascade)
 }
 
 model ScopeOfWork {
-  id           String @id @default(cuid())
+  id           String   @id @default(cuid())
   projectId    String
-  project      Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
   title        String
   divisionCode String?
   description  String?
-  status       String @default("PLANNED")
-  budgetHrs    Float  @default(0)
-  orderIndex   Int    @default(0)
+  status       String   @default("PLANNED")
+  budgetHrs    Float    @default(0)
+  orderIndex   Int      @default(0)
   createdAt    DateTime @default(now())
-
+  project      Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
   tasks        Task[]
 }
 
 model TaskChecklistItem {
-  id         String @id @default(cuid())
+  id         String  @id @default(cuid())
   taskId     String
-  task       Task   @relation(fields: [taskId], references: [id], onDelete: Cascade)
   label      String
   checked    Boolean @default(false)
-  orderIndex Int    @default(0)
+  orderIndex Int     @default(0)
+  task       Task    @relation(fields: [taskId], references: [id], onDelete: Cascade)
 }
 
 model Document {
-  id           String @id @default(cuid())
-  projectId    String
-  project      Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  fileName     String
-  projectCode  String
-  discipline   String
-  zone         String
-  docType      String
-  revision     String
-  namingValid  Boolean @default(true)
-  status       String @default("WIP")
-  cdeState     String @default("S0")
-  suitability  String @default("S0")
-  container    String?
-  folder       String?
-  clientVisible Boolean @default(false)
-  fileSizeKb   Int    @default(0)
-  uploadedBy   String?
-  createdAt    DateTime @default(now())
-
-  approvals    Approval[]
+  id            String     @id @default(cuid())
+  projectId     String
+  fileName      String
+  projectCode   String
+  discipline    String
+  zone          String
+  docType       String
+  revision      String
+  namingValid   Boolean    @default(true)
+  status        String     @default("WIP")
+  cdeState      String     @default("S0")
+  suitability   String     @default("S0")
+  container     String?
+  folder        String?
+  clientVisible Boolean    @default(false)
+  fileSizeKb    Int        @default(0)
+  uploadedBy    String?
+  createdAt     DateTime   @default(now())
+  approvals     Approval[]
+  project       Project    @relation(fields: [projectId], references: [id], onDelete: Cascade)
 }
 
 model Clash {
-  id          String @id @default(cuid())
+  id          String   @id @default(cuid())
   projectId   String
-  project     Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
   ref         String
   title       String
   disciplines String
   zone        String?
-  severity    String @default("MEDIUM")
-  status      String @default("OPEN")
+  severity    String   @default("MEDIUM")
+  status      String   @default("OPEN")
   assignedTo  String?
   createdAt   DateTime @default(now())
+  project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
 }
 
 model StatusReport {
-  id          String @id @default(cuid())
+  id          String   @id @default(cuid())
   projectId   String
-  project     Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
   weekOf      DateTime
   headline    String
   summary     String?
-  progressPct Int    @default(0)
+  progressPct Int      @default(0)
   risks       String?
   nextSteps   String?
   createdAt   DateTime @default(now())
+  project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
 }
 
 model Approval {
-  id          String @id @default(cuid())
-  projectId   String
-  project     Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  documentId  String?
-  document    Document? @relation(fields: [documentId], references: [id])
-  title       String
-  status      String @default("PENDING")
-  reviewer    String?
-  markup      String?
-  decidedAt   DateTime?
-  createdAt   DateTime @default(now())
+  id         String    @id @default(cuid())
+  projectId  String
+  documentId String?
+  title      String
+  status     String    @default("PENDING")
+  reviewer   String?
+  markup     String?
+  decidedAt  DateTime?
+  createdAt  DateTime  @default(now())
+  document   Document? @relation(fields: [documentId], references: [id])
+  project    Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
 }
 
 model ClientMessage {
-  id         String @id @default(cuid())
+  id         String   @id @default(cuid())
   projectId  String
-  project    Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
   authorName String
-  authorSide String @default("STUDIO")
+  authorSide String   @default("STUDIO")
   body       String
   createdAt  DateTime @default(now())
+  project    Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
 }
 
 model Expense {
-  id         String @id @default(cuid())
-  projectId  String?
-  project    Project? @relation(fields: [projectId], references: [id])
-  category   String
-  vendor     String?
-  amount     Float
-  currency   String @default("USD")
-  date       DateTime
-  note       String?
+  id        String   @id @default(cuid())
+  projectId String?
+  category  String
+  vendor    String?
+  amount    Float
+  currency  String   @default("USD")
+  date      DateTime
+  note      String?
+  project   Project? @relation(fields: [projectId], references: [id])
 }
 
 model InvoiceLineItem {
-  id          String @id @default(cuid())
+  id          String  @id @default(cuid())
   invoiceId   String
-  invoice     Invoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
   description String
-  qty         Float  @default(1)
-  rate        Float  @default(0)
-  amount      Float  @default(0)
+  qty         Float   @default(1)
+  rate        Float   @default(0)
+  amount      Float   @default(0)
+  invoice     Invoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
 }
 
 model MeetingNote {
-  id          String @id @default(cuid())
-  meetingId   String
-  meeting     Meeting @relation(fields: [meetingId], references: [id], onDelete: Cascade)
-  body        String
-  kind        String @default("NOTE")
+  id           String   @id @default(cuid())
+  meetingId    String
+  body         String
+  kind         String   @default("NOTE")
   linkedTaskId String?
-  createdAt   DateTime @default(now())
+  createdAt    DateTime @default(now())
+  meeting      Meeting  @relation(fields: [meetingId], references: [id], onDelete: Cascade)
 }
 
 model ScreenShareSession {
-  id              String @id @default(cuid())
-  hostName        String
-  hostRole        String?
-  status          String @default("LIVE")
-  offer           String?
-  answer          String?
-  hostCandidates  String @default("[]")
-  viewerCandidates String @default("[]")
-  startedAt       DateTime @default(now())
-  endedAt         DateTime?
+  id               String    @id @default(cuid())
+  hostName         String
+  hostRole         String?
+  status           String    @default("LIVE")
+  offer            String?
+  answer           String?
+  hostCandidates   String    @default("[]")
+  viewerCandidates String    @default("[]")
+  startedAt        DateTime  @default(now())
+  endedAt          DateTime?
 }
 
 model NewsletterSubscriber {
-  id        String @id @default(cuid())
-  email     String @unique
-  source    String @default("website")
-  active    Boolean @default(true)
+  id        String   @id @default(cuid())
+  email     String   @unique
+  source    String   @default("website")
+  active    Boolean  @default(true)
   createdAt DateTime @default(now())
 }
 
 model QuoteRequest {
-  id          String @id @default(cuid())
+  id          String   @id @default(cuid())
   name        String
   email       String
   phone       String?
@@ -1560,13 +1520,13 @@ model QuoteRequest {
 }
 
 model GanttTask {
-  id          String @id @default(cuid())
-  projectId   String?
-  project     Project? @relation(fields: [projectId], references: [id])
-  title       String
-  startDate   DateTime?
-  endDate     DateTime?
-  progress    Int    @default(0)
-  orderIndex  Int    @default(0)
-  createdAt   DateTime @default(now())
+  id         String    @id @default(cuid())
+  projectId  String?
+  title      String
+  startDate  DateTime?
+  endDate    DateTime?
+  progress   Int       @default(0)
+  orderIndex Int       @default(0)
+  createdAt  DateTime  @default(now())
+  project    Project?  @relation(fields: [projectId], references: [id])
 }

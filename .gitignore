@@ -12,3 +12,4 @@ prisma/dev.db-journal
 prisma/migrations/
 
 .vercel
+.env*
