@@ -116,12 +116,13 @@ export default function Page() {
               <button disabled={saving} onClick={async () => {
                 setSaving(true);
                 try {
+                  const collection = form.collection || "leads";
+                  const url = form.id ? `/api/admin/data?collection=${collection}&id=${form.id}` : `/api/admin/data?collection=${collection}`;
                   const method = form.id ? "PUT" : "POST";
-                  const url = form.id ? `/api/admin/data/admin_panel/${form.id}` : `/api/admin/data/admin_panel`;
                   const res = await fetch(url, { method, headers: {"Content-Type":"application/json"}, body: JSON.stringify(form) });
                   if (res.ok) {
-                    const updated = await fetch("/api/admin/data?collection=admin_panel").then(r=>r.json());
-                    setData(Array.isArray(updated) ? updated : []);
+                    const updated = await fetch("/api/admin/data").then(r=>r.json());
+                    setData(updated);
                     setShowForm(false); setForm({});
                   }
                 } finally { setSaving(false); }

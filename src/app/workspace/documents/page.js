@@ -10,7 +10,7 @@ export default function Page() {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    fetch("/api/bim/cde")
+    fetch("/api/admin/data?collection=document_vault")
       .then(r => r.json())
       .then(d => { setData(Array.isArray(d) ? d : []); setLoading(false); })
       .catch(() => setLoading(false));
@@ -116,8 +116,8 @@ export default function Page() {
               <button disabled={saving} onClick={async () => {
                 setSaving(true);
                 try {
+                  const url = form.id ? `/api/admin/data?collection=document_vault&id=${form.id}` : `/api/admin/data?collection=document_vault`;
                   const method = form.id ? "PUT" : "POST";
-                  const url = form.id ? `/api/admin/data/document_vault/${form.id}` : `/api/admin/data/document_vault`;
                   const res = await fetch(url, { method, headers: {"Content-Type":"application/json"}, body: JSON.stringify(form) });
                   if (res.ok) {
                     const updated = await fetch("/api/admin/data?collection=document_vault").then(r=>r.json());

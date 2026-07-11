@@ -116,8 +116,8 @@ export default function Page() {
               <button disabled={saving} onClick={async () => {
                 setSaving(true);
                 try {
+                  const url = form.id ? `/api/admin/data?collection=screen_share&id=${form.id}` : `/api/admin/data?collection=screen_share`;
                   const method = form.id ? "PUT" : "POST";
-                  const url = form.id ? `/api/admin/data/screen_share/${form.id}` : `/api/admin/data/screen_share`;
                   const res = await fetch(url, { method, headers: {"Content-Type":"application/json"}, body: JSON.stringify(form) });
                   if (res.ok) {
                     const updated = await fetch("/api/admin/data?collection=screen_share").then(r=>r.json());

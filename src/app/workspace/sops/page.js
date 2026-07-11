@@ -116,8 +116,8 @@ export default function Page() {
               <button disabled={saving} onClick={async () => {
                 setSaving(true);
                 try {
+                  const url = form.id ? `/api/admin/data?collection=sop_how-to&id=${form.id}` : `/api/admin/data?collection=sop_how-to`;
                   const method = form.id ? "PUT" : "POST";
-                  const url = form.id ? `/api/admin/data/sop_how-to/${form.id}` : `/api/admin/data/sop_how-to`;
                   const res = await fetch(url, { method, headers: {"Content-Type":"application/json"}, body: JSON.stringify(form) });
                   if (res.ok) {
                     const updated = await fetch("/api/admin/data?collection=sop_how-to").then(r=>r.json());

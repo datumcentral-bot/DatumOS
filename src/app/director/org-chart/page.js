@@ -116,8 +116,8 @@ export default function Page() {
               <button disabled={saving} onClick={async () => {
                 setSaving(true);
                 try {
+                  const url = form.id ? `/api/admin/data?collection=enterprise_org_chart&id=${form.id}` : `/api/admin/data?collection=enterprise_org_chart`;
                   const method = form.id ? "PUT" : "POST";
-                  const url = form.id ? `/api/admin/data/enterprise_org_chart/${form.id}` : `/api/admin/data/enterprise_org_chart`;
                   const res = await fetch(url, { method, headers: {"Content-Type":"application/json"}, body: JSON.stringify(form) });
                   if (res.ok) {
                     const updated = await fetch("/api/admin/data?collection=enterprise_org_chart").then(r=>r.json());
