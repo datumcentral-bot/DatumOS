@@ -42,8 +42,13 @@ export default function WorkspaceTasksPage() {
   const filtered = filter === "ALL" ? tasks : tasks.filter(t => t.status === filter);
 
   const updateStatus = async (id, status) => {
-    await fetch(`/api/pm-tasks/${id}`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ status }) });
-    setTasks(prev => prev.map(t => t.id === id ? { ...t, status } : t));
+    try {
+      const res = await fetch(`/api/pm-tasks/${id}`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ status }) });
+      if (!res.ok) throw new Error((await res.json()).error);
+      setTasks(prev => prev.map(t => t.id === id ? { ...t, status } : t));
+    } catch (err) {
+      console.error("Failed to update status:", err);
+    }
   };
 
   return (

@@ -36,6 +36,7 @@ model User {
   tasks                Task[]                @relation("TaskAssignee")
   timeEntries          TimeEntry[]
   timesheets           TimesheetEntry[]
+  warRoomIncidents     WarRoomIncident[]
 }
 
 model ClientUser {
@@ -207,6 +208,7 @@ model Project {
   tasks                    Task[]
   tidps                    Tidp[]
   timesheets               TimesheetEntry[]
+  warRoomIncidents         WarRoomIncident[]
 }
 
 model ProjectAssignment {
@@ -774,6 +776,24 @@ model Risk {
   trend       String?   @default("STABLE")
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
+  project     Project?  @relation(fields: [projectId], references: [id])
+}
+
+model WarRoomIncident {
+  id          String    @id @default(cuid())
+  title       String
+  description String?
+  severity    String    @default("MEDIUM")
+  status      String    @default("OPEN")
+  assigneeId  String?
+  projectId   String?
+  source      String?   @default("WAR_ROOM")
+  resolution  String?
+  reportedAt  DateTime  @default(now())
+  resolvedAt  DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  assignee    User?     @relation(fields: [assigneeId], references: [id])
   project     Project?  @relation(fields: [projectId], references: [id])
 }
 

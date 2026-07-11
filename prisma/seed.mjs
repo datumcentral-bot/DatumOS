@@ -856,6 +856,19 @@ async function main() {
     console.log(`  ✓ ${scopeData.length} scope packages seeded`);
   }
 
+  // --- WAR ROOM INCIDENTS ------------------------------------------------
+  const allProjects2 = await prisma.project.findMany({ take: 3 });
+  const incidentData = [
+    { title: "Critical clash in Zone A — MEP vs Structure", description: "Multiple MEP clashes detected in structural zone. Requires immediate coordination.", severity: "CRITICAL", status: "OPEN", projectId: allProjects2[0]?.id },
+    { title: "IFC export failed for BEP v2.1", description: "Export process timed out during document generation.", severity: "HIGH", status: "INVESTIGATING", projectId: allProjects2[0]?.id },
+    { title: "Client review delayed — BAGC response pending", description: "Client feedback on IFC package overdue by 4 days.", severity: "MEDIUM", status: "OPEN", projectId: allProjects2[1]?.id },
+    { title: "Model file corruption detected", description: "Revit model showing corruption warnings on load.", severity: "HIGH", status: "RESOLVED", projectId: allProjects2[2]?.id, resolution: "Backup restored and file repaired." },
+  ];
+  for (const inc of incidentData) {
+    await prisma.warRoomIncident.create({ data: inc });
+  }
+  console.log(`  ✓ ${incidentData.length} war room incidents seeded`);
+
   console.log("\n✅  Seed complete. DatumOS is ready — run: npm run dev\n");
 }
 

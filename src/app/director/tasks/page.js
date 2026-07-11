@@ -47,15 +47,49 @@ const [tasks, setTasks] = useState([]);
   const filtered = tasks.filter((t) => JSON.stringify(t).toLowerCase().includes(search.toLowerCase()));
 
   const save = async () => {
-    await fetch("/api/pm-tasks", { method: form.id ? "PUT" : "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(form) });
-    toast(form.id ? "Task updated" : "Task created", "success");
-    setShowForm(false); setForm({}); load();
+    try {
+      const method = form.id ? "PUT" : "POST";
+      const url = form.id ? `/api/pm-tasks` : `/api/pm-tasks`;
+      const payload = { ...form };
+      if (payload.estimatedHrs === '' || payload.estimatedHrs === undefined) delete payload.estimatedHrs;
+      else payload.estimatedHrs = parseFloat(payload.estimatedHrs);
+      if (payload.dueDate) payload.dueDate = new Date(payload.dueDate).toISOString();
+      const res = await fetch(url, { method, headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error || err.message || 'Failed to save task');
+      }
+      const saved = await res.json();
+      toast(form.id ? "Task updated" : "Task created", "success");
+      setShowForm(false);
+      setForm({});
+      load();
+    } catch (err) {
+      toast(err.message, "error");
+    }
   };
-  const del = async (id) => { await fetch(`/api/pm-tasks?id=${id}`, { method: "DELETE" }); toast("Task deleted", "success"); load(); };
+  const del = async (id) => {
+    try {
+      await fetch(`/api/pm-tasks?id=${id}`, { method: "DELETE" });
+      toast("Task deleted", "success");
+      load();
+    } catch (err) {
+      toast(err.message, "error");
+    }
+  };
   const move = async (task, status) => {
-    setTasks((prev) => prev.map((t) => (t.id === task.id ? { ...t, status } : t)));
-    await fetch("/api/pm-tasks", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: task.id, status }) });
-    toast(`Moved to ${status}`, "success");
+    try {
+      setTasks((prev) => prev.map((t) => (t.id === task.id ? { ...t, status } : t)));
+      const res = await fetch("/api/pm-tasks", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: task.id, status }) });
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error || 'Failed to move task');
+      }
+      toast(`Moved to ${status}`, "success");
+    } catch (err) {
+      toast(err.message, "error");
+      load();
+    }
   };
 
   return (
