@@ -27,6 +27,22 @@ export async function POST(req) {
   }
 }
 
+export async function PUT(req) {
+  try {
+    const b = await req.json();
+    const { id, clientId, createdAt, ...data } = b;
+    const d = Number(data.scoreDelivery) || 0;
+    const c = Number(data.scoreComms) || 0;
+    const v = Number(data.scoreValue) || 0;
+    const a = await prisma.clientAssessment.update({
+      where: { id },
+      data: { ...data, scoreDelivery: d, scoreComms: c, scoreValue: v, scoreOverall: Math.round((d + c + v) / 3) },
+    });
+    return NextResponse.json(a);
+  } catch (e) {
+    return NextResponse.json({ error: e.message }, { status: 500 });
+  }
+}
 export async function DELETE(req) {
   try {
     const { searchParams } = new URL(req.url);

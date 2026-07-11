@@ -42,7 +42,50 @@ export async function GET(req) {
             orderBy: { createdAt: "desc" }, take: 200,
             include: { assignee: true, project: { select: { id: true, code: true, name: true } } },
           }));
+        case "billing_and_invoices":
+        case "financial_control":
+          return NextResponse.json(await prisma.invoice.findMany({
+            orderBy: { issueDate: "desc" }, take: 100,
+            include: { client: true, project: true, lineItems: true },
+          }));
+        case "document_approvals":
+        case "bim_verify":
+          return NextResponse.json(await prisma.approval.findMany({
+            orderBy: { createdAt: "desc" }, take: 100,
+            include: { project: { select: { id: true, code: true, name: true } }, document: true },
+          }));
+        case "document_vault":
+        case "file_manager":
+          return NextResponse.json(await prisma.document.findMany({
+            orderBy: { createdAt: "desc" }, take: 200,
+            include: { project: { select: { id: true, code: true, name: true } } },
+          }));
+        case "bim_coordination":
+        case "coordination_hub":
+          return NextResponse.json(await prisma.clashDetection.findMany({
+            orderBy: { createdAt: "desc" }, take: 100,
+            include: { project: { select: { id: true, code: true, name: true } } },
+          }));
         case "invoices":
+      case "billing_and_invoices": {
+        const inv = await prisma.invoice.create({ data: { invoiceNo: body.invoiceNo || `INV-${Date.now()}`, projectId: body.projectId, clientId: body.clientId, amount: parseFloat(body.amount) || 0, currency: body.currency || "AED", status: body.status || "DRAFT", issueDate: body.issueDate ? new Date(body.issueDate) : new Date(), dueDate: body.dueDate ? new Date(body.dueDate) : null, description: body.description } });
+        return NextResponse.json(inv, { status: 201 });
+      }
+      case "approvals":
+      case "document_approvals": {
+        const appr = await prisma.approval.create({ data: { documentId: body.documentId, projectId: body.projectId, status: body.status || "PENDING", approverName: body.approverName, comment: body.comment, reviewedAt: body.reviewedAt ? new Date(body.reviewedAt) : null } });
+        return NextResponse.json(appr, { status: 201 });
+      }
+      case "documents":
+      case "document_vault": {
+        const doc = await prisma.document.create({ data: { title: body.title, projectId: body.projectId, divisionCode: body.divisionCode, cdeState: body.cdeState || "S0", revision: body.revision || "A", fileType: body.fileType, fileUrl: body.fileUrl, notes: body.notes } });
+        return NextResponse.json(doc, { status: 201 });
+      }
+      case "clashes":
+      case "bim_coordination": {
+        const clash = await prisma.clashDetection.create({ data: { projectId: body.projectId, title: body.title, disciplineA: body.disciplineA, disciplineB: body.disciplineB, status: body.status || "OPEN", severity: body.severity || "MEDIUM", location: body.location, assignedTo: body.assignedTo, resolvedAt: body.resolvedAt ? new Date(body.resolvedAt) : null } });
+        return NextResponse.json(clash, { status: 201 });
+      }
         case "financial_control":
           return NextResponse.json(await prisma.invoice.findMany({
             orderBy: { issueDate: "desc" }, take: 100,
@@ -242,7 +285,7 @@ export async function POST(req) {
     switch (collection) {
       case "risks":
       case "risk_register": {
-        const risk = await prisma.risk.create({ data: { ref: body.ref || `RISK-${Date.now()}`, title: body.title, category: body.category || "TECHNICAL", probability: body.probability || "MEDIUM", impact: body.impact || "MEDIUM", severity: body.severity || "MEDIUM", status: body.status || "OPEN", owner: body.owner, mitigation: body.mitigation, contingency: body.contingency, projectId: body.projectId || null } });
+        const risk = await prisma.risk.create({ data: { title: body.title, category: body.category || "TECHNICAL", probability: body.probability || "MEDIUM", impact: body.impact || "MEDIUM", status: body.status || "OPEN", owner: body.owner, mitigation: body.mitigation, contingency: body.contingency, projectId: body.projectId || null } });
         return NextResponse.json(risk, { status: 201 });
       }
       case "lessons":
@@ -252,7 +295,7 @@ export async function POST(req) {
       }
       case "raci":
       case "raci_matrix": {
-        const raci = await prisma.raciEntry.create({ data: { deliverable: body.deliverable, phase: body.phase, directorRole: body.directorRole || "A", coordinatorRole: body.coordinatorRole || "R", modelerRole: body.modelerRole || "R", qaRole: body.qaRole || "C", clientRole: body.clientRole || "I", notes: body.notes, orderIndex: body.orderIndex || 0 } });
+        const raci = await prisma.raciEntry.create({ data: { task: body.task || body.deliverable, person: body.person || "TBD", role: body.role || "R", projectId: body.projectId || null, notes: body.notes || body.phase || "" } });
         return NextResponse.json(raci, { status: 201 });
       }
       case "meetings":
@@ -318,7 +361,7 @@ export async function PUT(req) {
     switch (collection) {
       case "risks":
       case "risk_register": {
-        const risk = await prisma.risk.update({ where: { id }, data: { title: body.title, category: body.category, probability: body.probability, impact: body.impact, severity: body.severity, status: body.status, owner: body.owner, mitigation: body.mitigation, contingency: body.contingency } });
+        const risk = await prisma.risk.update({ where: { id }, data: { title: body.title, category: body.category, probability: body.probability, impact: body.impact, status: body.status, owner: body.owner, mitigation: body.mitigation, contingency: body.contingency } });
         return NextResponse.json(risk);
       }
       case "leads":
@@ -344,6 +387,30 @@ export async function PUT(req) {
       case "bim_scope_matrix": {
         const scope = await prisma.scopeOfWork.update({ where: { id }, data: { title: body.title, status: body.status, budgetHrs: body.budgetHrs !== undefined ? parseFloat(body.budgetHrs) : undefined, description: body.description } });
         return NextResponse.json(scope);
+      }
+      case "invoices":
+      case "billing_and_invoices": {
+        const inv = await prisma.invoice.update({ where: { id }, data: { status: body.status, amount: body.amount !== undefined ? parseFloat(body.amount) : undefined, dueDate: body.dueDate ? new Date(body.dueDate) : undefined, description: body.description } });
+        return NextResponse.json(inv);
+      }
+      case "approvals":
+      case "document_approvals": {
+        const appr = await prisma.approval.update({ where: { id }, data: { status: body.status, comment: body.comment, reviewedAt: body.reviewedAt ? new Date(body.reviewedAt) : undefined } });
+        return NextResponse.json(appr);
+      }
+      case "documents":
+      case "document_vault": {
+        const doc = await prisma.document.update({ where: { id }, data: { title: body.title, divisionCode: body.divisionCode, cdeState: body.cdeState, revision: body.revision, fileType: body.fileType, fileUrl: body.fileUrl, notes: body.notes } });
+        return NextResponse.json(doc);
+      }
+      case "clashes":
+      case "bim_coordination": {
+        const clash = await prisma.clashDetection.update({ where: { id }, data: { status: body.status, severity: body.severity, location: body.location, assignedTo: body.assignedTo, resolvedAt: body.resolvedAt ? new Date(body.resolvedAt) : undefined } });
+        return NextResponse.json(clash);
+      }
+      case "milestones": {
+        const milestone = await prisma.milestone.update({ where: { id }, data: { title: body.title, status: body.status, dueDate: body.dueDate ? new Date(body.dueDate) : undefined } });
+        return NextResponse.json(milestone);
       }
       default:
         return NextResponse.json({ error: `PUT not supported for collection: ${collection}` }, { status: 400 });
@@ -398,6 +465,40 @@ export async function DELETE(req) {
       case "lessons":
       case "lessons_learned":
         await prisma.lesson.delete({ where: { id } });
+        return NextResponse.json({ ok: true });
+      case "invoices":
+      case "billing_and_invoices":
+        await prisma.invoice.delete({ where: { id } });
+        return NextResponse.json({ ok: true });
+      case "approvals":
+      case "document_approvals":
+        await prisma.approval.delete({ where: { id } });
+        return NextResponse.json({ ok: true });
+      case "documents":
+      case "document_vault":
+        await prisma.document.delete({ where: { id } });
+        return NextResponse.json({ ok: true });
+      case "clashes":
+      case "bim_coordination":
+        await prisma.clashDetection.delete({ where: { id } });
+        return NextResponse.json({ ok: true });
+      case "milestones":
+        await prisma.milestone.delete({ where: { id } });
+        return NextResponse.json({ ok: true });
+      case "sops":
+      case "sop_how-to":
+        await prisma.sop.delete({ where: { id } });
+        return NextResponse.json({ ok: true });
+      case "gantt":
+      case "delivery_schedule":
+        await prisma.ganttTask.delete({ where: { id } });
+        return NextResponse.json({ ok: true });
+      case "timesheets":
+        await prisma.timesheetEntry.delete({ where: { id } });
+        return NextResponse.json({ ok: true });
+      case "resources":
+      case "mobilization":
+        await prisma.resourceAllocation.delete({ where: { id } });
         return NextResponse.json({ ok: true });
       default:
         return NextResponse.json({ error: `DELETE not supported for collection: ${collection}` }, { status: 400 });

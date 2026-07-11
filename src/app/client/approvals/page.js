@@ -113,19 +113,19 @@ export default function Page() {
             </div>
             <div style={{ display: "flex", gap: "0.75rem", justifyContent: "flex-end", marginTop: "1.5rem" }}>
               <button onClick={() => setShowForm(false)} style={{ background: "transparent", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 2, color: "#94a3b8", padding: "0.5rem 1rem", fontFamily: "'Orbitron', sans-serif", fontSize: "0.65rem", cursor: "pointer", letterSpacing: "1px" }}>CANCEL</button>
-              <button disabled={saving} onClick={async () => {
-                setSaving(true);
-                try {
-                  const method = form.id ? "PUT" : "POST";
-                  const url = form.id ? `/api/admin/data/document_approvals/${form.id}` : `/api/admin/data/document_approvals`;
-                  const res = await fetch(url, { method, headers: {"Content-Type":"application/json"}, body: JSON.stringify(form) });
-                  if (res.ok) {
-                    const updated = await fetch("/api/admin/data?collection=document_approvals").then(r=>r.json());
-                    setData(Array.isArray(updated) ? updated : []);
-                    setShowForm(false); setForm({});
-                  }
-                } finally { setSaving(false); }
-              }} style={{ background: "rgba(76,201,240,0.12)", border: "1px solid rgba(76,201,240,0.3)", borderRadius: 2, color: "#fff", padding: "0.5rem 1.25rem", fontFamily: "'Orbitron', sans-serif", fontSize: "0.65rem", fontWeight: 700, cursor: saving ? "not-allowed" : "pointer", letterSpacing: "1px", opacity: saving ? 0.6 : 1 }}>{saving ? "SAVING..." : "SAVE"}</button>
+                  <button disabled={saving} onClick={async () => {
+                    setSaving(true);
+                    try {
+                      const url = form.id ? `/api/admin/data?collection=document_approvals&id=${form.id}` : `/api/admin/data?collection=document_approvals`;
+                      const method = form.id ? "PUT" : "POST";
+                      const res = await fetch(url, { method, headers: {"Content-Type":"application/json"}, body: JSON.stringify(form) });
+                      if (res.ok) {
+                        const updated = await fetch("/api/admin/data?collection=document_approvals").then(r=>r.json());
+                        setData(Array.isArray(updated) ? updated : []);
+                        setShowForm(false); setForm({});
+                      }
+                    } finally { setSaving(false); }
+                  }} style={{ background: "rgba(76,201,240,0.12)", border: "1px solid rgba(76,201,240,0.3)", borderRadius: 2, color: "#fff", padding: "0.5rem 1.25rem", fontFamily: "'Orbitron', sans-serif", fontSize: "0.65rem", fontWeight: 700, cursor: saving ? "not-allowed" : "pointer", letterSpacing: "1px", opacity: saving ? 0.6 : 1 }}>{saving ? "SAVING..." : "SAVE"}</button>
             </div>
           </div>
         </div>
