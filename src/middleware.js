@@ -98,15 +98,6 @@ export default async function middleware(req) {
 
   const token = await getToken({ req, secret: SECRET, cookieName: COOKIE_NAME });
 
-  // / — redirect to role-appropriate home after auth check
-  if (pathname === "/") {
-    if (!token) {
-      return NextResponse.redirect(new URL("/login", req.url));
-    }
-    const home = HOME_MAP[token.role] || "/director";
-    return NextResponse.redirect(new URL(home, req.url));
-  }
-
   // Public paths and public APIs need no session
   if (isPublicPath(pathname) || isPublicApi(pathname)) {
     return NextResponse.next();
