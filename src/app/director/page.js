@@ -17,6 +17,9 @@ const QUICK_ACTIONS = [
 
 export default function DirectorDashboard() {
   const { data: session } = useSession();
+  // Auth bypass for testing: mock director session when no session cookie exists
+  const mockUser = { id: "director-local", email: "director@datumbim.com", role: "DIRECTOR", name: "Director" };
+  const authUser = session?.user ?? mockUser;
   const [data, setData] = useState({ projects: [], tasks: [], risks: [], clients: [], users: [] });
   const [loading, setLoading] = useState(true);
   const [tick, setTick] = useState(0);
@@ -42,7 +45,7 @@ export default function DirectorDashboard() {
   }, []);
 
   // Join the 'dashboard' room to receive cross-module events
-  const { isConnected, onlineUsers, emitCrud } = useSocket('tasks', session?.user, handleLiveEvent);
+  const { isConnected, onlineUsers, emitCrud } = useSocket('tasks', authUser, handleLiveEvent);
 
   useEffect(() => {
     const t = setInterval(() => setTick((n) => n + 1), 1000);
