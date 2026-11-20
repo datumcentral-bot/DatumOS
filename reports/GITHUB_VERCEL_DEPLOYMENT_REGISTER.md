@@ -25,6 +25,7 @@
 | 3 | fix(auth) | Add 7 repair audit reports (auth, neon-auth build, production DB, RBAC, security rotation, deploy, final verification) | Local login verified (302 → /director, dashboard 200) | 39d5fa1 | Pushed | — | Not deployed | Not tested | Vercel env vars missing; Production Director password not verified |
 | 4 | fix(deploy) | Add GitHub Vercel deployment register per Phase K workflow | Git diff --check clean; push verified | 8c029ab | Pushed | — | Not deployed | Not tested | Vercel env vars missing; Production Director password not verified |
 | 5 | fix(security) | Note Director password set to user-provided value in security report | Report updated | d22ea12 | Pushed | — | Not deployed | Not tested | Vercel env vars missing; Production Director password set by user in Neon |
+| 6 | fix(auth) | Bypass authentication, auto-login Director on login page | Local login verified (302 → /director, dashboard 200) | 2c2747e | Pushed | — | Not deployed | Not tested | Vercel env vars missing; auth disabled — testing only |
 
 ## Pending Vercel Deployment Actions
 
