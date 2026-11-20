@@ -28,6 +28,7 @@
 | 6 | fix(auth) | Bypass authentication, auto-login Director on login page | Local login verified (302 → /director, dashboard 200) | 2c2747e | Pushed | — | Not deployed | Not tested | Vercel env vars missing; auth disabled — testing only |
 | 7 | fix(auth) | Remove login page, redirect / and /login to /director | Localhost: / and /login → /director redirect | 55daa9f | Pushed | — | Not deployed | Not tested | Vercel env vars missing; auth disabled — testing only |
 | 8 | feat(marketing) | Add marketing landing page with Director access button | Localhost: / → marketing page → /director button | bac0aaa | Pushed | — | Not deployed | Not tested | Vercel env vars missing; auth disabled — testing only |
+| 9 | fix(director) | Mock session for auth-bypass Director dashboard | SYNCHRONIZING resolved, dashboard loads with data | cd77a7c | Pushed | — | Not deployed | Not tested | Vercel env vars missing; auth disabled — testing only |
 
 ## Pending Vercel Deployment Actions
 
