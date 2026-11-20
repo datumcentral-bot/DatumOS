@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 180" width="600" height="180" role="img" aria-label="Applied research and benchmarking">
+<!-- DATUM vector illustration — multi-colour isometric, material gradients, soft shadow. Generated 2026-10. -->
+
+<defs>
+  <linearGradient id="fw-5-bg" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#fdfdfe"/><stop offset="1" stop-color="#e7ecf3"/>
+  </linearGradient>
+  <radialGradient id="fw-5-sh" cx="0.5" cy="0.5" r="0.5">
+    <stop offset="0" stop-color="#12263a" stop-opacity="0.22"/>
+    <stop offset="0.65" stop-color="#12263a" stop-opacity="0.08"/>
+    <stop offset="1" stop-color="#12263a" stop-opacity="0"/>
+  </radialGradient>
+  <linearGradient id="fw-5-cone" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#d4af37" stop-opacity="0.55"/>
+    <stop offset="1" stop-color="#d4af37" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="fw-5-win" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#dfeef9"/><stop offset="1" stop-color="#a9c6e2"/>
+  </linearGradient>
+  <pattern id="fw-5-hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+    <rect width="7" height="7" fill="#ece5d6"/>
+    <line x1="0" y1="0" x2="0" y2="7" stroke="#b9ad97" stroke-width="1.3"/>
+  </pattern>
+  
+  <linearGradient id="fw-5-m-navy-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#41648f"/><stop offset="1" stop-color="#25436b"/></linearGradient>
+  <linearGradient id="fw-5-m-navy-l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#25436b"/><stop offset="1" stop-color="#0d2441"/></linearGradient>
+  <linearGradient id="fw-5-m-navy-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#152c49"/><stop offset="1" stop-color="#001633"/></linearGradient>
+  <linearGradient id="fw-5-m-steel-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8fb4d9"/><stop offset="1" stop-color="#527fae"/></linearGradient>
+  <linearGradient id="fw-5-m-steel-l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#527fae"/><stop offset="1" stop-color="#2b5177"/></linearGradient>
+  <linearGradient id="fw-5-m-steel-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#33597f"/><stop offset="1" stop-color="#1d4369"/></linearGradient>
+  <linearGradient id="fw-5-m-olive-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a9cc60"/><stop offset="1" stop-color="#6b8e23"/></linearGradient>
+  <linearGradient id="fw-5-m-olive-l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6b8e23"/><stop offset="1" stop-color="#3f5812"/></linearGradient>
+  <linearGradient id="fw-5-m-olive-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#47601a"/><stop offset="1" stop-color="#314a04"/></linearGradient>
+  <linearGradient id="fw-5-m-gold-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f3dc8a"/><stop offset="1" stop-color="#d4af37"/></linearGradient>
+  <linearGradient id="fw-5-m-gold-l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d4af37"/><stop offset="1" stop-color="#826516"/></linearGradient>
+  <linearGradient id="fw-5-m-gold-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8a6d1e"/><stop offset="1" stop-color="#745708"/></linearGradient>
+  <linearGradient id="fw-5-m-clay-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e5ac80"/><stop offset="1" stop-color="#c2703d"/></linearGradient>
+  <linearGradient id="fw-5-m-clay-l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c2703d"/><stop offset="1" stop-color="#874620"/></linearGradient>
+  <linearGradient id="fw-5-m-clay-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8f4e28"/><stop offset="1" stop-color="#793812"/></linearGradient>
+  <linearGradient id="fw-5-m-teal-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#74c0cb"/><stop offset="1" stop-color="#33808f"/></linearGradient>
+  <linearGradient id="fw-5-m-teal-l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#33808f"/><stop offset="1" stop-color="#184f5a"/></linearGradient>
+  <linearGradient id="fw-5-m-teal-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#205762"/><stop offset="1" stop-color="#0a414c"/></linearGradient>
+  <linearGradient id="fw-5-m-slate-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c6cfda"/><stop offset="1" stop-color="#8f9cab"/></linearGradient>
+  <linearGradient id="fw-5-m-slate-l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8f9cab"/><stop offset="1" stop-color="#5a6674"/></linearGradient>
+  <linearGradient id="fw-5-m-slate-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#626e7c"/><stop offset="1" stop-color="#4c5866"/></linearGradient>
+  <linearGradient id="fw-5-m-paper-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#eaeff5"/></linearGradient>
+  <linearGradient id="fw-5-m-paper-l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eaeff5"/><stop offset="1" stop-color="#c4ceda"/></linearGradient>
+  <linearGradient id="fw-5-m-paper-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ccd6e2"/><stop offset="1" stop-color="#b6c0cc"/></linearGradient>
+</defs>
+
+<rect width="600" height="180" fill="url(#fw-5-bg)"/>
+<g stroke="#12263a" stroke-width="0.5" opacity="0.055">
+  <path d="M600 0L600 0"/><path d="M600 26L555 0"/><path d="M600 52L509.9 0"/><path d="M600 78L464.9 0"/><path d="M600 104L419.9 0"/><path d="M600 130L374.8 0"/><path d="M600 156L329.8 0"/><path d="M284.8 0L596.5 180"/><path d="M239.7 0L551.5 180"/><path d="M194.7 0L506.5 180"/><path d="M149.7 0L461.4 180"/><path d="M104.6 0L416.4 180"/><path d="M59.6 0L371.4 180"/><path d="M14.6 0L326.3 180"/><path d="M0 17.6L281.3 180"/><path d="M0 43.6L236.3 180"/><path d="M0 69.6L191.2 180"/><path d="M0 95.6L146.2 180"/><path d="M0 121.6L101.2 180"/><path d="M0 147.6L56.1 180"/><path d="M0 173.6L11.1 180"/>
+  <path d="M0 17.6L30.5 0"/><path d="M0 43.6L75.5 0"/><path d="M0 69.6L120.5 0"/><path d="M0 95.6L165.6 0"/><path d="M0 121.6L210.6 0"/><path d="M0 147.6L255.6 0"/><path d="M0 173.6L300.7 0"/><path d="M345.7 0L33.9 180"/><path d="M390.7 0L79 180"/><path d="M435.8 0L124 180"/><path d="M480.8 0L169 180"/><path d="M525.8 0L214.1 180"/><path d="M570.9 0L259.1 180"/><path d="M600 9.2L304.1 180"/><path d="M600 35.2L349.2 180"/><path d="M600 61.2L394.2 180"/><path d="M600 87.2L439.2 180"/><path d="M600 113.2L484.3 180"/><path d="M600 139.2L529.3 180"/><path d="M600 165.2L574.3 180"/>
+</g>
+<rect x="1" y="1" width="598" height="178" fill="none" stroke="#12263a" stroke-width="1" opacity="0.15"/>
+<g stroke="#6b8e23" stroke-width="1.6" opacity="0.6" fill="none">
+  <path d="M9 0V9M0 9h9M591 0V9M600 9h-9M9 180V171M0 171h9M591 180V171M600 171h-9"/>
+</g>
+
+
+  <g opacity="1">
+    <path d="M211.5 50.6h17V77.8L240.4 110.1Q242.1 120.3 230.2 120.3H209.8Q197.9 120.3 199.6 110.1L211.5 77.8Z" fill="#ffffff" fill-opacity="0.5" stroke="url(#fw-5-m-teal-r)" stroke-width="2.4"/>
+    <path d="M204.36 96.5h31.279999999999998l2.8 8.4Q241.42 118.6 230.2 118.6H209.8Q198.58 118.6 199.6 110.78Z" fill="url(#fw-5-m-teal-l)" opacity="0.85"/>
+  </g>
+<circle cx="214" cy="90" r="3.4" fill="url(#fw-5-m-teal-t)" opacity="0.8"/><circle cx="224" cy="82" r="2.4" fill="url(#fw-5-m-teal-t)" opacity="0.8"/><circle cx="230" cy="96" r="1.4" fill="url(#fw-5-m-teal-t)" opacity="0.8"/><circle cx="218" cy="74" r="3.4" fill="url(#fw-5-m-teal-t)" opacity="0.8"/><circle cx="228" cy="68" r="2.4" fill="url(#fw-5-m-teal-t)" opacity="0.8"/><circle cx="210" cy="80" r="1.4" fill="url(#fw-5-m-teal-t)" opacity="0.8"/>
+
+  <g opacity="1">
+    <circle cx="362" cy="84" r="19.5" fill="#ffffff" fill-opacity="0.55" stroke="url(#fw-5-m-navy-r)" stroke-width="6"/>
+    <path d="M375.5 97.5L392 114" stroke="url(#fw-5-m-navy-r)" stroke-width="7.5" stroke-linecap="round"/>
+  </g>
+
+  <g opacity="0.9">
+    <circle cx="424" cy="63" r="5.5" fill="url(#fw-5-m-olive-l)"/>
+    <path d="M421 63l2.2 2.2l4 -4.4" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="435" y="66" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="8.5" letter-spacing="1.5" fill="#12263a" opacity="0.62" text-anchor="start">BENCHMARKING</text>
+  </g>
+
+  <g opacity="0.9">
+    <circle cx="424" cy="89" r="5.5" fill="url(#fw-5-m-olive-l)"/>
+    <path d="M421 89l2.2 2.2l4 -4.4" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="435" y="92" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="8.5" letter-spacing="1.5" fill="#12263a" opacity="0.62" text-anchor="start">PILOTS</text>
+  </g>
+
+  <g opacity="0.9">
+    <circle cx="424" cy="115" r="5.5" fill="url(#fw-5-m-olive-l)"/>
+    <path d="M421 115l2.2 2.2l4 -4.4" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="435" y="118" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="8.5" letter-spacing="1.5" fill="#12263a" opacity="0.62" text-anchor="start">BEST PRACTICE</text>
+  </g>
+<g opacity="1"><rect x="24" y="20" width="118.4" height="16" rx="2.5" fill="#12263a"/><text x="32" y="31.5" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="8.5" letter-spacing="1.3" fill="#ffffff">APPLIED RESEARCH</text></g>
+<g opacity="1"><rect x="24" y="40" width="150.4" height="16" rx="2.5" fill="#6b8e23"/><text x="32" y="51.5" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="8.5" letter-spacing="1.3" fill="#ffffff">TESTING · METHODOLOGY</text></g>
+<g opacity="0.8"><path d="M220 62L180 40h38" fill="none" stroke="#12263a" stroke-width="0.9"/><circle cx="220" cy="62" r="2.7" fill="#33808f"/><text x="184" y="43" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="8.5" letter-spacing="1.5" fill="#12263a" opacity="0.62" text-anchor="start">INNOVATION LAB</text></g>
+<text x="576" y="162" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="8.5" letter-spacing="1.5" fill="#12263a" opacity="0.5" text-anchor="end">CUTTING-EDGE METHODS, TESTED FIRST</text>
+
+</svg>

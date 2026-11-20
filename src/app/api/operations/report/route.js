@@ -1,0 +1,5 @@
+import { actor, snapshot, failure } from '@/lib/operations/server';
+import { actorCheck } from '@/lib/operations/core.mjs';
+export const dynamic='force-dynamic';
+const cell=v=>'"'+String(v??'').replace(/^[=+@\-]/,"'$&").replaceAll('"','""')+'"';
+export async function GET() { try { const a=await actor();actorCheck(a,true);const s=await snapshot(a);const rows=[['Reference','Title','Synthetic demo','Archived','Status','Client','Project','Progress percent','Draft invoice','Currency','Amount','Failed runs']]; for(const c of s.cases){ const tasks=c.project?.tasks||[];rows.push([c.reference,c.title,c.synthetic?'YES':'NO',c.archived?'YES':'NO',c.status,c.client.companyName,c.project?.code||'',tasks.length?Math.round(tasks.filter(t=>t.status==='DONE').length/tasks.length*100):0,c.invoice?.invoiceNo||'',c.invoice?.currency||'',c.invoice?c.invoice.amount.toFixed(2):'',c.runs.filter(r=>r.status==='FAILED').length]); }return new Response(rows.map(r=>r.map(cell).join(',')).join('\r\n'),{headers:{'Content-Type':'text/csv; charset=utf-8','Content-Disposition':'attachment; filename="datum-management-report.csv"','Cache-Control':'no-store'}}); } catch(e){return failure(e);} }

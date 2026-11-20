@@ -1,0 +1,525 @@
+// ============================================================================
+// DatumOS — Prisma schema (SQLite, single local file: prisma/dev.db)
+// Custom ERP + Client Portal for Datum Studios Engineering Consultancy
+// Building Design Engineering & BIM Consultancy — Lahore, Pakistan
+// ============================================================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ----------------------------------------------------------------------------
+// PEOPLE & ORGANISATIONS
+// ----------------------------------------------------------------------------
+
+// Internal team members (Director, BIM Coordinators, Modelers, QA/QC, etc.)
+model User {
+  id        String  @id @default(cuid())
+  name      String
+  email     String  @unique
+  role      String // DIRECTOR | BIM_COORDINATOR | MODELER | QA_QC | ENGINEER
+  title     String? // e.g. "Senior BIM Coordinator"
+  division  String? // service division the person primarily works in
+  avatarHue String? // for deterministic avatar colour
+  capacityHrs Float @default(40) // weekly capacity in hours
+  active    Boolean @default(true)
+  createdAt DateTime @default(now())
+
+  assignments   ProjectAssignment[]
+  tasks         Task[]           @relation("TaskAssignee")
+  timesheets    TimesheetEntry[]
+  qaSignoffs    QaSignoff[]
+  raisedRfis    Rfi[]            @relation("RfiRaisedBy")
+  outreach      OutreachActivity[]
+}
+
+// External client organisations (international)
+model Client {
+  id          String  @id @default(cuid())
+  companyName String
+  country     String
+  city        String?
+  contactName String
+  contactEmail String
+  contactPhone String?
+  timezone    String?
+  logoHue     String?
+  createdAt   DateTime @default(now())
+
+  projects Project[]
+  invoices Invoice[]
+  portalUsers ClientUser[]
+}
+
+// Login identities for the Client Portal
+model ClientUser {
+  id       String @id @default(cuid())
+  name     String
+  email    String @unique
+  clientId String
+  client   Client @relation(fields: [clientId], references: [id])
+}
+
+// ----------------------------------------------------------------------------
+// SERVICE DIVISIONS
+// Architecture, Structural, Mechanical(HVAC), Electrical, Plumbing,
+// Fire Protection, and the flagship BIM & Digital Delivery division.
+// ----------------------------------------------------------------------------
+
+model Division {
+  id          String  @id @default(cuid())
+  code        String  @unique // AR, ST, ME, EL, PL, FP, BIM
+  name        String
+  description String?
+  colorHex    String  @default("#234b84")
+  isFlagship  Boolean @default(false)
+
+  projectDivisions ProjectDivision[]
+}
+
+// ----------------------------------------------------------------------------
+// CRM — SALES PIPELINE & DAILY OUTREACH KPIs
+// ----------------------------------------------------------------------------
+
+// A lead in the sales Kanban:
+// To Contact -> Contacted -> Meeting Booked -> Proposal Sent -> Won
+model Lead {
+  id           String  @id @default(cuid())
+  company      String
+  contactName  String
+  contactEmail String?
+  country      String?
+  source       String? // LinkedIn, Referral, Upwork, Inbound, Conference
+  serviceInterest String? // which division/service they want
+  estValue     Float   @default(0) // estimated contract value (USD)
+  stage        String  @default("TO_CONTACT") // TO_CONTACT | CONTACTED | MEETING_BOOKED | PROPOSAL_SENT | WON | LOST
+  probability  Int     @default(10) // %
+  ownerName    String?
+  notes        String?
+  orderIndex   Int     @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+// Daily record of the "25 outreach touches" discipline
+model OutreachActivity {
+  id        String   @id @default(cuid())
+  date      DateTime
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  target    Int      @default(25) // daily KPI target
+  completed Int      @default(0) // touches done that day
+  meetings  Int      @default(0)
+  replies   Int      @default(0)
+  notes     String?
+}
+
+// ----------------------------------------------------------------------------
+// PROJECTS & PORTFOLIO
+// ----------------------------------------------------------------------------
+
+model Project {
+  id          String  @id @default(cuid())
+  code        String  @unique // Project Code used in file naming, e.g. DS-2405
+  name        String
+  clientId    String
+  client      Client  @relation(fields: [clientId], references: [id])
+  status      String  @default("ACTIVE") // ACTIVE | ON_HOLD | COMPLETED | ARCHIVED
+  health      String  @default("GREEN") // RED | AMBER | GREEN
+  healthNote  String?
+  stage       String? // Design Dev, Construction Docs, Coordination, As-Built
+  progress    Int     @default(0) // 0-100 %
+  contractValue Float @default(0) // USD
+  estimatedHrs Float  @default(0)
+  actualHrs    Float  @default(0)
+  startDate   DateTime?
+  dueDate     DateTime?
+  description String?
+  coverHue    String?
+  createdAt   DateTime @default(now())
+
+  divisions   ProjectDivision[]
+  assignments ProjectAssignment[]
+  tasks       Task[]
+  milestones  Milestone[]
+  documents   Document[]
+  invoices    Invoice[]
+  expenses    Expense[]
+  timesheets  TimesheetEntry[]
+  rfis        Rfi[]
+  clashes     Clash[]
+  folders     ProjectFolder[]
+  messages    ClientMessage[]
+  statusReports StatusReport[]
+  approvals   Approval[]
+  scopes      ScopeOfWork[]
+  meetings    Meeting[]
+}
+
+// join: which divisions are engaged on a project (scope)
+model ProjectDivision {
+  id         String  @id @default(cuid())
+  projectId  String
+  project    Project @relation(fields: [projectId], references: [id])
+  divisionId String
+  division   Division @relation(fields: [divisionId], references: [id])
+  scopeNote  String?
+
+  @@unique([projectId, divisionId])
+}
+
+model ProjectAssignment {
+  id        String  @id @default(cuid())
+  projectId String
+  project   Project @relation(fields: [projectId], references: [id])
+  userId    String
+  user      User    @relation(fields: [userId], references: [id])
+  roleOnProject String // Lead Coordinator, Modeler, QA Reviewer
+  allocationPct Int   @default(50) // % of capacity allocated
+
+  @@unique([projectId, userId])
+}
+
+model Milestone {
+  id        String   @id @default(cuid())
+  projectId String
+  project   Project  @relation(fields: [projectId], references: [id])
+  title     String
+  dueDate   DateTime?
+  status    String   @default("PENDING") // PENDING | IN_PROGRESS | DONE
+  orderIndex Int     @default(0)
+}
+
+// Delivery folder structure mirrored in the internal workspace
+model ProjectFolder {
+  id        String  @id @default(cuid())
+  projectId String
+  project   Project @relation(fields: [projectId], references: [id])
+  name      String  // 00-Incoming, 01-WIP, 02-Shared, 03-Published, 04-Archive
+  parentId  String?
+  orderIndex Int    @default(0)
+}
+
+// ----------------------------------------------------------------------------
+// TASKS & SOP ENGINE (with mandatory QA/QC checklists)
+// ----------------------------------------------------------------------------
+
+model Sop {
+  id          String  @id @default(cuid())
+  code        String  @unique // SOP-BIM-001
+  title       String
+  divisionCode String? // which division it belongs to
+  summary     String?
+  steps       String? // newline-separated steps
+  checklist   SopChecklistItem[]
+  tasks       Task[]
+}
+
+model SopChecklistItem {
+  id       String @id @default(cuid())
+  sopId    String
+  sop      Sop    @relation(fields: [sopId], references: [id])
+  label    String
+  orderIndex Int  @default(0)
+}
+
+model Task {
+  id          String   @id @default(cuid())
+  projectId   String
+  project     Project  @relation(fields: [projectId], references: [id])
+  title       String
+  description String?
+  divisionCode String?
+  status      String   @default("TODO") // TODO | IN_PROGRESS | QA_REVIEW | DONE | BLOCKED
+  priority    String   @default("MEDIUM") // LOW | MEDIUM | HIGH | URGENT
+  assigneeId  String?
+  assignee    User?    @relation("TaskAssignee", fields: [assigneeId], references: [id])
+  sopId       String?
+  sop         Sop?     @relation(fields: [sopId], references: [id])
+  scopeId     String?
+  scope       ScopeOfWork? @relation(fields: [scopeId], references: [id])
+  estimatedHrs Float   @default(0)
+  actualHrs    Float   @default(0)
+  dueDate     DateTime?
+  qaRequired  Boolean  @default(true)
+  // ISO 19650 information state on the task's information container
+  cdeState    String   @default("S0") // S0 WIP | S1 Shared-Check | S2 Shared-Info | S3 Shared-Review | S4 Authorized
+  createdAt   DateTime @default(now())
+
+  checklist   TaskChecklistItem[]
+  qaSignoffs  QaSignoff[]
+}
+
+// ----------------------------------------------------------------------------
+// SCOPE OF WORK  (client -> project -> scope -> tasks)
+// A project is broken into scope packages, each owned by a division.
+// ----------------------------------------------------------------------------
+model ScopeOfWork {
+  id           String  @id @default(cuid())
+  projectId    String
+  project      Project @relation(fields: [projectId], references: [id])
+  title        String
+  divisionCode String? // AR/ST/ME/EL/PL/FP/BIM
+  description  String?
+  status       String  @default("PLANNED") // PLANNED | IN_PROGRESS | DELIVERED
+  budgetHrs    Float   @default(0)
+  orderIndex   Int     @default(0)
+  createdAt    DateTime @default(now())
+
+  tasks        Task[]
+}
+
+// ----------------------------------------------------------------------------
+// MEETINGS  (director can record meetings + drive Kanban/tasks from minutes)
+// ----------------------------------------------------------------------------
+model Meeting {
+  id          String   @id @default(cuid())
+  title       String
+  projectId   String?
+  project     Project? @relation(fields: [projectId], references: [id])
+  scheduledAt DateTime @default(now())
+  status      String   @default("SCHEDULED") // SCHEDULED | LIVE | ENDED
+  agenda      String?
+  attendees   String?  // comma-separated names
+  recordingUrl String? // object URL / note that a recording was captured
+  recordingSecs Int    @default(0)
+  createdAt   DateTime @default(now())
+
+  notes       MeetingNote[]
+}
+
+// Action items / minutes captured during a meeting; can spawn or update tasks
+model MeetingNote {
+  id         String   @id @default(cuid())
+  meetingId  String
+  meeting    Meeting  @relation(fields: [meetingId], references: [id])
+  body       String
+  kind       String   @default("NOTE") // NOTE | ACTION | DECISION
+  linkedTaskId String?
+  createdAt  DateTime @default(now())
+}
+
+// ----------------------------------------------------------------------------
+// SCREEN SHARE SESSIONS (team member shares screen; director views live)
+// WebRTC signaling payloads are exchanged same-origin through the API.
+// ----------------------------------------------------------------------------
+model ScreenShareSession {
+  id          String   @id @default(cuid())
+  hostName    String   // team member sharing
+  hostRole    String?
+  status      String   @default("LIVE") // LIVE | ENDED
+  offer       String?  // WebRTC SDP offer (JSON)
+  answer      String?  // WebRTC SDP answer (JSON)
+  hostCandidates String? @default("[]") // ICE candidates JSON array
+  viewerCandidates String? @default("[]")
+  startedAt   DateTime @default(now())
+  endedAt     DateTime?
+}
+
+// ----------------------------------------------------------------------------
+// ACTIVITY LOG  (drives the real-time feed / live refresh across portals)
+// ----------------------------------------------------------------------------
+model ActivityLog {
+  id        String   @id @default(cuid())
+  actor     String   // who did it
+  action    String   // CREATED | UPDATED | MOVED | APPROVED | SIGNED_OFF ...
+  entity    String   // Project | Task | Lead | Client | Meeting ...
+  entityId  String?
+  summary   String
+  portal    String?  // director | workspace | client
+  createdAt DateTime @default(now())
+}
+
+// Per-task instance of the SOP checklist — must all be checked before DONE
+model TaskChecklistItem {
+  id      String  @id @default(cuid())
+  taskId  String
+  task    Task    @relation(fields: [taskId], references: [id])
+  label   String
+  checked Boolean @default(false)
+  orderIndex Int  @default(0)
+}
+
+model QaSignoff {
+  id         String   @id @default(cuid())
+  taskId     String
+  task       Task     @relation(fields: [taskId], references: [id])
+  reviewerId String
+  reviewer   User     @relation(fields: [reviewerId], references: [id])
+  result     String   @default("PASS") // PASS | FAIL | REWORK
+  comment    String?
+  signedAt   DateTime @default(now())
+}
+
+// ----------------------------------------------------------------------------
+// DOCUMENT MANAGEMENT (with file naming standard enforcement)
+// Naming: <ProjectCode>-<Discipline>-<Zone>-<Type>-<Revision>
+// e.g. DS-2405-ST-Z01-DWG-R03
+// ----------------------------------------------------------------------------
+
+model Document {
+  id           String  @id @default(cuid())
+  projectId    String
+  project      Project @relation(fields: [projectId], references: [id])
+  fileName     String  // full standardised file name
+  projectCode  String
+  discipline   String  // AR/ST/ME/EL/PL/FP/BIM
+  zone         String  // Z01, Z02, SITE
+  docType      String  // DWG, MDL, RPT, SCH
+  revision     String  // R00, R01 ...
+  namingValid  Boolean @default(true)
+  status       String  @default("WIP") // WIP | SHARED | FOR_REVIEW | APPROVED | SUPERSEDED
+  // ISO 19650 information management
+  cdeState     String  @default("S0") // S0 WIP | S1 Shared(Check) | S2 Shared(Info) | S3 Shared(Review) | S4 Published(Authorized)
+  suitability  String  @default("S0") // Suitability code e.g. S0, S2, A1, B1, CR
+  container    String? // Information container ID
+  folder       String? // maps to ProjectFolder name
+  clientVisible Boolean @default(false) // shown in client vault only if approved & visible
+  fileSizeKb   Int     @default(0)
+  uploadedBy   String?
+  createdAt    DateTime @default(now())
+
+  approvals    Approval[]
+}
+
+// ----------------------------------------------------------------------------
+// CLASH & RFI TRACKER
+// ----------------------------------------------------------------------------
+
+model Clash {
+  id          String  @id @default(cuid())
+  projectId   String
+  project     Project @relation(fields: [projectId], references: [id])
+  ref         String  // CL-001
+  title       String
+  disciplines String  // "ST vs ME"
+  zone        String?
+  severity    String  @default("MEDIUM") // LOW | MEDIUM | HIGH
+  status      String  @default("OPEN") // OPEN | ASSIGNED | RESOLVED | CLOSED
+  assignedTo  String?
+  createdAt   DateTime @default(now())
+}
+
+model Rfi {
+  id         String   @id @default(cuid())
+  projectId  String
+  project    Project  @relation(fields: [projectId], references: [id])
+  ref        String   // RFI-001
+  subject    String
+  question   String?
+  discipline String?
+  status     String   @default("OPEN") // OPEN | ANSWERED | CLOSED
+  priority   String   @default("MEDIUM")
+  raisedById String?
+  raisedBy   User?    @relation("RfiRaisedBy", fields: [raisedById], references: [id])
+  dueDate    DateTime?
+  answer     String?
+  createdAt  DateTime @default(now())
+}
+
+// ----------------------------------------------------------------------------
+// TIME TRACKING
+// ----------------------------------------------------------------------------
+
+model TimesheetEntry {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  projectId String
+  project   Project  @relation(fields: [projectId], references: [id])
+  date      DateTime
+  hours     Float
+  activity  String?  // Modeling, Coordination, QA, Documentation
+  billable  Boolean  @default(true)
+  note      String?
+}
+
+// ----------------------------------------------------------------------------
+// FINANCE — INVOICES & EXPENSES
+// ----------------------------------------------------------------------------
+
+model Invoice {
+  id         String   @id @default(cuid())
+  number     String   @unique // INV-2025-014
+  projectId  String
+  project    Project  @relation(fields: [projectId], references: [id])
+  clientId   String
+  client     Client   @relation(fields: [clientId], references: [id])
+  issueDate  DateTime
+  dueDate    DateTime
+  amount     Float
+  currency   String   @default("USD")
+  status     String   @default("DRAFT") // DRAFT | SENT | PAID | OVERDUE
+  notes      String?
+
+  lineItems  InvoiceLineItem[]
+}
+
+model InvoiceLineItem {
+  id        String  @id @default(cuid())
+  invoiceId String
+  invoice   Invoice @relation(fields: [invoiceId], references: [id])
+  description String
+  qty       Float   @default(1)
+  rate      Float   @default(0)
+  amount    Float   @default(0)
+}
+
+model Expense {
+  id         String   @id @default(cuid())
+  projectId  String?
+  project    Project? @relation(fields: [projectId], references: [id])
+  category   String   // Software, Salaries, Subcontractor, Marketing, Overhead
+  vendor     String?
+  amount     Float
+  currency   String   @default("USD")
+  date       DateTime
+  note       String?
+}
+
+// ----------------------------------------------------------------------------
+// CLIENT PORTAL — COMMUNICATION, STATUS REPORTS, APPROVALS
+// ----------------------------------------------------------------------------
+
+model ClientMessage {
+  id         String   @id @default(cuid())
+  projectId  String
+  project    Project  @relation(fields: [projectId], references: [id])
+  authorName String
+  authorSide String   @default("STUDIO") // STUDIO | CLIENT
+  body       String
+  createdAt  DateTime @default(now())
+}
+
+model StatusReport {
+  id         String   @id @default(cuid())
+  projectId  String
+  project    Project  @relation(fields: [projectId], references: [id])
+  weekOf     DateTime
+  headline   String
+  summary    String?
+  progressPct Int     @default(0)
+  risks      String?
+  nextSteps  String?
+  createdAt  DateTime @default(now())
+}
+
+// Client review & approval of deliverables (with markup notes)
+model Approval {
+  id         String   @id @default(cuid())
+  projectId  String
+  project    Project  @relation(fields: [projectId], references: [id])
+  documentId String?
+  document   Document? @relation(fields: [documentId], references: [id])
+  title      String
+  status     String   @default("PENDING") // PENDING | APPROVED | CHANGES_REQUESTED
+  reviewer   String?  // client reviewer name
+  markup     String?  // digital markup / comment text
+  decidedAt  DateTime?
+  createdAt  DateTime @default(now())
+}

@@ -1,0 +1,26 @@
+[
+  {
+    "email": "operator@datum.example",
+    "name": "Demo operator",
+    "role": "DIRECTOR",
+    "password": "fBvKXiaUXfE1WpAsSalPk2tlUSs"
+  },
+  {
+    "email": "reviewer@datum.example",
+    "name": "Demo reviewer",
+    "role": "DIRECTOR",
+    "password": "RorqBpuvYzFcllUWAztC91m-6CQ"
+  },
+  {
+    "email": "member@datum.example",
+    "name": "Demo team member",
+    "role": "MEMBER",
+    "password": "tsmvUkLwREw0Q1wKGcpo2H74VGw"
+  },
+  {
+    "email": "client@datum.example",
+    "name": "Demo client",
+    "role": "CLIENT",
+    "password": "aR_o7-NR2hSmzFCwDxclmn3v35M"
+  }
+]

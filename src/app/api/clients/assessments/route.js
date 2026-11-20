@@ -1,0 +1,63 @@
+import { NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
+import { guard } from '@/lib/auth';
+import { errorResponse } from "@/lib/api-errors";
+
+export async function POST(req) {
+  const denied = await guard('DIRECTOR');
+  if (denied) return denied;
+  try {
+    const b = await req.json();
+    const d = Number(b.scoreDelivery) || 0;
+    const c = Number(b.scoreComms) || 0;
+    const v = Number(b.scoreValue) || 0;
+    const a = await prisma.clientAssessment.create({
+      data: {
+        clientId: b.clientId,
+        period: b.period,
+        scoreDelivery: d,
+        scoreComms: c,
+        scoreValue: v,
+        scoreOverall: Math.round((d + c + v) / 3),
+        strengths: b.strengths || null,
+        concerns: b.concerns || null,
+        action: b.action || null,
+        assessedBy: b.assessedBy || "Director",
+      },
+    });
+    return NextResponse.json(a, { status: 201 });
+  } catch (e) {
+    return errorResponse(e, req)
+  }
+}
+
+export async function PUT(req) {
+  const denied = await guard('DIRECTOR');
+  if (denied) return denied;
+  try {
+    const b = await req.json();
+    const { id, clientId, createdAt, ...data } = b;
+    const d = Number(data.scoreDelivery) || 0;
+    const c = Number(data.scoreComms) || 0;
+    const v = Number(data.scoreValue) || 0;
+    const a = await prisma.clientAssessment.update({
+      where: { id },
+      data: { ...data, scoreDelivery: d, scoreComms: c, scoreValue: v, scoreOverall: Math.round((d + c + v) / 3) },
+    });
+    return NextResponse.json(a);
+  } catch (e) {
+    return errorResponse(e, req)
+  }
+}
+export async function DELETE(req) {
+  const denied = await guard('DIRECTOR');
+  if (denied) return denied;
+  try {
+    const { searchParams } = new URL(req.url);
+    const id = searchParams.get("id");
+    await prisma.clientAssessment.delete({ where: { id } });
+    return NextResponse.json({ ok: true });
+  } catch (e) {
+    return errorResponse(e, req)
+  }
+}

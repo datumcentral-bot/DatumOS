@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 180" width="600" height="180" role="img" aria-label="Data integration API and automation">
+<!-- DATUM vector illustration — multi-colour isometric, material gradients, soft shadow. Generated 2026-10. -->
+
+<defs>
+  <linearGradient id="fw-3-bg" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#fdfdfe"/><stop offset="1" stop-color="#e7ecf3"/>
+  </linearGradient>
+  <radialGradient id="fw-3-sh" cx="0.5" cy="0.5" r="0.5">
+    <stop offset="0" stop-color="#12263a" stop-opacity="0.22"/>
+    <stop offset="0.65" stop-color="#12263a" stop-opacity="0.08"/>
+    <stop offset="1" stop-color="#12263a" stop-opacity="0"/>
+  </radialGradient>
+  <linearGradient id="fw-3-cone" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#d4af37" stop-opacity="0.55"/>
+    <stop offset="1" stop-color="#d4af37" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="fw-3-win" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#dfeef9"/><stop offset="1" stop-color="#a9c6e2"/>
+  </linearGradient>
+  <pattern id="fw-3-hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+    <rect width="7" height="7" fill="#ece5d6"/>
+    <line x1="0" y1="0" x2="0" y2="7" stroke="#b9ad97" stroke-width="1.3"/>
+  </pattern>
+  
+  <linearGradient id="fw-3-m-navy-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#41648f"/><stop offset="1" stop-color="#25436b"/></linearGradient>
+  <linearGradient id="fw-3-m-navy-l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#25436b"/><stop offset="1" stop-color="#0d2441"/></linearGradient>
+  <linearGradient id="fw-3-m-navy-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#152c49"/><stop offset="1" stop-color="#001633"/></linearGradient>
+  <linearGradient id="fw-3-m-steel-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8fb4d9"/><stop offset="1" stop-color="#527fae"/></linearGradient>
+  <linearGradient id="fw-3-m-steel-l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#527fae"/><stop offset="1" stop-color="#2b5177"/></linearGradient>
+  <linearGradient id="fw-3-m-steel-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#33597f"/><stop offset="1" stop-color="#1d4369"/></linearGradient>
+  <linearGradient id="fw-3-m-olive-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a9cc60"/><stop offset="1" stop-color="#6b8e23"/></linearGradient>
+  <linearGradient id="fw-3-m-olive-l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6b8e23"/><stop offset="1" stop-color="#3f5812"/></linearGradient>
+  <linearGradient id="fw-3-m-olive-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#47601a"/><stop offset="1" stop-color="#314a04"/></linearGradient>
+  <linearGradient id="fw-3-m-gold-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f3dc8a"/><stop offset="1" stop-color="#d4af37"/></linearGradient>
+  <linearGradient id="fw-3-m-gold-l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d4af37"/><stop offset="1" stop-color="#826516"/></linearGradient>
+  <linearGradient id="fw-3-m-gold-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8a6d1e"/><stop offset="1" stop-color="#745708"/></linearGradient>
+  <linearGradient id="fw-3-m-clay-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e5ac80"/><stop offset="1" stop-color="#c2703d"/></linearGradient>
+  <linearGradient id="fw-3-m-clay-l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c2703d"/><stop offset="1" stop-color="#874620"/></linearGradient>
+  <linearGradient id="fw-3-m-clay-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8f4e28"/><stop offset="1" stop-color="#793812"/></linearGradient>
+  <linearGradient id="fw-3-m-teal-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#74c0cb"/><stop offset="1" stop-color="#33808f"/></linearGradient>
+  <linearGradient id="fw-3-m-teal-l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#33808f"/><stop offset="1" stop-color="#184f5a"/></linearGradient>
+  <linearGradient id="fw-3-m-teal-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#205762"/><stop offset="1" stop-color="#0a414c"/></linearGradient>
+  <linearGradient id="fw-3-m-slate-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c6cfda"/><stop offset="1" stop-color="#8f9cab"/></linearGradient>
+  <linearGradient id="fw-3-m-slate-l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8f9cab"/><stop offset="1" stop-color="#5a6674"/></linearGradient>
+  <linearGradient id="fw-3-m-slate-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#626e7c"/><stop offset="1" stop-color="#4c5866"/></linearGradient>
+  <linearGradient id="fw-3-m-paper-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#eaeff5"/></linearGradient>
+  <linearGradient id="fw-3-m-paper-l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eaeff5"/><stop offset="1" stop-color="#c4ceda"/></linearGradient>
+  <linearGradient id="fw-3-m-paper-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ccd6e2"/><stop offset="1" stop-color="#b6c0cc"/></linearGradient>
+</defs>
+
+<rect width="600" height="180" fill="url(#fw-3-bg)"/>
+<g stroke="#12263a" stroke-width="0.5" opacity="0.055">
+  <path d="M600 0L600 0"/><path d="M600 26L555 0"/><path d="M600 52L509.9 0"/><path d="M600 78L464.9 0"/><path d="M600 104L419.9 0"/><path d="M600 130L374.8 0"/><path d="M600 156L329.8 0"/><path d="M284.8 0L596.5 180"/><path d="M239.7 0L551.5 180"/><path d="M194.7 0L506.5 180"/><path d="M149.7 0L461.4 180"/><path d="M104.6 0L416.4 180"/><path d="M59.6 0L371.4 180"/><path d="M14.6 0L326.3 180"/><path d="M0 17.6L281.3 180"/><path d="M0 43.6L236.3 180"/><path d="M0 69.6L191.2 180"/><path d="M0 95.6L146.2 180"/><path d="M0 121.6L101.2 180"/><path d="M0 147.6L56.1 180"/><path d="M0 173.6L11.1 180"/>
+  <path d="M0 17.6L30.5 0"/><path d="M0 43.6L75.5 0"/><path d="M0 69.6L120.5 0"/><path d="M0 95.6L165.6 0"/><path d="M0 121.6L210.6 0"/><path d="M0 147.6L255.6 0"/><path d="M0 173.6L300.7 0"/><path d="M345.7 0L33.9 180"/><path d="M390.7 0L79 180"/><path d="M435.8 0L124 180"/><path d="M480.8 0L169 180"/><path d="M525.8 0L214.1 180"/><path d="M570.9 0L259.1 180"/><path d="M600 9.2L304.1 180"/><path d="M600 35.2L349.2 180"/><path d="M600 61.2L394.2 180"/><path d="M600 87.2L439.2 180"/><path d="M600 113.2L484.3 180"/><path d="M600 139.2L529.3 180"/><path d="M600 165.2L574.3 180"/>
+</g>
+<rect x="1" y="1" width="598" height="178" fill="none" stroke="#12263a" stroke-width="1" opacity="0.15"/>
+<g stroke="#6b8e23" stroke-width="1.6" opacity="0.6" fill="none">
+  <path d="M9 0V9M0 9h9M591 0V9M600 9h-9M9 180V171M0 171h9M591 180V171M600 171h-9"/>
+</g>
+
+<g opacity="1"><rect x="307.9" y="86.9" width="10.2" height="10.2" rx="1.5" fill="url(#fw-3-m-steel-l)" transform="rotate(0 313 92)"/><rect x="298.2" y="110.2" width="10.2" height="10.2" rx="1.5" fill="url(#fw-3-m-steel-l)" transform="rotate(45 303.3 115.3)"/><rect x="274.9" y="119.9" width="10.2" height="10.2" rx="1.5" fill="url(#fw-3-m-steel-l)" transform="rotate(90 280 125)"/><rect x="251.6" y="110.2" width="10.2" height="10.2" rx="1.5" fill="url(#fw-3-m-steel-l)" transform="rotate(135 256.7 115.3)"/><rect x="241.9" y="86.9" width="10.2" height="10.2" rx="1.5" fill="url(#fw-3-m-steel-l)" transform="rotate(180 247 92)"/><rect x="251.6" y="63.6" width="10.2" height="10.2" rx="1.5" fill="url(#fw-3-m-steel-l)" transform="rotate(225 256.7 68.7)"/><rect x="274.9" y="53.9" width="10.2" height="10.2" rx="1.5" fill="url(#fw-3-m-steel-l)" transform="rotate(270 280 59)"/><rect x="298.2" y="63.6" width="10.2" height="10.2" rx="1.5" fill="url(#fw-3-m-steel-l)" transform="rotate(315 303.3 68.7)"/><circle cx="280" cy="92" r="27.6" fill="url(#fw-3-m-steel-t)"/><circle cx="280" cy="92" r="10.2" fill="url(#fw-3-m-steel-r)"/><circle cx="280" cy="92" r="3.6" fill="#12263a" opacity="0.55"/></g>
+<g>
+    <ellipse cx="280" cy="144" rx="16" ry="6" fill="url(#fw-3-m-olive-t)" stroke="#47601a" stroke-opacity="0.5"/>
+    <path d="M264 144v14a16 6 0 0 0 32 0v-14" fill="url(#fw-3-m-olive-l)"/>
+    <ellipse cx="280" cy="151" rx="16" ry="6" fill="none" stroke="#47601a" stroke-opacity="0.4" stroke-width="0.8"/>
+    <ellipse cx="280" cy="158" rx="16" ry="6" fill="none" stroke="#47601a" stroke-opacity="0.4" stroke-width="0.8"/>
+  </g>
+<g><rect x="130" y="46" width="40" height="28" rx="4" fill="url(#fw-3-m-navy-t)" stroke="#12263a" stroke-opacity="0.35"/><text x="150" y="63.5" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="8" letter-spacing="1" fill="#ffffff" text-anchor="middle" opacity="0.9">ERP</text></g><path d="M150 60L306 78" fill="none" stroke="#12263a" stroke-width="1.1" opacity="0.4" stroke-dasharray="4 3"/><g><rect x="130" y="110" width="40" height="28" rx="4" fill="url(#fw-3-m-navy-t)" stroke="#12263a" stroke-opacity="0.35"/><text x="150" y="127.5" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="8" letter-spacing="1" fill="#ffffff" text-anchor="middle" opacity="0.9">API</text></g><path d="M150 124L306 106" fill="none" stroke="#12263a" stroke-width="1.1" opacity="0.4" stroke-dasharray="4 3"/><g><rect x="398" y="46" width="40" height="28" rx="4" fill="url(#fw-3-m-navy-t)" stroke="#12263a" stroke-opacity="0.35"/><text x="418" y="63.5" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="8" letter-spacing="1" fill="#ffffff" text-anchor="middle" opacity="0.9">DB</text></g><path d="M418 60L254 78" fill="none" stroke="#12263a" stroke-width="1.1" opacity="0.4" stroke-dasharray="4 3"/><g><rect x="398" y="110" width="40" height="28" rx="4" fill="url(#fw-3-m-navy-t)" stroke="#12263a" stroke-opacity="0.35"/><text x="418" y="127.5" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="8" letter-spacing="1" fill="#ffffff" text-anchor="middle" opacity="0.9">IOT</text></g><path d="M418 124L254 106" fill="none" stroke="#12263a" stroke-width="1.1" opacity="0.4" stroke-dasharray="4 3"/>
+<g opacity="0.75"><path d="M172 60L248 78" fill="none" stroke="#6b8e23" stroke-width="2"  stroke-linecap="round"/><path d="M241.1 79.3L248 78L242.4 73.7" fill="none" stroke="#6b8e23" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g opacity="0.75"><path d="M172 124L248 106" fill="none" stroke="#6b8e23" stroke-width="2"  stroke-linecap="round"/><path d="M242.4 110.3L248 106L241.1 104.7" fill="none" stroke="#6b8e23" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g opacity="0.75"><path d="M396 60L312 78" fill="none" stroke="#d4af37" stroke-width="2"  stroke-linecap="round"/><path d="M317.7 73.9L312 78L318.8 79.5" fill="none" stroke="#d4af37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g opacity="0.75"><path d="M396 124L312 106" fill="none" stroke="#d4af37" stroke-width="2"  stroke-linecap="round"/><path d="M318.8 104.5L312 106L317.7 110.1" fill="none" stroke="#d4af37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g opacity="1"><rect x="24" y="20" width="201.60000000000002" height="16" rx="2.5" fill="#12263a"/><text x="32" y="31.5" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="8.5" letter-spacing="1.3" fill="#ffffff">DATA INTEGRATION &amp; AUTOMATION</text></g>
+<g opacity="1"><rect x="24" y="40" width="169.60000000000002" height="16" rx="2.5" fill="#6b8e23"/><text x="32" y="51.5" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="8.5" letter-spacing="1.3" fill="#ffffff">API · DATABASE · SCRIPTS</text></g>
+<text x="576" y="162" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="8.5" letter-spacing="1.5" fill="#12263a" opacity="0.5" text-anchor="end">MODEL DATA LIBERATED TO ENTERPRISE SYSTEMS</text>
+
+</svg>

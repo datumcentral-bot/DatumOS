@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 180" width="600" height="180" role="img" aria-label="Structural frame and rebar detail">
+<!-- DATUM vector illustration — multi-colour isometric, material gradients, soft shadow. Generated 2026-10. -->
+
+<defs>
+  <linearGradient id="div-st-bg" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#fdfdfe"/><stop offset="1" stop-color="#e7ecf3"/>
+  </linearGradient>
+  <radialGradient id="div-st-sh" cx="0.5" cy="0.5" r="0.5">
+    <stop offset="0" stop-color="#12263a" stop-opacity="0.22"/>
+    <stop offset="0.65" stop-color="#12263a" stop-opacity="0.08"/>
+    <stop offset="1" stop-color="#12263a" stop-opacity="0"/>
+  </radialGradient>
+  <linearGradient id="div-st-cone" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#d4af37" stop-opacity="0.55"/>
+    <stop offset="1" stop-color="#d4af37" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="div-st-win" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#dfeef9"/><stop offset="1" stop-color="#a9c6e2"/>
+  </linearGradient>
+  <pattern id="div-st-hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+    <rect width="7" height="7" fill="#ece5d6"/>
+    <line x1="0" y1="0" x2="0" y2="7" stroke="#b9ad97" stroke-width="1.3"/>
+  </pattern>
+  
+  <linearGradient id="div-st-m-navy-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#41648f"/><stop offset="1" stop-color="#25436b"/></linearGradient>
+  <linearGradient id="div-st-m-navy-l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#25436b"/><stop offset="1" stop-color="#0d2441"/></linearGradient>
+  <linearGradient id="div-st-m-navy-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#152c49"/><stop offset="1" stop-color="#001633"/></linearGradient>
+  <linearGradient id="div-st-m-steel-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8fb4d9"/><stop offset="1" stop-color="#527fae"/></linearGradient>
+  <linearGradient id="div-st-m-steel-l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#527fae"/><stop offset="1" stop-color="#2b5177"/></linearGradient>
+  <linearGradient id="div-st-m-steel-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#33597f"/><stop offset="1" stop-color="#1d4369"/></linearGradient>
+  <linearGradient id="div-st-m-olive-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a9cc60"/><stop offset="1" stop-color="#6b8e23"/></linearGradient>
+  <linearGradient id="div-st-m-olive-l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6b8e23"/><stop offset="1" stop-color="#3f5812"/></linearGradient>
+  <linearGradient id="div-st-m-olive-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#47601a"/><stop offset="1" stop-color="#314a04"/></linearGradient>
+  <linearGradient id="div-st-m-gold-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f3dc8a"/><stop offset="1" stop-color="#d4af37"/></linearGradient>
+  <linearGradient id="div-st-m-gold-l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d4af37"/><stop offset="1" stop-color="#826516"/></linearGradient>
+  <linearGradient id="div-st-m-gold-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8a6d1e"/><stop offset="1" stop-color="#745708"/></linearGradient>
+  <linearGradient id="div-st-m-clay-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e5ac80"/><stop offset="1" stop-color="#c2703d"/></linearGradient>
+  <linearGradient id="div-st-m-clay-l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c2703d"/><stop offset="1" stop-color="#874620"/></linearGradient>
+  <linearGradient id="div-st-m-clay-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8f4e28"/><stop offset="1" stop-color="#793812"/></linearGradient>
+  <linearGradient id="div-st-m-teal-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#74c0cb"/><stop offset="1" stop-color="#33808f"/></linearGradient>
+  <linearGradient id="div-st-m-teal-l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#33808f"/><stop offset="1" stop-color="#184f5a"/></linearGradient>
+  <linearGradient id="div-st-m-teal-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#205762"/><stop offset="1" stop-color="#0a414c"/></linearGradient>
+  <linearGradient id="div-st-m-slate-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c6cfda"/><stop offset="1" stop-color="#8f9cab"/></linearGradient>
+  <linearGradient id="div-st-m-slate-l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8f9cab"/><stop offset="1" stop-color="#5a6674"/></linearGradient>
+  <linearGradient id="div-st-m-slate-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#626e7c"/><stop offset="1" stop-color="#4c5866"/></linearGradient>
+  <linearGradient id="div-st-m-paper-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#eaeff5"/></linearGradient>
+  <linearGradient id="div-st-m-paper-l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eaeff5"/><stop offset="1" stop-color="#c4ceda"/></linearGradient>
+  <linearGradient id="div-st-m-paper-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ccd6e2"/><stop offset="1" stop-color="#b6c0cc"/></linearGradient>
+</defs>
+
+<rect width="600" height="180" fill="url(#div-st-bg)"/>
+<g stroke="#12263a" stroke-width="0.5" opacity="0.055">
+  <path d="M600 0L600 0"/><path d="M600 26L555 0"/><path d="M600 52L509.9 0"/><path d="M600 78L464.9 0"/><path d="M600 104L419.9 0"/><path d="M600 130L374.8 0"/><path d="M600 156L329.8 0"/><path d="M284.8 0L596.5 180"/><path d="M239.7 0L551.5 180"/><path d="M194.7 0L506.5 180"/><path d="M149.7 0L461.4 180"/><path d="M104.6 0L416.4 180"/><path d="M59.6 0L371.4 180"/><path d="M14.6 0L326.3 180"/><path d="M0 17.6L281.3 180"/><path d="M0 43.6L236.3 180"/><path d="M0 69.6L191.2 180"/><path d="M0 95.6L146.2 180"/><path d="M0 121.6L101.2 180"/><path d="M0 147.6L56.1 180"/><path d="M0 173.6L11.1 180"/>
+  <path d="M0 17.6L30.5 0"/><path d="M0 43.6L75.5 0"/><path d="M0 69.6L120.5 0"/><path d="M0 95.6L165.6 0"/><path d="M0 121.6L210.6 0"/><path d="M0 147.6L255.6 0"/><path d="M0 173.6L300.7 0"/><path d="M345.7 0L33.9 180"/><path d="M390.7 0L79 180"/><path d="M435.8 0L124 180"/><path d="M480.8 0L169 180"/><path d="M525.8 0L214.1 180"/><path d="M570.9 0L259.1 180"/><path d="M600 9.2L304.1 180"/><path d="M600 35.2L349.2 180"/><path d="M600 61.2L394.2 180"/><path d="M600 87.2L439.2 180"/><path d="M600 113.2L484.3 180"/><path d="M600 139.2L529.3 180"/><path d="M600 165.2L574.3 180"/>
+</g>
+<rect x="1" y="1" width="598" height="178" fill="none" stroke="#12263a" stroke-width="1" opacity="0.15"/>
+<g stroke="#6b8e23" stroke-width="1.6" opacity="0.6" fill="none">
+  <path d="M9 0V9M0 9h9M591 0V9M600 9h-9M9 180V171M0 171h9M591 180V171M600 171h-9"/>
+</g>
+
+<g transform="translate(270 120) scale(1)">
+  <ellipse cx="0" cy="5" rx="140.8" ry="38.2" fill="url(#div-st-sh)" opacity="1"/>
+  
+  <g opacity="1">
+    <polygon points="-31.2,-58 90.1,12 31.2,46 -90.1,-24" fill="url(#div-st-m-slate-t)"/>
+    <polygon points="-90.1,-24 31.2,46 31.2,52 -90.1,-18" fill="url(#div-st-m-slate-l)"/>
+    <polygon points="90.1,12 31.2,46 31.2,52 90.1,18" fill="url(#div-st-m-slate-r)"/>
+  </g>
+  
+  <g opacity="1">
+    <polygon points="-29.4,-127 -22.5,-123 -29.4,-119 -36.4,-123" fill="url(#div-st-m-navy-t)"/>
+    <polygon points="-36.4,-123 -29.4,-119 -29.4,-41 -36.4,-45" fill="url(#div-st-m-navy-l)"/>
+    <polygon points="-22.5,-123 -29.4,-119 -29.4,-41 -22.5,-45" fill="url(#div-st-m-navy-r)"/>
+  </g>
+  
+  <g opacity="1">
+    <polygon points="67.5,-71 74.5,-67 67.5,-63 60.6,-67" fill="url(#div-st-m-navy-t)"/>
+    <polygon points="60.6,-67 67.5,-63 67.5,15 60.6,11" fill="url(#div-st-m-navy-l)"/>
+    <polygon points="74.5,-67 67.5,-63 67.5,15 74.5,11" fill="url(#div-st-m-navy-r)"/>
+  </g>
+  
+  <g opacity="1">
+    <polygon points="-67.5,-105 -60.6,-101 -67.5,-97 -74.5,-101" fill="url(#div-st-m-navy-t)"/>
+    <polygon points="-74.5,-101 -67.5,-97 -67.5,-19 -74.5,-23" fill="url(#div-st-m-navy-l)"/>
+    <polygon points="-60.6,-101 -67.5,-97 -67.5,-19 -60.6,-23" fill="url(#div-st-m-navy-r)"/>
+  </g>
+  
+  <g opacity="1">
+    <polygon points="29.4,-49 36.4,-45 29.4,-41 22.5,-45" fill="url(#div-st-m-navy-t)"/>
+    <polygon points="22.5,-45 29.4,-41 29.4,37 22.5,33" fill="url(#div-st-m-navy-l)"/>
+    <polygon points="36.4,-45 29.4,-41 29.4,37 36.4,33" fill="url(#div-st-m-navy-r)"/>
+  </g>
+  
+  <g opacity="1">
+    <polygon points="-29.4,-139 81.4,-75 74.5,-71 -36.4,-135" fill="url(#div-st-m-navy-t)"/>
+    <polygon points="-36.4,-135 74.5,-71 74.5,-63 -36.4,-127" fill="url(#div-st-m-navy-l)"/>
+    <polygon points="81.4,-75 74.5,-71 74.5,-63 81.4,-67" fill="url(#div-st-m-navy-r)"/>
+  </g>
+  
+  <g opacity="1">
+    <polygon points="-74.5,-113 36.4,-49 29.4,-45 -81.4,-109" fill="url(#div-st-m-navy-t)"/>
+    <polygon points="-81.4,-109 29.4,-45 29.4,-37 -81.4,-101" fill="url(#div-st-m-navy-l)"/>
+    <polygon points="36.4,-49 29.4,-45 29.4,-37 36.4,-41" fill="url(#div-st-m-navy-r)"/>
+  </g>
+  
+  <g opacity="1">
+    <polygon points="-29.4,-139 -22.5,-135 -74.5,-105 -81.4,-109" fill="url(#div-st-m-navy-t)"/>
+    <polygon points="-81.4,-109 -74.5,-105 -74.5,-97 -81.4,-101" fill="url(#div-st-m-navy-l)"/>
+    <polygon points="-22.5,-135 -74.5,-105 -74.5,-97 -22.5,-127" fill="url(#div-st-m-navy-r)"/>
+  </g>
+  
+  <g opacity="1">
+    <polygon points="74.5,-79 81.4,-75 29.4,-45 22.5,-49" fill="url(#div-st-m-navy-t)"/>
+    <polygon points="22.5,-49 29.4,-45 29.4,-37 22.5,-41" fill="url(#div-st-m-navy-l)"/>
+    <polygon points="81.4,-75 29.4,-45 29.4,-37 81.4,-67" fill="url(#div-st-m-navy-r)"/>
+  </g>
+  <g opacity="1"><path d="M0 -19L0 -49" stroke="url(#div-st-m-gold-r)" stroke-width="1.8" stroke-linecap="round"/><path d="M-22.5 -6L-22.5 -36" stroke="url(#div-st-m-gold-r)" stroke-width="1.8" stroke-linecap="round"/><path d="M22.5 -6L22.5 -36" stroke="url(#div-st-m-gold-r)" stroke-width="1.8" stroke-linecap="round"/><path d="M0 7L0 -23" stroke="url(#div-st-m-gold-r)" stroke-width="1.8" stroke-linecap="round"/><polygon points="0,-19 22.5,-6 0,7 -22.5,-6" fill="none" stroke="url(#div-st-m-gold-r)" stroke-width="1.1" opacity="0.85"/><polygon points="0,-29 22.5,-16 0,-3 -22.5,-16" fill="none" stroke="url(#div-st-m-gold-r)" stroke-width="1.1" opacity="0.85"/><polygon points="0,-39 22.5,-26 0,-13 -22.5,-26" fill="none" stroke="url(#div-st-m-gold-r)" stroke-width="1.1" opacity="0.85"/><polygon points="0,-49 22.5,-36 0,-23 -22.5,-36" fill="none" stroke="url(#div-st-m-gold-r)" stroke-width="1.1" opacity="0.85"/></g>
+</g>
+<g><rect x="56.5" y="-81" width="22" height="20" rx="1.5" fill="url(#div-st-m-steel-l)" stroke="#12263a" stroke-opacity="0.45"/><circle cx="62.5" cy="-75" r="2.4" fill="url(#div-st-m-gold-l)" stroke="#8a6d1e" stroke-width="0.6"/><circle cx="72.5" cy="-75" r="2.4" fill="url(#div-st-m-gold-l)" stroke="#8a6d1e" stroke-width="0.6"/><circle cx="62.5" cy="-67" r="2.4" fill="url(#div-st-m-gold-l)" stroke="#8a6d1e" stroke-width="0.6"/><circle cx="72.5" cy="-67" r="2.4" fill="url(#div-st-m-gold-l)" stroke="#8a6d1e" stroke-width="0.6"/></g>
+<g opacity="1"><rect x="24" y="20" width="80" height="16" rx="2.5" fill="#12263a"/><text x="32" y="31.5" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="8.5" letter-spacing="1.3" fill="#ffffff">STRUCTURAL</text></g>
+<g opacity="1"><rect x="24" y="40" width="118.4" height="16" rx="2.5" fill="#6b8e23"/><text x="32" y="51.5" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="8.5" letter-spacing="1.3" fill="#ffffff">STEEL / RCC / PT</text></g>
+<g opacity="0.8"><path d="M-10 -36L210 118h38" fill="none" stroke="#12263a" stroke-width="0.9"/><circle cx="-10" cy="-36" r="2.7" fill="#d4af37"/><text x="214" y="121" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="8.5" letter-spacing="1.5" fill="#12263a" opacity="0.62" text-anchor="start">REBAR CAGE</text></g>
+<g opacity="0.8"><path d="M79.5 -77L420 60h38" fill="none" stroke="#12263a" stroke-width="0.9"/><circle cx="79.5" cy="-77" r="2.7" fill="#527fae"/><text x="424" y="63" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="8.5" letter-spacing="1.5" fill="#12263a" opacity="0.62" text-anchor="start">CONNECTION</text></g>
+<text x="576" y="162" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="8.5" letter-spacing="1.5" fill="#12263a" opacity="0.5" text-anchor="end">CONNECTION DETAILING</text>
+
+</svg>

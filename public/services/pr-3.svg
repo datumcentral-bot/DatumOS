@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 180" width="600" height="180" role="img" aria-label="Phase 3 coordination federated clash detection">
+<!-- DATUM vector illustration — multi-colour isometric, material gradients, soft shadow. Generated 2026-10. -->
+
+<defs>
+  <linearGradient id="pr-3-bg" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#fdfdfe"/><stop offset="1" stop-color="#e7ecf3"/>
+  </linearGradient>
+  <radialGradient id="pr-3-sh" cx="0.5" cy="0.5" r="0.5">
+    <stop offset="0" stop-color="#12263a" stop-opacity="0.22"/>
+    <stop offset="0.65" stop-color="#12263a" stop-opacity="0.08"/>
+    <stop offset="1" stop-color="#12263a" stop-opacity="0"/>
+  </radialGradient>
+  <linearGradient id="pr-3-cone" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#d4af37" stop-opacity="0.55"/>
+    <stop offset="1" stop-color="#d4af37" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="pr-3-win" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#dfeef9"/><stop offset="1" stop-color="#a9c6e2"/>
+  </linearGradient>
+  <pattern id="pr-3-hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+    <rect width="7" height="7" fill="#ece5d6"/>
+    <line x1="0" y1="0" x2="0" y2="7" stroke="#b9ad97" stroke-width="1.3"/>
+  </pattern>
+  
+  <linearGradient id="pr-3-m-navy-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#41648f"/><stop offset="1" stop-color="#25436b"/></linearGradient>
+  <linearGradient id="pr-3-m-navy-l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#25436b"/><stop offset="1" stop-color="#0d2441"/></linearGradient>
+  <linearGradient id="pr-3-m-navy-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#152c49"/><stop offset="1" stop-color="#001633"/></linearGradient>
+  <linearGradient id="pr-3-m-steel-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8fb4d9"/><stop offset="1" stop-color="#527fae"/></linearGradient>
+  <linearGradient id="pr-3-m-steel-l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#527fae"/><stop offset="1" stop-color="#2b5177"/></linearGradient>
+  <linearGradient id="pr-3-m-steel-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#33597f"/><stop offset="1" stop-color="#1d4369"/></linearGradient>
+  <linearGradient id="pr-3-m-olive-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a9cc60"/><stop offset="1" stop-color="#6b8e23"/></linearGradient>
+  <linearGradient id="pr-3-m-olive-l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6b8e23"/><stop offset="1" stop-color="#3f5812"/></linearGradient>
+  <linearGradient id="pr-3-m-olive-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#47601a"/><stop offset="1" stop-color="#314a04"/></linearGradient>
+  <linearGradient id="pr-3-m-gold-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f3dc8a"/><stop offset="1" stop-color="#d4af37"/></linearGradient>
+  <linearGradient id="pr-3-m-gold-l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d4af37"/><stop offset="1" stop-color="#826516"/></linearGradient>
+  <linearGradient id="pr-3-m-gold-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8a6d1e"/><stop offset="1" stop-color="#745708"/></linearGradient>
+  <linearGradient id="pr-3-m-clay-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e5ac80"/><stop offset="1" stop-color="#c2703d"/></linearGradient>
+  <linearGradient id="pr-3-m-clay-l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c2703d"/><stop offset="1" stop-color="#874620"/></linearGradient>
+  <linearGradient id="pr-3-m-clay-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8f4e28"/><stop offset="1" stop-color="#793812"/></linearGradient>
+  <linearGradient id="pr-3-m-teal-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#74c0cb"/><stop offset="1" stop-color="#33808f"/></linearGradient>
+  <linearGradient id="pr-3-m-teal-l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#33808f"/><stop offset="1" stop-color="#184f5a"/></linearGradient>
+  <linearGradient id="pr-3-m-teal-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#205762"/><stop offset="1" stop-color="#0a414c"/></linearGradient>
+  <linearGradient id="pr-3-m-slate-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c6cfda"/><stop offset="1" stop-color="#8f9cab"/></linearGradient>
+  <linearGradient id="pr-3-m-slate-l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8f9cab"/><stop offset="1" stop-color="#5a6674"/></linearGradient>
+  <linearGradient id="pr-3-m-slate-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#626e7c"/><stop offset="1" stop-color="#4c5866"/></linearGradient>
+  <linearGradient id="pr-3-m-paper-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#eaeff5"/></linearGradient>
+  <linearGradient id="pr-3-m-paper-l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eaeff5"/><stop offset="1" stop-color="#c4ceda"/></linearGradient>
+  <linearGradient id="pr-3-m-paper-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ccd6e2"/><stop offset="1" stop-color="#b6c0cc"/></linearGradient>
+</defs>
+
+<rect width="600" height="180" fill="url(#pr-3-bg)"/>
+<g stroke="#12263a" stroke-width="0.5" opacity="0.055">
+  <path d="M600 0L600 0"/><path d="M600 26L555 0"/><path d="M600 52L509.9 0"/><path d="M600 78L464.9 0"/><path d="M600 104L419.9 0"/><path d="M600 130L374.8 0"/><path d="M600 156L329.8 0"/><path d="M284.8 0L596.5 180"/><path d="M239.7 0L551.5 180"/><path d="M194.7 0L506.5 180"/><path d="M149.7 0L461.4 180"/><path d="M104.6 0L416.4 180"/><path d="M59.6 0L371.4 180"/><path d="M14.6 0L326.3 180"/><path d="M0 17.6L281.3 180"/><path d="M0 43.6L236.3 180"/><path d="M0 69.6L191.2 180"/><path d="M0 95.6L146.2 180"/><path d="M0 121.6L101.2 180"/><path d="M0 147.6L56.1 180"/><path d="M0 173.6L11.1 180"/>
+  <path d="M0 17.6L30.5 0"/><path d="M0 43.6L75.5 0"/><path d="M0 69.6L120.5 0"/><path d="M0 95.6L165.6 0"/><path d="M0 121.6L210.6 0"/><path d="M0 147.6L255.6 0"/><path d="M0 173.6L300.7 0"/><path d="M345.7 0L33.9 180"/><path d="M390.7 0L79 180"/><path d="M435.8 0L124 180"/><path d="M480.8 0L169 180"/><path d="M525.8 0L214.1 180"/><path d="M570.9 0L259.1 180"/><path d="M600 9.2L304.1 180"/><path d="M600 35.2L349.2 180"/><path d="M600 61.2L394.2 180"/><path d="M600 87.2L439.2 180"/><path d="M600 113.2L484.3 180"/><path d="M600 139.2L529.3 180"/><path d="M600 165.2L574.3 180"/>
+</g>
+<rect x="1" y="1" width="598" height="178" fill="none" stroke="#12263a" stroke-width="1" opacity="0.15"/>
+<g stroke="#6b8e23" stroke-width="1.6" opacity="0.6" fill="none">
+  <path d="M9 0V9M0 9h9M591 0V9M600 9h-9M9 180V171M0 171h9M591 180V171M600 171h-9"/>
+</g>
+
+<g transform="translate(300 118) scale(1)">
+  <ellipse cx="0" cy="5" rx="140.8" ry="35.4" fill="url(#pr-3-sh)" opacity="1"/>
+  
+  <g opacity="1">
+    <polygon points="-51.1,-70.5 113.4,24.5 51.1,60.5 -113.4,-34.5" fill="url(#pr-3-m-slate-t)"/>
+    <polygon points="-113.4,-34.5 51.1,60.5 51.1,65.5 -113.4,-29.5" fill="url(#pr-3-m-slate-l)"/>
+    <polygon points="113.4,24.5 51.1,60.5 51.1,65.5 113.4,29.5" fill="url(#pr-3-m-slate-r)"/>
+  </g>
+  
+  <g opacity="1">
+    <polygon points="-46.8,-102 -6.9,-79 -38.1,-61 -77.9,-84" fill="url(#pr-3-m-clay-t)"/>
+    <polygon points="-77.9,-84 -38.1,-61 -38.1,-17 -77.9,-40" fill="url(#pr-3-m-clay-l)"/>
+    <polygon points="-6.9,-79 -38.1,-61 -38.1,-17 -6.9,-35" fill="url(#pr-3-m-clay-r)"/>
+  </g><g opacity="0.95"><polygon points="-10.8,-41.2 -21.7,-34.9 -21.7,-48.4 -10.8,-54.7" fill="url(#pr-3-win)" stroke="#12263a" stroke-opacity="0.35" stroke-width="0.6"/><polygon points="-73.2,-45.7 -58.8,-37.4 -58.8,-50.9 -73.2,-59.2" fill="url(#pr-3-win)" stroke="#12263a" stroke-opacity="0.35" stroke-width="0.6"/><polygon points="-23.3,-34 -34.2,-27.7 -34.2,-41.2 -23.3,-47.5" fill="url(#pr-3-win)" stroke="#12263a" stroke-opacity="0.35" stroke-width="0.6"/><polygon points="-57.2,-36.5 -42.9,-28.2 -42.9,-41.7 -57.2,-50" fill="url(#pr-3-win)" stroke="#12263a" stroke-opacity="0.35" stroke-width="0.6"/><polygon points="-10.8,-57.5 -21.7,-51.2 -21.7,-64.6 -10.8,-70.9" fill="url(#pr-3-win)" stroke="#12263a" stroke-opacity="0.35" stroke-width="0.6"/><polygon points="-73.2,-62 -58.8,-53.7 -58.8,-67.1 -73.2,-75.4" fill="url(#pr-3-win)" stroke="#12263a" stroke-opacity="0.35" stroke-width="0.6"/><polygon points="-23.3,-50.3 -34.2,-44 -34.2,-57.4 -23.3,-63.7" fill="url(#pr-3-win)" stroke="#12263a" stroke-opacity="0.35" stroke-width="0.6"/><polygon points="-57.2,-52.8 -42.9,-44.5 -42.9,-57.9 -57.2,-66.2" fill="url(#pr-3-win)" stroke="#12263a" stroke-opacity="0.35" stroke-width="0.6"/></g>
+  <g opacity="0.92">
+    <polygon points="-46.8,-106 -5.2,-82 -38.1,-63 -79.7,-87" fill="url(#pr-3-m-clay-t)"/>
+    <polygon points="-79.7,-87 -38.1,-63 -38.1,-60 -79.7,-84" fill="url(#pr-3-m-clay-l)"/>
+    <polygon points="-5.2,-82 -38.1,-63 -38.1,-60 -5.2,-79" fill="url(#pr-3-m-clay-r)"/>
+  </g>
+  
+  <g opacity="1">
+    <polygon points="7.8,-82.5 47.6,-59.5 16.5,-41.5 -23.4,-64.5" fill="url(#pr-3-m-navy-t)"/>
+    <polygon points="-23.4,-64.5 16.5,-41.5 16.5,14.5 -23.4,-8.5" fill="url(#pr-3-m-navy-l)"/>
+    <polygon points="47.6,-59.5 16.5,-41.5 16.5,14.5 47.6,-3.5" fill="url(#pr-3-m-navy-r)"/>
+  </g><g opacity="0.95"><polygon points="43.7,-11.6 32.8,-5.3 32.8,-23.2 43.7,-29.5" fill="url(#pr-3-win)" stroke="#12263a" stroke-opacity="0.35" stroke-width="0.6"/><polygon points="-18.6,-16.1 -4.2,-7.8 -4.2,-25.7 -18.6,-34" fill="url(#pr-3-win)" stroke="#12263a" stroke-opacity="0.35" stroke-width="0.6"/><polygon points="31.3,-4.4 20.4,1.9 20.4,-16 31.3,-22.3" fill="url(#pr-3-win)" stroke="#12263a" stroke-opacity="0.35" stroke-width="0.6"/><polygon points="-2.7,-6.9 11.7,1.4 11.7,-16.5 -2.7,-24.8" fill="url(#pr-3-win)" stroke="#12263a" stroke-opacity="0.35" stroke-width="0.6"/><polygon points="43.7,-32.3 32.8,-26 32.8,-43.9 43.7,-50.2" fill="url(#pr-3-win)" stroke="#12263a" stroke-opacity="0.35" stroke-width="0.6"/><polygon points="-18.6,-36.8 -4.2,-28.5 -4.2,-46.4 -18.6,-54.7" fill="url(#pr-3-win)" stroke="#12263a" stroke-opacity="0.35" stroke-width="0.6"/><polygon points="31.3,-25.1 20.4,-18.8 20.4,-36.7 31.3,-43" fill="url(#pr-3-win)" stroke="#12263a" stroke-opacity="0.35" stroke-width="0.6"/><polygon points="-2.7,-27.6 11.7,-19.3 11.7,-37.2 -2.7,-45.5" fill="url(#pr-3-win)" stroke="#12263a" stroke-opacity="0.35" stroke-width="0.6"/></g>
+  <g opacity="0.92">
+    <polygon points="7.8,-86.5 49.4,-62.5 16.5,-43.5 -25.1,-67.5" fill="url(#pr-3-m-navy-t)"/>
+    <polygon points="-25.1,-67.5 16.5,-43.5 16.5,-40.5 -25.1,-64.5" fill="url(#pr-3-m-navy-l)"/>
+    <polygon points="49.4,-62.5 16.5,-43.5 16.5,-40.5 49.4,-59.5" fill="url(#pr-3-m-navy-r)"/>
+  </g>
+  
+  <g opacity="1">
+    <polygon points="62.4,-43 102.2,-20 71,-2 31.2,-25" fill="url(#pr-3-m-steel-t)"/>
+    <polygon points="31.2,-25 71,-2 71,46 31.2,23" fill="url(#pr-3-m-steel-l)"/>
+    <polygon points="102.2,-20 71,-2 71,46 102.2,28" fill="url(#pr-3-m-steel-r)"/>
+  </g><g opacity="0.95"><polygon points="98.3,21.2 87.4,27.5 87.4,12.5 98.3,6.2" fill="url(#pr-3-win)" stroke="#12263a" stroke-opacity="0.35" stroke-width="0.6"/><polygon points="35.9,16.7 50.3,25 50.3,10 35.9,1.7" fill="url(#pr-3-win)" stroke="#12263a" stroke-opacity="0.35" stroke-width="0.6"/><polygon points="85.8,28.4 74.9,34.7 74.9,19.7 85.8,13.4" fill="url(#pr-3-win)" stroke="#12263a" stroke-opacity="0.35" stroke-width="0.6"/><polygon points="51.9,25.9 66.3,34.2 66.3,19.2 51.9,10.9" fill="url(#pr-3-win)" stroke="#12263a" stroke-opacity="0.35" stroke-width="0.6"/><polygon points="98.3,3.4 87.4,9.7 87.4,-5.3 98.3,-11.6" fill="url(#pr-3-win)" stroke="#12263a" stroke-opacity="0.35" stroke-width="0.6"/><polygon points="35.9,-1.1 50.3,7.2 50.3,-7.8 35.9,-16.1" fill="url(#pr-3-win)" stroke="#12263a" stroke-opacity="0.35" stroke-width="0.6"/><polygon points="85.8,10.6 74.9,16.9 74.9,1.9 85.8,-4.4" fill="url(#pr-3-win)" stroke="#12263a" stroke-opacity="0.35" stroke-width="0.6"/><polygon points="51.9,8.1 66.3,16.4 66.3,1.4 51.9,-6.9" fill="url(#pr-3-win)" stroke="#12263a" stroke-opacity="0.35" stroke-width="0.6"/></g>
+  <g opacity="0.92">
+    <polygon points="62.4,-47 103.9,-23 71,-4 29.4,-28" fill="url(#pr-3-m-steel-t)"/>
+    <polygon points="29.4,-28 71,-4 71,-1 29.4,-25" fill="url(#pr-3-m-steel-l)"/>
+    <polygon points="103.9,-23 71,-4 71,-1 103.9,-20" fill="url(#pr-3-m-steel-r)"/>
+  </g>
+</g>
+
+  <g opacity="1">
+    <circle cx="-27.7" cy="-54" r="8" fill="url(#pr-3-m-gold-t)" stroke="#8a6d1e" stroke-width="1.4"/>
+    <path d="M-30.9 -57.2l6.4 6.4M-24.5 -57.2l-6.4 6.4" stroke="#12263a" stroke-width="2.2" stroke-linecap="round"/>
+  </g>
+
+  <g opacity="1">
+    <circle cx="27.7" cy="-30" r="8" fill="url(#pr-3-m-gold-t)" stroke="#8a6d1e" stroke-width="1.4"/>
+    <path d="M24.5 -33.2l6.4 6.4M30.9 -33.2l-6.4 6.4" stroke="#12263a" stroke-width="2.2" stroke-linecap="round"/>
+  </g>
+
+  <g opacity="1">
+    <circle cx="0" cy="-60" r="8" fill="url(#pr-3-m-gold-t)" stroke="#8a6d1e" stroke-width="1.4"/>
+    <path d="M-3.2 -63.2l6.4 6.4M3.2 -63.2l-6.4 6.4" stroke="#12263a" stroke-width="2.2" stroke-linecap="round"/>
+  </g>
+<ellipse cx="450" cy="140" rx="42" ry="12" fill="url(#pr-3-m-slate-l)" stroke="#12263a" stroke-opacity="0.4"/>
+  <g opacity="0.95">
+    <circle cx="420" cy="124" r="6" fill="url(#pr-3-m-navy-t)" stroke="#12263a" stroke-opacity="0.35" stroke-width="1"/>
+    <circle cx="418.2" cy="122.2" r="1.7" fill="#ffffff" opacity="0.5"/>
+  </g>
+  <g opacity="0.95">
+    <circle cx="450" cy="118" r="6" fill="url(#pr-3-m-navy-t)" stroke="#12263a" stroke-opacity="0.35" stroke-width="1"/>
+    <circle cx="448.2" cy="116.2" r="1.7" fill="#ffffff" opacity="0.5"/>
+  </g>
+  <g opacity="0.95">
+    <circle cx="480" cy="124" r="6" fill="url(#pr-3-m-navy-t)" stroke="#12263a" stroke-opacity="0.35" stroke-width="1"/>
+    <circle cx="478.2" cy="122.2" r="1.7" fill="#ffffff" opacity="0.5"/>
+  </g>
+<g opacity="1"><rect x="24" y="20" width="163.20000000000002" height="16" rx="2.5" fill="#12263a"/><text x="32" y="31.5" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="8.5" letter-spacing="1.3" fill="#ffffff">PHASE 03 — COORDINATION</text></g>
+<g opacity="1"><rect x="24" y="40" width="188.8" height="16" rx="2.5" fill="#6b8e23"/><text x="32" y="51.5" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="8.5" letter-spacing="1.3" fill="#ffffff">FEDERATE · DETECT · RESOLVE</text></g>
+<g opacity="0.8"><path d="M-18.7 -61L350 56h38" fill="none" stroke="#12263a" stroke-width="0.9"/><circle cx="-18.7" cy="-61" r="2.7" fill="#d4af37"/><text x="354" y="59" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="8.5" letter-spacing="1.5" fill="#12263a" opacity="0.62" text-anchor="start">CLASH GROUP</text></g>
+<text x="450" y="168" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="8.5" letter-spacing="1.5" fill="#12263a" opacity="0.5" text-anchor="middle">COORDINATION MEETING</text>
+<text x="576" y="162" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="8.5" letter-spacing="1.5" fill="#12263a" opacity="0.5" text-anchor="end">OWNERSHIP ASSIGNED · CONFLICTS RESOLVED</text>
+
+</svg>

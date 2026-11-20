@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 180" width="600" height="180" role="img" aria-label="LOD 500 as-built verified asset data">
+<!-- DATUM vector illustration — multi-colour isometric, material gradients, soft shadow. Generated 2026-10. -->
+
+<defs>
+  <linearGradient id="lod-500-bg" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#fdfdfe"/><stop offset="1" stop-color="#e7ecf3"/>
+  </linearGradient>
+  <radialGradient id="lod-500-sh" cx="0.5" cy="0.5" r="0.5">
+    <stop offset="0" stop-color="#12263a" stop-opacity="0.22"/>
+    <stop offset="0.65" stop-color="#12263a" stop-opacity="0.08"/>
+    <stop offset="1" stop-color="#12263a" stop-opacity="0"/>
+  </radialGradient>
+  <linearGradient id="lod-500-cone" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#d4af37" stop-opacity="0.55"/>
+    <stop offset="1" stop-color="#d4af37" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="lod-500-win" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#dfeef9"/><stop offset="1" stop-color="#a9c6e2"/>
+  </linearGradient>
+  <pattern id="lod-500-hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+    <rect width="7" height="7" fill="#ece5d6"/>
+    <line x1="0" y1="0" x2="0" y2="7" stroke="#b9ad97" stroke-width="1.3"/>
+  </pattern>
+  
+  <linearGradient id="lod-500-m-navy-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#41648f"/><stop offset="1" stop-color="#25436b"/></linearGradient>
+  <linearGradient id="lod-500-m-navy-l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#25436b"/><stop offset="1" stop-color="#0d2441"/></linearGradient>
+  <linearGradient id="lod-500-m-navy-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#152c49"/><stop offset="1" stop-color="#001633"/></linearGradient>
+  <linearGradient id="lod-500-m-steel-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8fb4d9"/><stop offset="1" stop-color="#527fae"/></linearGradient>
+  <linearGradient id="lod-500-m-steel-l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#527fae"/><stop offset="1" stop-color="#2b5177"/></linearGradient>
+  <linearGradient id="lod-500-m-steel-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#33597f"/><stop offset="1" stop-color="#1d4369"/></linearGradient>
+  <linearGradient id="lod-500-m-olive-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a9cc60"/><stop offset="1" stop-color="#6b8e23"/></linearGradient>
+  <linearGradient id="lod-500-m-olive-l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6b8e23"/><stop offset="1" stop-color="#3f5812"/></linearGradient>
+  <linearGradient id="lod-500-m-olive-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#47601a"/><stop offset="1" stop-color="#314a04"/></linearGradient>
+  <linearGradient id="lod-500-m-gold-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f3dc8a"/><stop offset="1" stop-color="#d4af37"/></linearGradient>
+  <linearGradient id="lod-500-m-gold-l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d4af37"/><stop offset="1" stop-color="#826516"/></linearGradient>
+  <linearGradient id="lod-500-m-gold-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8a6d1e"/><stop offset="1" stop-color="#745708"/></linearGradient>
+  <linearGradient id="lod-500-m-clay-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e5ac80"/><stop offset="1" stop-color="#c2703d"/></linearGradient>
+  <linearGradient id="lod-500-m-clay-l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c2703d"/><stop offset="1" stop-color="#874620"/></linearGradient>
+  <linearGradient id="lod-500-m-clay-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8f4e28"/><stop offset="1" stop-color="#793812"/></linearGradient>
+  <linearGradient id="lod-500-m-teal-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#74c0cb"/><stop offset="1" stop-color="#33808f"/></linearGradient>
+  <linearGradient id="lod-500-m-teal-l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#33808f"/><stop offset="1" stop-color="#184f5a"/></linearGradient>
+  <linearGradient id="lod-500-m-teal-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#205762"/><stop offset="1" stop-color="#0a414c"/></linearGradient>
+  <linearGradient id="lod-500-m-slate-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c6cfda"/><stop offset="1" stop-color="#8f9cab"/></linearGradient>
+  <linearGradient id="lod-500-m-slate-l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8f9cab"/><stop offset="1" stop-color="#5a6674"/></linearGradient>
+  <linearGradient id="lod-500-m-slate-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#626e7c"/><stop offset="1" stop-color="#4c5866"/></linearGradient>
+  <linearGradient id="lod-500-m-paper-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#eaeff5"/></linearGradient>
+  <linearGradient id="lod-500-m-paper-l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eaeff5"/><stop offset="1" stop-color="#c4ceda"/></linearGradient>
+  <linearGradient id="lod-500-m-paper-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ccd6e2"/><stop offset="1" stop-color="#b6c0cc"/></linearGradient>
+</defs>
+
+<rect width="600" height="180" fill="url(#lod-500-bg)"/>
+<g stroke="#12263a" stroke-width="0.5" opacity="0.055">
+  <path d="M600 0L600 0"/><path d="M600 26L555 0"/><path d="M600 52L509.9 0"/><path d="M600 78L464.9 0"/><path d="M600 104L419.9 0"/><path d="M600 130L374.8 0"/><path d="M600 156L329.8 0"/><path d="M284.8 0L596.5 180"/><path d="M239.7 0L551.5 180"/><path d="M194.7 0L506.5 180"/><path d="M149.7 0L461.4 180"/><path d="M104.6 0L416.4 180"/><path d="M59.6 0L371.4 180"/><path d="M14.6 0L326.3 180"/><path d="M0 17.6L281.3 180"/><path d="M0 43.6L236.3 180"/><path d="M0 69.6L191.2 180"/><path d="M0 95.6L146.2 180"/><path d="M0 121.6L101.2 180"/><path d="M0 147.6L56.1 180"/><path d="M0 173.6L11.1 180"/>
+  <path d="M0 17.6L30.5 0"/><path d="M0 43.6L75.5 0"/><path d="M0 69.6L120.5 0"/><path d="M0 95.6L165.6 0"/><path d="M0 121.6L210.6 0"/><path d="M0 147.6L255.6 0"/><path d="M0 173.6L300.7 0"/><path d="M345.7 0L33.9 180"/><path d="M390.7 0L79 180"/><path d="M435.8 0L124 180"/><path d="M480.8 0L169 180"/><path d="M525.8 0L214.1 180"/><path d="M570.9 0L259.1 180"/><path d="M600 9.2L304.1 180"/><path d="M600 35.2L349.2 180"/><path d="M600 61.2L394.2 180"/><path d="M600 87.2L439.2 180"/><path d="M600 113.2L484.3 180"/><path d="M600 139.2L529.3 180"/><path d="M600 165.2L574.3 180"/>
+</g>
+<rect x="1" y="1" width="598" height="178" fill="none" stroke="#12263a" stroke-width="1" opacity="0.15"/>
+<g stroke="#6b8e23" stroke-width="1.6" opacity="0.6" fill="none">
+  <path d="M9 0V9M0 9h9M591 0V9M600 9h-9M9 180V171M0 171h9M591 180V171M600 171h-9"/>
+</g>
+
+<g transform="translate(270 122) scale(0.98)">
+  <ellipse cx="0" cy="5" rx="140.8" ry="39.6" fill="url(#lod-500-sh)" opacity="1"/>
+  
+  <g opacity="1">
+    <polygon points="-33.8,-60.5 96.1,14.5 33.8,50.5 -96.1,-24.5" fill="url(#lod-500-m-slate-t)"/>
+    <polygon points="-96.1,-24.5 33.8,50.5 33.8,55.5 -96.1,-19.5" fill="url(#lod-500-m-slate-l)"/>
+    <polygon points="96.1,14.5 33.8,50.5 33.8,55.5 96.1,19.5" fill="url(#lod-500-m-slate-r)"/>
+  </g>
+  
+  <g opacity="1">
+    <polygon points="-27.7,-113 79.7,-51 27.7,-21 -79.7,-83" fill="url(#lod-500-m-navy-t)"/>
+    <polygon points="-79.7,-83 27.7,-21 27.7,41 -79.7,-21" fill="url(#lod-500-m-navy-l)"/>
+    <polygon points="79.7,-51 27.7,-21 27.7,41 79.7,11" fill="url(#lod-500-m-navy-r)"/>
+  </g><g opacity="0.95"><polygon points="73.7,3.1 66.9,7 66.9,-5.5 73.7,-9.4" fill="url(#lod-500-win)" stroke="#12263a" stroke-opacity="0.35" stroke-width="0.6"/><polygon points="-68.2,-25.7 -52.5,-16.6 -52.5,-29.1 -68.2,-38.2" fill="url(#lod-500-win)" stroke="#12263a" stroke-opacity="0.35" stroke-width="0.6"/><polygon points="65.4,7.9 58.6,11.8 58.6,-0.7 65.4,-4.6" fill="url(#lod-500-win)" stroke="#12263a" stroke-opacity="0.35" stroke-width="0.6"/><polygon points="-51,-15.7 -35.4,-6.7 -35.4,-19.2 -51,-28.2" fill="url(#lod-500-win)" stroke="#12263a" stroke-opacity="0.35" stroke-width="0.6"/><polygon points="57.1,12.7 50.3,16.6 50.3,4.1 57.1,0.2" fill="url(#lod-500-win)" stroke="#12263a" stroke-opacity="0.35" stroke-width="0.6"/><polygon points="-33.8,-5.8 -18.2,3.2 -18.2,-9.3 -33.8,-18.3" fill="url(#lod-500-win)" stroke="#12263a" stroke-opacity="0.35" stroke-width="0.6"/><polygon points="48.8,17.5 42,21.4 42,8.9 48.8,5" fill="url(#lod-500-win)" stroke="#12263a" stroke-opacity="0.35" stroke-width="0.6"/><polygon points="-16.6,4.1 -1,13.1 -1,0.6 -16.6,-8.4" fill="url(#lod-500-win)" stroke="#12263a" stroke-opacity="0.35" stroke-width="0.6"/><polygon points="40.4,22.3 33.7,26.2 33.7,13.7 40.4,9.8" fill="url(#lod-500-win)" stroke="#12263a" stroke-opacity="0.35" stroke-width="0.6"/><polygon points="0.6,14 16.2,23 16.2,10.5 0.6,1.5" fill="url(#lod-500-win)" stroke="#12263a" stroke-opacity="0.35" stroke-width="0.6"/><polygon points="73.7,-12.2 66.9,-8.3 66.9,-20.8 73.7,-24.7" fill="url(#lod-500-win)" stroke="#12263a" stroke-opacity="0.35" stroke-width="0.6"/><polygon points="-68.2,-41 -52.5,-31.9 -52.5,-44.4 -68.2,-53.5" fill="url(#lod-500-win)" stroke="#12263a" stroke-opacity="0.35" stroke-width="0.6"/><polygon points="65.4,-7.4 58.6,-3.5 58.6,-16 65.4,-19.9" fill="url(#lod-500-win)" stroke="#12263a" stroke-opacity="0.35" stroke-width="0.6"/><polygon points="-51,-31 -35.4,-22 -35.4,-34.5 -51,-43.5" fill="url(#lod-500-win)" stroke="#12263a" stroke-opacity="0.35" stroke-width="0.6"/><polygon points="57.1,-2.6 50.3,1.3 50.3,-11.2 57.1,-15.1" fill="url(#lod-500-win)" stroke="#12263a" stroke-opacity="0.35" stroke-width="0.6"/><polygon points="-33.8,-21.1 -18.2,-12.1 -18.2,-24.6 -33.8,-33.6" fill="url(#lod-500-win)" stroke="#12263a" stroke-opacity="0.35" stroke-width="0.6"/><polygon points="48.8,2.2 42,6.1 42,-6.4 48.8,-10.3" fill="url(#lod-500-win)" stroke="#12263a" stroke-opacity="0.35" stroke-width="0.6"/><polygon points="-16.6,-11.2 -1,-2.2 -1,-14.7 -16.6,-23.7" fill="url(#lod-500-win)" stroke="#12263a" stroke-opacity="0.35" stroke-width="0.6"/><polygon points="40.4,7 33.7,10.9 33.7,-1.6 40.4,-5.5" fill="url(#lod-500-win)" stroke="#12263a" stroke-opacity="0.35" stroke-width="0.6"/><polygon points="0.6,-1.3 16.2,7.7 16.2,-4.8 0.6,-13.8" fill="url(#lod-500-win)" stroke="#12263a" stroke-opacity="0.35" stroke-width="0.6"/><polygon points="73.7,-27.5 66.9,-23.6 66.9,-36.1 73.7,-39.9" fill="url(#lod-500-win)" stroke="#12263a" stroke-opacity="0.35" stroke-width="0.6"/><polygon points="-68.2,-56.3 -52.5,-47.2 -52.5,-59.7 -68.2,-68.7" fill="url(#lod-500-win)" stroke="#12263a" stroke-opacity="0.35" stroke-width="0.6"/><polygon points="65.4,-22.7 58.6,-18.8 58.6,-31.3 65.4,-35.2" fill="url(#lod-500-win)" stroke="#12263a" stroke-opacity="0.35" stroke-width="0.6"/><polygon points="-51,-46.3 -35.4,-37.3 -35.4,-49.8 -51,-58.8" fill="url(#lod-500-win)" stroke="#12263a" stroke-opacity="0.35" stroke-width="0.6"/><polygon points="57.1,-17.9 50.3,-14 50.3,-26.4 57.1,-30.4" fill="url(#lod-500-win)" stroke="#12263a" stroke-opacity="0.35" stroke-width="0.6"/><polygon points="-33.8,-36.4 -18.2,-27.4 -18.2,-39.9 -33.8,-48.9" fill="url(#lod-500-win)" stroke="#12263a" stroke-opacity="0.35" stroke-width="0.6"/><polygon points="48.8,-13.1 42,-9.2 42,-21.7 48.8,-25.6" fill="url(#lod-500-win)" stroke="#12263a" stroke-opacity="0.35" stroke-width="0.6"/><polygon points="-16.6,-26.5 -1,-17.5 -1,-30 -16.6,-39" fill="url(#lod-500-win)" stroke="#12263a" stroke-opacity="0.35" stroke-width="0.6"/><polygon points="40.4,-8.3 33.7,-4.4 33.7,-16.9 40.4,-20.8" fill="url(#lod-500-win)" stroke="#12263a" stroke-opacity="0.35" stroke-width="0.6"/><polygon points="0.6,-16.6 16.2,-7.6 16.2,-20 0.6,-29.1" fill="url(#lod-500-win)" stroke="#12263a" stroke-opacity="0.35" stroke-width="0.6"/></g>
+  <g opacity="0.92">
+    <polygon points="-27.7,-117 81.4,-54 27.7,-23 -81.4,-86" fill="url(#lod-500-m-navy-t)"/>
+    <polygon points="-81.4,-86 27.7,-23 27.7,-20 -81.4,-83" fill="url(#lod-500-m-navy-l)"/>
+    <polygon points="81.4,-54 27.7,-23 27.7,-20 81.4,-51" fill="url(#lod-500-m-navy-r)"/>
+  </g>
+  
+  <g opacity="0.92">
+    <polygon points="-27.7,-117 79.7,-55 27.7,-25 -79.7,-87" fill="url(#lod-500-m-navy-t)"/>
+    <polygon points="-79.7,-87 27.7,-25 27.7,-21 -79.7,-83" fill="url(#lod-500-m-navy-l)"/>
+    <polygon points="79.7,-55 27.7,-25 27.7,-21 79.7,-51" fill="url(#lod-500-m-navy-r)"/>
+  </g>
+  
+  <g opacity="1">
+    <path d="M-88 20V3.900000000000002" stroke="#6b4a2f" stroke-width="2.9899999999999998" stroke-linecap="round"/>
+    <circle cx="-88" cy="-3" r="9.2" fill="url(#lod-500-m-olive-t)" stroke="#47601a" stroke-opacity="0.5"/>
+    <circle cx="-94.9" cy="2.75" r="6.324999999999999" fill="url(#lod-500-m-olive-l)" stroke="#47601a" stroke-opacity="0.5"/>
+    <circle cx="-81.1" cy="2.75" r="6.324999999999999" fill="url(#lod-500-m-olive-l)" stroke="#47601a" stroke-opacity="0.5"/>
+  </g>
+  
+  <g opacity="1">
+    <path d="M76 22V8" stroke="#6b4a2f" stroke-width="2.6" stroke-linecap="round"/>
+    <circle cx="76" cy="2" r="8" fill="url(#lod-500-m-olive-t)" stroke="#47601a" stroke-opacity="0.5"/>
+    <circle cx="70" cy="7" r="5.5" fill="url(#lod-500-m-olive-l)" stroke="#47601a" stroke-opacity="0.5"/>
+    <circle cx="82" cy="7" r="5.5" fill="url(#lod-500-m-olive-l)" stroke="#47601a" stroke-opacity="0.5"/>
+  </g>
+  
+  <g opacity="1">
+    <path d="M60 -40V-51.2" stroke="#6b4a2f" stroke-width="2.08" stroke-linecap="round"/>
+    <circle cx="60" cy="-56" r="6.4" fill="url(#lod-500-m-olive-t)" stroke="#47601a" stroke-opacity="0.5"/>
+    <circle cx="55.2" cy="-52" r="4.4" fill="url(#lod-500-m-olive-l)" stroke="#47601a" stroke-opacity="0.5"/>
+    <circle cx="64.8" cy="-52" r="4.4" fill="url(#lod-500-m-olive-l)" stroke="#47601a" stroke-opacity="0.5"/>
+  </g>
+  <rect x="-103.1" y="-20.5" width="129.9" height="9" fill="url(#lod-500-hatch)" stroke="#12263a" stroke-opacity="0.3"/>
+</g>
+
+  <g opacity="1">
+    <circle cx="504" cy="52" r="14" fill="url(#lod-500-m-gold-t)" stroke="#8a6d1e" stroke-width="1.2"/>
+    <path d="M497.7 52l4.2 4.48l8.68 -9.24" fill="none" stroke="#ffffff" stroke-width="3.08" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+<g opacity="1"><rect x="24" y="20" width="60.800000000000004" height="16" rx="2.5" fill="#12263a"/><text x="32" y="31.5" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="8.5" letter-spacing="1.3" fill="#ffffff">LOD 500</text></g>
+<g opacity="1"><rect x="24" y="40" width="67.2" height="16" rx="2.5" fill="#6b8e23"/><text x="32" y="51.5" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="8.5" letter-spacing="1.3" fill="#ffffff">AS-BUILT</text></g>
+<g opacity="0.8"><path d="M504 66L400 90h38" fill="none" stroke="#12263a" stroke-width="0.9"/><circle cx="504" cy="66" r="2.7" fill="#d4af37"/><text x="404" y="93" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="8.5" letter-spacing="1.5" fill="#12263a" opacity="0.62" text-anchor="start">VERIFIED FROM SITE</text></g>
+<g opacity="0.8"><path d="M-101.5 -48L90 120h38" fill="none" stroke="#12263a" stroke-width="0.9"/><circle cx="-101.5" cy="-48" r="2.7" fill="#6b8e23"/><text x="94" y="123" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="8.5" letter-spacing="1.5" fill="#12263a" opacity="0.62" text-anchor="start">SITE CONTEXT</text></g>
+<text x="576" y="162" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="8.5" letter-spacing="1.5" fill="#12263a" opacity="0.5" text-anchor="end">FM-READY · COMPLETE ASSET DATA</text>
+
+</svg>

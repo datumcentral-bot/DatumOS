@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 220" width="640" height="220" role="img" aria-label="AI-powered project management dashboard with delivery analytics and agent network">
+<!-- DATUM vector illustration — multi-colour isometric, material gradients, soft shadow. Generated 2026-10. -->
+
+<defs>
+  <linearGradient id="ai-bg" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#fdfdfe"/><stop offset="1" stop-color="#e7ecf3"/>
+  </linearGradient>
+  <radialGradient id="ai-sh" cx="0.5" cy="0.5" r="0.5">
+    <stop offset="0" stop-color="#12263a" stop-opacity="0.22"/>
+    <stop offset="0.65" stop-color="#12263a" stop-opacity="0.08"/>
+    <stop offset="1" stop-color="#12263a" stop-opacity="0"/>
+  </radialGradient>
+  <linearGradient id="ai-cone" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#d4af37" stop-opacity="0.55"/>
+    <stop offset="1" stop-color="#d4af37" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="ai-win" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#dfeef9"/><stop offset="1" stop-color="#a9c6e2"/>
+  </linearGradient>
+  <pattern id="ai-hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+    <rect width="7" height="7" fill="#ece5d6"/>
+    <line x1="0" y1="0" x2="0" y2="7" stroke="#b9ad97" stroke-width="1.3"/>
+  </pattern>
+  
+  <linearGradient id="ai-m-navy-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#41648f"/><stop offset="1" stop-color="#25436b"/></linearGradient>
+  <linearGradient id="ai-m-navy-l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#25436b"/><stop offset="1" stop-color="#0d2441"/></linearGradient>
+  <linearGradient id="ai-m-navy-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#152c49"/><stop offset="1" stop-color="#001633"/></linearGradient>
+  <linearGradient id="ai-m-steel-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8fb4d9"/><stop offset="1" stop-color="#527fae"/></linearGradient>
+  <linearGradient id="ai-m-steel-l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#527fae"/><stop offset="1" stop-color="#2b5177"/></linearGradient>
+  <linearGradient id="ai-m-steel-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#33597f"/><stop offset="1" stop-color="#1d4369"/></linearGradient>
+  <linearGradient id="ai-m-olive-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a9cc60"/><stop offset="1" stop-color="#6b8e23"/></linearGradient>
+  <linearGradient id="ai-m-olive-l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6b8e23"/><stop offset="1" stop-color="#3f5812"/></linearGradient>
+  <linearGradient id="ai-m-olive-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#47601a"/><stop offset="1" stop-color="#314a04"/></linearGradient>
+  <linearGradient id="ai-m-gold-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f3dc8a"/><stop offset="1" stop-color="#d4af37"/></linearGradient>
+  <linearGradient id="ai-m-gold-l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d4af37"/><stop offset="1" stop-color="#826516"/></linearGradient>
+  <linearGradient id="ai-m-gold-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8a6d1e"/><stop offset="1" stop-color="#745708"/></linearGradient>
+  <linearGradient id="ai-m-clay-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e5ac80"/><stop offset="1" stop-color="#c2703d"/></linearGradient>
+  <linearGradient id="ai-m-clay-l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c2703d"/><stop offset="1" stop-color="#874620"/></linearGradient>
+  <linearGradient id="ai-m-clay-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8f4e28"/><stop offset="1" stop-color="#793812"/></linearGradient>
+  <linearGradient id="ai-m-teal-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#74c0cb"/><stop offset="1" stop-color="#33808f"/></linearGradient>
+  <linearGradient id="ai-m-teal-l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#33808f"/><stop offset="1" stop-color="#184f5a"/></linearGradient>
+  <linearGradient id="ai-m-teal-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#205762"/><stop offset="1" stop-color="#0a414c"/></linearGradient>
+  <linearGradient id="ai-m-slate-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c6cfda"/><stop offset="1" stop-color="#8f9cab"/></linearGradient>
+  <linearGradient id="ai-m-slate-l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8f9cab"/><stop offset="1" stop-color="#5a6674"/></linearGradient>
+  <linearGradient id="ai-m-slate-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#626e7c"/><stop offset="1" stop-color="#4c5866"/></linearGradient>
+  <linearGradient id="ai-m-paper-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#eaeff5"/></linearGradient>
+  <linearGradient id="ai-m-paper-l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eaeff5"/><stop offset="1" stop-color="#c4ceda"/></linearGradient>
+  <linearGradient id="ai-m-paper-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ccd6e2"/><stop offset="1" stop-color="#b6c0cc"/></linearGradient>
+</defs>
+
+<rect width="640" height="220" fill="url(#ai-bg)"/>
+<g stroke="#12263a" stroke-width="0.5" opacity="0.055">
+  <path d="M640 0L640 0"/><path d="M640 26L595 0"/><path d="M640 52L549.9 0"/><path d="M640 78L504.9 0"/><path d="M640 104L459.9 0"/><path d="M640 130L414.8 0"/><path d="M640 156L369.8 0"/><path d="M640 182L324.8 0"/><path d="M640 208L279.7 0"/><path d="M234.7 0L615.8 220"/><path d="M189.7 0L570.7 220"/><path d="M144.6 0L525.7 220"/><path d="M99.6 0L480.7 220"/><path d="M54.6 0L435.6 220"/><path d="M9.5 0L390.6 220"/><path d="M0 20.5L345.6 220"/><path d="M0 46.5L300.5 220"/><path d="M0 72.5L255.5 220"/><path d="M0 98.5L210.5 220"/><path d="M0 124.5L165.4 220"/><path d="M0 150.5L120.4 220"/><path d="M0 176.5L75.4 220"/><path d="M0 202.5L30.3 220"/>
+  <path d="M0 20.5L35.5 0"/><path d="M0 46.5L80.5 0"/><path d="M0 72.5L125.6 0"/><path d="M0 98.5L170.6 0"/><path d="M0 124.5L215.6 0"/><path d="M0 150.5L260.7 0"/><path d="M0 176.5L305.7 0"/><path d="M0 202.5L350.7 0"/><path d="M395.8 0L14.7 220"/><path d="M440.8 0L59.7 220"/><path d="M485.8 0L104.8 220"/><path d="M530.9 0L149.8 220"/><path d="M575.9 0L194.8 220"/><path d="M620.9 0L239.9 220"/><path d="M640 15L284.9 220"/><path d="M640 41L329.9 220"/><path d="M640 67L375 220"/><path d="M640 93L420 220"/><path d="M640 119L465 220"/><path d="M640 145L510.1 220"/><path d="M640 171L555.1 220"/><path d="M640 197L600.1 220"/>
+</g>
+<rect x="1" y="1" width="638" height="218" fill="none" stroke="#12263a" stroke-width="1" opacity="0.15"/>
+<g stroke="#6b8e23" stroke-width="1.6" opacity="0.6" fill="none">
+  <path d="M9 0V9M0 9h9M631 0V9M640 9h-9M9 220V211M0 211h9M631 220V211M640 211h-9"/>
+</g>
+
+<path d="M118 46L180 76" fill="none" stroke="#12263a" stroke-width="1.1" opacity="0.22" /><path d="M118 46L180 116" fill="none" stroke="#12263a" stroke-width="1.1" opacity="0.22" /><path d="M118 46L180 156" fill="none" stroke="#12263a" stroke-width="1.1" opacity="0.22" /><path d="M118 74L180 76" fill="none" stroke="#12263a" stroke-width="1.1" opacity="0.22" /><path d="M118 74L180 116" fill="none" stroke="#12263a" stroke-width="1.1" opacity="0.22" /><path d="M118 74L180 156" fill="none" stroke="#12263a" stroke-width="1.1" opacity="0.22" /><path d="M118 130L180 76" fill="none" stroke="#12263a" stroke-width="1.1" opacity="0.22" /><path d="M118 130L180 116" fill="none" stroke="#12263a" stroke-width="1.1" opacity="0.22" /><path d="M118 130L180 156" fill="none" stroke="#12263a" stroke-width="1.1" opacity="0.22" /><path d="M118 186L180 76" fill="none" stroke="#12263a" stroke-width="1.1" opacity="0.22" /><path d="M118 186L180 116" fill="none" stroke="#12263a" stroke-width="1.1" opacity="0.22" /><path d="M118 186L180 156" fill="none" stroke="#12263a" stroke-width="1.1" opacity="0.22" /><path d="M180 76L242 100" fill="none" stroke="#12263a" stroke-width="1.1" opacity="0.22" /><path d="M180 76L242 142" fill="none" stroke="#12263a" stroke-width="1.1" opacity="0.22" /><path d="M180 116L242 100" fill="none" stroke="#12263a" stroke-width="1.1" opacity="0.22" /><path d="M180 116L242 142" fill="none" stroke="#12263a" stroke-width="1.1" opacity="0.22" /><path d="M180 156L242 100" fill="none" stroke="#12263a" stroke-width="1.1" opacity="0.22" /><path d="M180 156L242 142" fill="none" stroke="#12263a" stroke-width="1.1" opacity="0.22" />
+  <g opacity="1">
+    <circle cx="118" cy="46" r="8" fill="url(#ai-m-steel-t)" stroke="#12263a" stroke-opacity="0.35" stroke-width="1"/>
+    <circle cx="115.6" cy="43.6" r="2.2" fill="#ffffff" opacity="0.5"/>
+  </g>
+  <g opacity="1">
+    <circle cx="118" cy="74" r="8" fill="url(#ai-m-steel-t)" stroke="#12263a" stroke-opacity="0.35" stroke-width="1"/>
+    <circle cx="115.6" cy="71.6" r="2.2" fill="#ffffff" opacity="0.5"/>
+  </g>
+  <g opacity="1">
+    <circle cx="118" cy="130" r="8" fill="url(#ai-m-steel-t)" stroke="#12263a" stroke-opacity="0.35" stroke-width="1"/>
+    <circle cx="115.6" cy="127.6" r="2.2" fill="#ffffff" opacity="0.5"/>
+  </g>
+  <g opacity="1">
+    <circle cx="118" cy="186" r="8" fill="url(#ai-m-steel-t)" stroke="#12263a" stroke-opacity="0.35" stroke-width="1"/>
+    <circle cx="115.6" cy="183.6" r="2.2" fill="#ffffff" opacity="0.5"/>
+  </g>
+  <g opacity="1">
+    <circle cx="180" cy="76" r="9" fill="url(#ai-m-olive-t)" stroke="#12263a" stroke-opacity="0.35" stroke-width="1"/>
+    <circle cx="177.3" cy="73.3" r="2.5" fill="#ffffff" opacity="0.5"/>
+  </g>
+  <g opacity="1">
+    <circle cx="180" cy="116" r="9" fill="url(#ai-m-olive-t)" stroke="#12263a" stroke-opacity="0.35" stroke-width="1"/>
+    <circle cx="177.3" cy="113.3" r="2.5" fill="#ffffff" opacity="0.5"/>
+  </g>
+  <g opacity="1">
+    <circle cx="180" cy="156" r="9" fill="url(#ai-m-olive-t)" stroke="#12263a" stroke-opacity="0.35" stroke-width="1"/>
+    <circle cx="177.3" cy="153.3" r="2.5" fill="#ffffff" opacity="0.5"/>
+  </g>
+  <g opacity="1">
+    <circle cx="242" cy="100" r="9" fill="url(#ai-m-gold-t)" stroke="#12263a" stroke-opacity="0.35" stroke-width="1"/>
+    <circle cx="239.3" cy="97.3" r="2.5" fill="#ffffff" opacity="0.5"/>
+  </g>
+  <g opacity="1">
+    <circle cx="242" cy="142" r="9" fill="url(#ai-m-gold-t)" stroke="#12263a" stroke-opacity="0.35" stroke-width="1"/>
+    <circle cx="239.3" cy="139.3" r="2.5" fill="#ffffff" opacity="0.5"/>
+  </g>
+
+  <rect x="300" y="36" width="316" height="142" rx="4" fill="url(#ai-m-paper-t)" stroke="#12263a" stroke-opacity="0.4" stroke-width="1.2"/>
+  <rect x="300" y="36" width="316" height="22" rx="4" fill="url(#ai-m-navy-l)"/>
+  <text x="312" y="51" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="8" letter-spacing="1.5" fill="#12263a" opacity="0.95" text-anchor="start">DATUMOS — DELIVERY ANALYTICS</text>
+  <line x1="312" y1="168" x2="480" y2="168" stroke="#12263a" stroke-opacity="0.3" stroke-width="1"/>
+  <rect x="330" y="126" width="15" height="42" rx="1.5" fill="url(#ai-m-olive-l)" opacity="0.95"/><rect x="356" y="102" width="15" height="66" rx="1.5" fill="url(#ai-m-olive-l)" opacity="0.95"/><rect x="382" y="134" width="15" height="34" rx="1.5" fill="url(#ai-m-olive-l)" opacity="0.95"/><rect x="408" y="90" width="15" height="78" rx="1.5" fill="url(#ai-m-olive-l)" opacity="0.95"/><rect x="434" y="112" width="15" height="56" rx="1.5" fill="url(#ai-m-olive-l)" opacity="0.95"/><rect x="460" y="78" width="15" height="90" rx="1.5" fill="url(#ai-m-gold-l)" opacity="0.95"/>
+  <g opacity="1">
+    <circle cx="552" cy="92" r="26" fill="none" stroke="#12263a" stroke-opacity="0.12" stroke-width="7"/>
+    <circle cx="552" cy="92" r="26" fill="none" stroke="url(#ai-m-steel-l)" stroke-width="7" stroke-linecap="round" stroke-dasharray="117.6 163.4" transform="rotate(-90 552 92)"/>
+  </g>
+  <text x="552" y="96" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10" letter-spacing="1.5" fill="#12263a" opacity="0.9" text-anchor="middle">72%</text>
+  <text x="552" y="132" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="8.5" letter-spacing="1.5" fill="#12263a" opacity="0.55" text-anchor="middle">ON TRACK</text>
+  <path d="M312 150L352 138L392 144L432 122L472 128" fill="none" stroke="url(#ai-m-gold-l)" stroke-width="2.2" stroke-linecap="round"/>
+  <g opacity="0.92"><rect x="312" y="100" width="144" height="16" rx="2.5" fill="#6b8e23"/><text x="320" y="111.5" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="8.5" letter-spacing="1.3" fill="#ffffff">CLASH CLASSIFICATION</text></g>
+  <g opacity="0.85"><rect x="312" y="120" width="92.80000000000001" height="16" rx="2.5" fill="#12263a"/><text x="320" y="131.5" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="8.5" letter-spacing="1.3" fill="#ffffff">LEAD SCORING</text></g>
+  
+<g opacity="1"><rect x="24" y="22" width="150.4" height="16" rx="2.5" fill="#12263a"/><text x="32" y="33.5" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="8.5" letter-spacing="1.3" fill="#ffffff">AI PROJECT MANAGEMENT</text></g>
+<g opacity="1"><rect x="24" y="44" width="73.6" height="16" rx="2.5" fill="#6b8e23"/><text x="32" y="55.5" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="8.5" letter-spacing="1.3" fill="#ffffff">REAL-TIME</text></g>
+<g opacity="0.8"><path d="M118 74L236 40h38" fill="none" stroke="#12263a" stroke-width="0.9"/><circle cx="118" cy="74" r="2.7" fill="#527fae"/><text x="240" y="43" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="8.5" letter-spacing="1.5" fill="#12263a" opacity="0.62" text-anchor="start">NEURAL REVIEW</text></g>
+<text x="616" y="200" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="8.5" letter-spacing="1.5" fill="#12263a" opacity="0.5" text-anchor="end">AUTOMATED CLASSIFICATION · PIPELINE ANALYTICS</text>
+
+</svg>

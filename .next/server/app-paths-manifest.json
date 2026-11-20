@@ -1,0 +1,19 @@
+{
+  "/login/page": "app/login/page.js",
+  "/page": "app/page.js",
+  "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
+  "/console/page": "app/console/page.js",
+  "/api/projects/route": "app/api/projects/route.js",
+  "/api/risks/route": "app/api/risks/route.js",
+  "/api/admin/data/route": "app/api/admin/data/route.js",
+  "/api/tasks/route": "app/api/tasks/route.js",
+  "/api/kpi/route": "app/api/kpi/route.js",
+  "/api/pm-projects/route": "app/api/pm-projects/route.js",
+  "/director/page": "app/director/page.js",
+  "/director/live-monitor/page": "app/director/live-monitor/page.js",
+  "/director/live/page": "app/director/live/page.js",
+  "/director/portfolio/page": "app/director/portfolio/page.js",
+  "/director/war-room/page": "app/director/war-room/page.js",
+  "/director/funding/page": "app/director/funding/page.js",
+  "/director/kpi/page": "app/director/kpi/page.js"
+}

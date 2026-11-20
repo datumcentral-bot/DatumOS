@@ -1,0 +1,185 @@
+model OpsCase {
+  id String @id @default(cuid())
+  reference String @unique
+  title String
+  status String @default("ENQUIRY")
+  synthetic Boolean @default(false)
+  archived Boolean @default(false)
+  ownerId String
+  clientId String
+  leadId String @unique
+  quoteRequestId String @unique
+  proposalId String? @unique
+  projectId String? @unique
+  invoiceId String? @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  client Client @relation(fields:[clientId],references:[id])
+  lead Lead @relation(fields:[leadId],references:[id])
+  quoteRequest QuoteRequest @relation(fields:[quoteRequestId],references:[id])
+  proposal Proposal? @relation(fields:[proposalId],references:[id])
+  project Project? @relation(fields:[projectId],references:[id])
+  invoice Invoice? @relation(fields:[invoiceId],references:[id])
+  documents OpsDocument[]
+  requirements OpsRequirement[]
+  revisions OpsProposalRevision[]
+  decisions OpsClientDecision[]
+  deliveries OpsDelivery[]
+  runs OpsRun[]
+  @@index([ownerId,archived])
+}
+
+model OpsReceipt {
+  key String @id
+  hash String
+  result Json
+  createdAt DateTime @default(now())
+}
+
+model OpsDocument {
+  id String @id @default(cuid())
+  caseId String
+  title String
+  revision Int @default(1)
+  family String
+  originalName String
+  storageKey String @unique
+  sha256 String
+  size Int
+  mediaType String
+  extractionStatus String @default("PENDING")
+  extractedText String?
+  anchors Json?
+  limitations String?
+  uploadedBy String
+  createdAt DateTime @default(now())
+  case OpsCase @relation(fields:[caseId],references:[id])
+  requirements OpsRequirement[]
+  decisions OpsClientDecision[]
+  deliveries OpsDelivery[]
+  @@unique([caseId,family,revision])
+  @@index([caseId,sha256])
+}
+
+model OpsRequirement {
+  id String @id @default(cuid())
+  caseId String
+  documentId String
+  anchor String
+  text String
+  kind String @default("FACT")
+  status String @default("UNREVIEWED")
+  reviewedBy String?
+  reviewedAt DateTime?
+  case OpsCase @relation(fields:[caseId],references:[id])
+  document OpsDocument @relation(fields:[documentId],references:[id])
+  @@unique([documentId,anchor])
+}
+
+model OpsProposalRevision {
+  id String @id @default(cuid())
+  caseId String
+  revision Int
+  title String
+  scope String
+  currency String
+  amountMinor Int
+  lines Json
+  assumptions String
+  status String @default("DRAFT")
+  contentHash String
+  preparedBy String
+  approvedBy String?
+  approvedAt DateTime?
+  createdAt DateTime @default(now())
+  case OpsCase @relation(fields:[caseId],references:[id])
+  decisions OpsClientDecision[]
+  @@unique([caseId,revision])
+}
+
+model OpsClientDecision {
+  id String @id @default(cuid())
+  caseId String
+  revisionId String @unique
+  evidenceDocumentId String
+  acceptedBy String
+  acceptedAt DateTime
+  recordedBy String
+  note String
+  createdAt DateTime @default(now())
+  case OpsCase @relation(fields:[caseId],references:[id])
+  revision OpsProposalRevision @relation(fields:[revisionId],references:[id])
+  evidence OpsDocument @relation(fields:[evidenceDocumentId],references:[id])
+}
+
+model OpsTaskReview {
+  id String @id @default(cuid())
+  taskId String
+  fingerprint String
+  decision String
+  reviewerId String
+  note String
+  createdAt DateTime @default(now())
+  task Task @relation(fields:[taskId],references:[id])
+  @@index([taskId,createdAt])
+}
+
+model OpsDelivery {
+  id String @id @default(cuid())
+  caseId String
+  evidenceDocumentId String
+  revision String
+  recipient String
+  method String
+  deliveredAt DateTime
+  recordedBy String
+  note String
+  createdAt DateTime @default(now())
+  case OpsCase @relation(fields:[caseId],references:[id])
+  evidence OpsDocument @relation(fields:[evidenceDocumentId],references:[id])
+}
+
+model OpsRun {
+  id String @id @default(cuid())
+  caseId String?
+  mode String
+  kind String
+  status String
+  attempts Int @default(0)
+  errorCode String?
+  output Json?
+  actorId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  case OpsCase? @relation(fields:[caseId],references:[id])
+}
+
+model OpsTraining {
+  id String @id @default(cuid())
+  userId String
+  sopId String
+  status String @default("ASSIGNED")
+  completedAt DateTime?
+  note String?
+  user User @relation(fields:[userId],references:[id])
+  sop Sop @relation(fields:[sopId],references:[id])
+  @@unique([userId,sopId])
+}
+
+model OpsPayment {
+  id String @id @default(cuid())
+  invoiceId String
+  amountMinor Int
+  currency String
+  reference String
+  paidAt DateTime
+  recordedBy String
+  invoice Invoice @relation(fields:[invoiceId],references:[id])
+  @@unique([invoiceId,reference])
+}
+
+model OpsSetting {
+  key String @id
+  value Json
+  updatedAt DateTime @updatedAt
+}

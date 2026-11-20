@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 220" width="640" height="220" role="img" aria-label="Structural frame elevation with rebar section detail">
+<!-- DATUM vector illustration — multi-colour isometric, material gradients, soft shadow. Generated 2026-10. -->
+
+<defs>
+  <linearGradient id="struct-bg" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#fdfdfe"/><stop offset="1" stop-color="#e7ecf3"/>
+  </linearGradient>
+  <radialGradient id="struct-sh" cx="0.5" cy="0.5" r="0.5">
+    <stop offset="0" stop-color="#12263a" stop-opacity="0.22"/>
+    <stop offset="0.65" stop-color="#12263a" stop-opacity="0.08"/>
+    <stop offset="1" stop-color="#12263a" stop-opacity="0"/>
+  </radialGradient>
+  <linearGradient id="struct-cone" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#d4af37" stop-opacity="0.55"/>
+    <stop offset="1" stop-color="#d4af37" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="struct-win" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#dfeef9"/><stop offset="1" stop-color="#a9c6e2"/>
+  </linearGradient>
+  <pattern id="struct-hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+    <rect width="7" height="7" fill="#ece5d6"/>
+    <line x1="0" y1="0" x2="0" y2="7" stroke="#b9ad97" stroke-width="1.3"/>
+  </pattern>
+  
+  <linearGradient id="struct-m-navy-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#41648f"/><stop offset="1" stop-color="#25436b"/></linearGradient>
+  <linearGradient id="struct-m-navy-l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#25436b"/><stop offset="1" stop-color="#0d2441"/></linearGradient>
+  <linearGradient id="struct-m-navy-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#152c49"/><stop offset="1" stop-color="#001633"/></linearGradient>
+  <linearGradient id="struct-m-steel-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8fb4d9"/><stop offset="1" stop-color="#527fae"/></linearGradient>
+  <linearGradient id="struct-m-steel-l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#527fae"/><stop offset="1" stop-color="#2b5177"/></linearGradient>
+  <linearGradient id="struct-m-steel-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#33597f"/><stop offset="1" stop-color="#1d4369"/></linearGradient>
+  <linearGradient id="struct-m-olive-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a9cc60"/><stop offset="1" stop-color="#6b8e23"/></linearGradient>
+  <linearGradient id="struct-m-olive-l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6b8e23"/><stop offset="1" stop-color="#3f5812"/></linearGradient>
+  <linearGradient id="struct-m-olive-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#47601a"/><stop offset="1" stop-color="#314a04"/></linearGradient>
+  <linearGradient id="struct-m-gold-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f3dc8a"/><stop offset="1" stop-color="#d4af37"/></linearGradient>
+  <linearGradient id="struct-m-gold-l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d4af37"/><stop offset="1" stop-color="#826516"/></linearGradient>
+  <linearGradient id="struct-m-gold-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8a6d1e"/><stop offset="1" stop-color="#745708"/></linearGradient>
+  <linearGradient id="struct-m-clay-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e5ac80"/><stop offset="1" stop-color="#c2703d"/></linearGradient>
+  <linearGradient id="struct-m-clay-l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c2703d"/><stop offset="1" stop-color="#874620"/></linearGradient>
+  <linearGradient id="struct-m-clay-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8f4e28"/><stop offset="1" stop-color="#793812"/></linearGradient>
+  <linearGradient id="struct-m-teal-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#74c0cb"/><stop offset="1" stop-color="#33808f"/></linearGradient>
+  <linearGradient id="struct-m-teal-l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#33808f"/><stop offset="1" stop-color="#184f5a"/></linearGradient>
+  <linearGradient id="struct-m-teal-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#205762"/><stop offset="1" stop-color="#0a414c"/></linearGradient>
+  <linearGradient id="struct-m-slate-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c6cfda"/><stop offset="1" stop-color="#8f9cab"/></linearGradient>
+  <linearGradient id="struct-m-slate-l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8f9cab"/><stop offset="1" stop-color="#5a6674"/></linearGradient>
+  <linearGradient id="struct-m-slate-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#626e7c"/><stop offset="1" stop-color="#4c5866"/></linearGradient>
+  <linearGradient id="struct-m-paper-t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#eaeff5"/></linearGradient>
+  <linearGradient id="struct-m-paper-l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eaeff5"/><stop offset="1" stop-color="#c4ceda"/></linearGradient>
+  <linearGradient id="struct-m-paper-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ccd6e2"/><stop offset="1" stop-color="#b6c0cc"/></linearGradient>
+</defs>
+
+<rect width="640" height="220" fill="url(#struct-bg)"/>
+<g stroke="#12263a" stroke-width="0.5" opacity="0.055">
+  <path d="M640 0L640 0"/><path d="M640 26L595 0"/><path d="M640 52L549.9 0"/><path d="M640 78L504.9 0"/><path d="M640 104L459.9 0"/><path d="M640 130L414.8 0"/><path d="M640 156L369.8 0"/><path d="M640 182L324.8 0"/><path d="M640 208L279.7 0"/><path d="M234.7 0L615.8 220"/><path d="M189.7 0L570.7 220"/><path d="M144.6 0L525.7 220"/><path d="M99.6 0L480.7 220"/><path d="M54.6 0L435.6 220"/><path d="M9.5 0L390.6 220"/><path d="M0 20.5L345.6 220"/><path d="M0 46.5L300.5 220"/><path d="M0 72.5L255.5 220"/><path d="M0 98.5L210.5 220"/><path d="M0 124.5L165.4 220"/><path d="M0 150.5L120.4 220"/><path d="M0 176.5L75.4 220"/><path d="M0 202.5L30.3 220"/>
+  <path d="M0 20.5L35.5 0"/><path d="M0 46.5L80.5 0"/><path d="M0 72.5L125.6 0"/><path d="M0 98.5L170.6 0"/><path d="M0 124.5L215.6 0"/><path d="M0 150.5L260.7 0"/><path d="M0 176.5L305.7 0"/><path d="M0 202.5L350.7 0"/><path d="M395.8 0L14.7 220"/><path d="M440.8 0L59.7 220"/><path d="M485.8 0L104.8 220"/><path d="M530.9 0L149.8 220"/><path d="M575.9 0L194.8 220"/><path d="M620.9 0L239.9 220"/><path d="M640 15L284.9 220"/><path d="M640 41L329.9 220"/><path d="M640 67L375 220"/><path d="M640 93L420 220"/><path d="M640 119L465 220"/><path d="M640 145L510.1 220"/><path d="M640 171L555.1 220"/><path d="M640 197L600.1 220"/>
+</g>
+<rect x="1" y="1" width="638" height="218" fill="none" stroke="#12263a" stroke-width="1" opacity="0.15"/>
+<g stroke="#6b8e23" stroke-width="1.6" opacity="0.6" fill="none">
+  <path d="M9 0V9M0 9h9M631 0V9M640 9h-9M9 220V211M0 211h9M631 220V211M640 211h-9"/>
+</g>
+
+<g transform="translate(320 134) scale(1.18)">
+  <ellipse cx="0" cy="5" rx="134.7" ry="43.8" fill="url(#struct-sh)" opacity="1"/>
+  
+  <g opacity="1">
+    <polygon points="-22.5,-66 102.2,6 22.5,52 -102.2,-20" fill="url(#struct-m-slate-t)"/>
+    <polygon points="-102.2,-20 22.5,52 22.5,59 -102.2,-13" fill="url(#struct-m-slate-l)"/>
+    <polygon points="102.2,6 22.5,52 22.5,59 102.2,13" fill="url(#struct-m-slate-r)"/>
+  </g>
+  
+  <g opacity="1">
+    <polygon points="-17.3,-112 -12.1,-109 -17.3,-106 -22.5,-109" fill="url(#struct-m-navy-t)"/>
+    <polygon points="-22.5,-109 -17.3,-106 -17.3,-44 -22.5,-47" fill="url(#struct-m-navy-l)"/>
+    <polygon points="-12.1,-109 -17.3,-106 -17.3,-44 -12.1,-47" fill="url(#struct-m-navy-r)"/>
+  </g>
+  
+  <g opacity="1">
+    <polygon points="69.3,-62 74.5,-59 69.3,-56 64.1,-59" fill="url(#struct-m-navy-t)"/>
+    <polygon points="64.1,-59 69.3,-56 69.3,6 64.1,3" fill="url(#struct-m-navy-l)"/>
+    <polygon points="74.5,-59 69.3,-56 69.3,6 74.5,3" fill="url(#struct-m-navy-r)"/>
+  </g>
+  
+  <g opacity="1">
+    <polygon points="-69.3,-82 -64.1,-79 -69.3,-76 -74.5,-79" fill="url(#struct-m-navy-t)"/>
+    <polygon points="-74.5,-79 -69.3,-76 -69.3,-14 -74.5,-17" fill="url(#struct-m-navy-l)"/>
+    <polygon points="-64.1,-79 -69.3,-76 -69.3,-14 -64.1,-17" fill="url(#struct-m-navy-r)"/>
+  </g>
+  
+  <g opacity="1">
+    <polygon points="17.3,-32 22.5,-29 17.3,-26 12.1,-29" fill="url(#struct-m-navy-t)"/>
+    <polygon points="12.1,-29 17.3,-26 17.3,36 12.1,33" fill="url(#struct-m-navy-l)"/>
+    <polygon points="22.5,-29 17.3,-26 17.3,36 22.5,33" fill="url(#struct-m-navy-r)"/>
+  </g>
+  
+  <g opacity="1">
+    <polygon points="-17.3,-122 79.7,-66 74.5,-63 -22.5,-119" fill="url(#struct-m-navy-t)"/>
+    <polygon points="-22.5,-119 74.5,-63 74.5,-56 -22.5,-112" fill="url(#struct-m-navy-l)"/>
+    <polygon points="79.7,-66 74.5,-63 74.5,-56 79.7,-59" fill="url(#struct-m-navy-r)"/>
+  </g>
+  
+  <g opacity="1">
+    <polygon points="-74.5,-89 22.5,-33 17.3,-30 -79.7,-86" fill="url(#struct-m-navy-t)"/>
+    <polygon points="-79.7,-86 17.3,-30 17.3,-23 -79.7,-79" fill="url(#struct-m-navy-l)"/>
+    <polygon points="22.5,-33 17.3,-30 17.3,-23 22.5,-26" fill="url(#struct-m-navy-r)"/>
+  </g>
+  
+  <g opacity="1">
+    <polygon points="-17.3,-122 -12.1,-119 -74.5,-83 -79.7,-86" fill="url(#struct-m-navy-t)"/>
+    <polygon points="-79.7,-86 -74.5,-83 -74.5,-76 -79.7,-79" fill="url(#struct-m-navy-l)"/>
+    <polygon points="-12.1,-119 -74.5,-83 -74.5,-76 -12.1,-112" fill="url(#struct-m-navy-r)"/>
+  </g>
+  
+  <g opacity="1">
+    <polygon points="74.5,-69 79.7,-66 17.3,-30 12.1,-33" fill="url(#struct-m-navy-t)"/>
+    <polygon points="12.1,-33 17.3,-30 17.3,-23 12.1,-26" fill="url(#struct-m-navy-l)"/>
+    <polygon points="79.7,-66 17.3,-30 17.3,-23 79.7,-59" fill="url(#struct-m-navy-r)"/>
+  </g>
+  
+  <g opacity="1">
+    <polygon points="-17.3,-130 83.1,-72 17.3,-34 -83.1,-92" fill="url(#struct-m-navy-t)"/>
+    <polygon points="-83.1,-92 17.3,-34 17.3,-28 -83.1,-86" fill="url(#struct-m-navy-l)"/>
+    <polygon points="83.1,-72 17.3,-34 17.3,-28 83.1,-66" fill="url(#struct-m-navy-r)"/>
+  </g>
+  <g opacity="1"><path d="M17.3 -48.5L17.3 -76.5" stroke="url(#struct-m-gold-r)" stroke-width="1.8" stroke-linecap="round"/><path d="M6.1 -42L6.1 -70" stroke="url(#struct-m-gold-r)" stroke-width="1.8" stroke-linecap="round"/><path d="M28.6 -42L28.6 -70" stroke="url(#struct-m-gold-r)" stroke-width="1.8" stroke-linecap="round"/><path d="M17.3 -35.5L17.3 -63.5" stroke="url(#struct-m-gold-r)" stroke-width="1.8" stroke-linecap="round"/><polygon points="17.3,-48.5 28.6,-42 17.3,-35.5 6.1,-42" fill="none" stroke="url(#struct-m-gold-r)" stroke-width="1.1" opacity="0.85"/><polygon points="17.3,-57.8 28.6,-51.3 17.3,-44.8 6.1,-51.3" fill="none" stroke="url(#struct-m-gold-r)" stroke-width="1.1" opacity="0.85"/><polygon points="17.3,-67.2 28.6,-60.7 17.3,-54.2 6.1,-60.7" fill="none" stroke="url(#struct-m-gold-r)" stroke-width="1.1" opacity="0.85"/><polygon points="17.3,-76.5 28.6,-70 17.3,-63.5 6.1,-70" fill="none" stroke="url(#struct-m-gold-r)" stroke-width="1.1" opacity="0.85"/></g>
+  
+  <g opacity="0.9">
+    <polygon points="-17.3,-163 83.1,-105 17.3,-67 -83.1,-125" fill="url(#struct-m-clay-t)"/>
+    <polygon points="-83.1,-125 17.3,-67 17.3,-63 -83.1,-121" fill="url(#struct-m-clay-l)"/>
+    <polygon points="83.1,-105 17.3,-67 17.3,-63 83.1,-101" fill="url(#struct-m-clay-r)"/>
+  </g>
+</g>
+<g opacity="0.8"><path d="M-26 -171L-26 -149" fill="none" stroke="#c2703d" stroke-width="2.2"  stroke-linecap="round"/><path d="M-28.9 -155.6L-26 -149L-23.1 -155.6" fill="none" stroke="#c2703d" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g opacity="0.8"><path d="M0 -146L0 -124" fill="none" stroke="#c2703d" stroke-width="2.2"  stroke-linecap="round"/><path d="M-2.9 -130.6L0 -124L2.9 -130.6" fill="none" stroke="#c2703d" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g opacity="0.8"><path d="M52 -141L52 -119" fill="none" stroke="#c2703d" stroke-width="2.2"  stroke-linecap="round"/><path d="M49.1 -125.6L52 -119L54.9 -125.6" fill="none" stroke="#c2703d" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g opacity="1"><rect x="24" y="22" width="73.6" height="16" rx="2.5" fill="#12263a"/><text x="32" y="33.5" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="8.5" letter-spacing="1.3" fill="#ffffff">LOAD PATH</text></g>
+<g opacity="1"><rect x="24" y="44" width="150.4" height="16" rx="2.5" fill="#6b8e23"/><text x="32" y="55.5" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="8.5" letter-spacing="1.3" fill="#ffffff">RCC / STEEL / PRECAST</text></g>
+<g opacity="0.8"><path d="M27.3 -60L470 52h38" fill="none" stroke="#12263a" stroke-width="0.9"/><circle cx="27.3" cy="-60" r="2.7" fill="#d4af37"/><text x="474" y="55" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="8.5" letter-spacing="1.5" fill="#12263a" opacity="0.62" text-anchor="start">REBAR CAGE</text></g>
+<g opacity="0.8"><path d="M-29.9 -81.5L330 120h38" fill="none" stroke="#12263a" stroke-width="0.9"/><circle cx="-29.9" cy="-81.5" r="2.7" fill="#4e7fae"/><text x="334" y="123" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="8.5" letter-spacing="1.5" fill="#12263a" opacity="0.62" text-anchor="start">COLUMN</text></g>
+<text x="616" y="200" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="8.5" letter-spacing="1.5" fill="#12263a" opacity="0.5" text-anchor="end">ANALYSIS-TO-MODEL TRACEABILITY</text>
+
+</svg>
