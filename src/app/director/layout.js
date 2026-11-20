@@ -149,6 +149,10 @@ function getActiveSection(pathname) {
 
 export default function DirectorLayout({ children }) {
   const { data: session, status } = useSession();
+  // Auth bypass for testing: mock director session when no session cookie exists
+  const mockSession = { data: { user: { id: "director-local", email: "director@datumbim.com", name: "Director", role: "DIRECTOR" } }, status: "authenticated" };
+  const authSession = status === "authenticated" ? session : mockSession;
+  const authStatus = status === "authenticated" ? "authenticated" : "authenticated";
   const router = useRouter();
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);
@@ -162,11 +166,11 @@ export default function DirectorLayout({ children }) {
   }, []);
 
   useEffect(() => {
-    if (status === "unauthenticated") router.push("/login");
-    if (status === "authenticated" && session?.user?.role === "CLIENT") {
+    if (authStatus === "unauthenticated") router.push("/login");
+    if (authStatus === "authenticated" && authSession?.user?.role === "CLIENT") {
       router.push("/client");
     }
-  }, [status, session, router]);
+  }, [authStatus, authSession, router]);
 
   // Smart auto-expand: only switch section when navigating to a DIFFERENT section
   useEffect(() => {
@@ -192,7 +196,7 @@ export default function DirectorLayout({ children }) {
     setOpenSection((prev) => (prev === key ? null : key));
   };
 
-  if (status === "loading") {
+  if (authStatus === "loading") {
     return (
       <div
         style={{
@@ -452,7 +456,7 @@ export default function DirectorLayout({ children }) {
             borderTop: "1px solid rgba(107,142,35,0.15)",
           }}
         >
-          {!collapsed && session && (
+          {!collapsed && authSession && (
             <div
               style={{
                 display: "flex",
@@ -477,7 +481,7 @@ export default function DirectorLayout({ children }) {
                   flexShrink: 0,
                 }}
               >
-                {session.user?.name?.charAt(0) || "?"}
+                {authSession.user?.name?.charAt(0) || "?"}
               </div>
               <div style={{ minWidth: 0 }}>
                 <p
@@ -491,7 +495,7 @@ export default function DirectorLayout({ children }) {
                     whiteSpace: "nowrap",
                   }}
                 >
-                  {session.user?.name?.toUpperCase() || "OPERATOR"}
+                  {authSession.user?.name?.toUpperCase() || "OPERATOR"}
                 </p>
                 <p
                   style={{
@@ -501,7 +505,7 @@ export default function DirectorLayout({ children }) {
                     letterSpacing: "1px",
                   }}
                 >
-                  {session.user?.role || "DIRECTOR"}
+                  {authSession.user?.role || "DIRECTOR"}
                 </p>
               </div>
             </div>
@@ -657,7 +661,7 @@ export default function DirectorLayout({ children }) {
                 SYSTEM: ONLINE
               </span>
             </div>
-            {session && (
+            {authSession && (
               <span
                 style={{
                   fontFamily: "'Orbitron', sans-serif",
@@ -666,7 +670,7 @@ export default function DirectorLayout({ children }) {
                   letterSpacing: "1px",
                 }}
               >
-                OP-{session.user?.name?.split(" ")[0]?.toUpperCase() || "DIRECTOR"}
+                OP-{authSession.user?.name?.split(" ")[0]?.toUpperCase() || "DIRECTOR"}
               </span>
             )}
             {/* Notification Bell */}
