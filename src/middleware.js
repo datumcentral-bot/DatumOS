@@ -96,6 +96,11 @@ function isPublicApi(pathname) {
 export default async function middleware(req) {
   const { pathname } = req.nextUrl;
 
+  // Remove login page — redirect /login and / directly to Director dashboard
+  if (pathname === "/login" || pathname === "/") {
+    return NextResponse.redirect(new URL("/director", req.url));
+  }
+
   // AUTH BYPASS — all routes open by default, authentication paused
   // Director auto-login enabled for direct access
   return NextResponse.next();
