@@ -96,13 +96,42 @@ function isPublicApi(pathname) {
 export default async function middleware(req) {
   const { pathname } = req.nextUrl;
 
-  // Remove login page — redirect /login and / directly to Director dashboard
-  if (pathname === "/login" || pathname === "/") {
-    return NextResponse.redirect(new URL("/director", req.url));
+  const token = await getToken({ req, secret: SECRET, cookieName: COOKIE_NAME });
+
+  // / — redirect to role-appropriate home after auth check
+  if (pathname === "/") {
+    if (!token) {
+      return NextResponse.redirect(new URL("/login", req.url));
+    }
+    const home = HOME_MAP[token.role] || "/director";
+    return NextResponse.redirect(new URL(home, req.url));
   }
 
-  // AUTH BYPASS — all routes open by default, authentication paused
-  // Director auto-login enabled for direct access
+  // Public paths and public APIs need no session
+  if (isPublicPath(pathname) || isPublicApi(pathname)) {
+    return NextResponse.next();
+  }
+
+  // No session → redirect to login (with callback to return after sign-in)
+  if (!token) {
+    const loginUrl = new URL("/login", req.url);
+    loginUrl.searchParams.set("callbackUrl", pathname);
+    return NextResponse.redirect(loginUrl);
+  }
+
+  const role = token.role;
+
+  // Check role-based access using canonical policy
+  const allowedPrefixes = ROLE_PATHS[role] ?? [];
+  const hasAccess = allowedPrefixes.some(
+    (prefix) => pathname === prefix || pathname.startsWith(prefix + "/")
+  );
+
+  if (!hasAccess) {
+    const home = HOME_MAP[role] || "/login";
+    return NextResponse.redirect(new URL(home, req.url));
+  }
+
   return NextResponse.next();
 }
 

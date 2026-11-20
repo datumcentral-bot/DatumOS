@@ -17,9 +17,7 @@ const QUICK_ACTIONS = [
 
 export default function DirectorDashboard() {
   const { data: session } = useSession();
-  // Auth bypass for testing: mock director session when no session cookie exists
-  const mockUser = { id: "director-local", email: "director@datumbim.com", role: "DIRECTOR", name: "Director" };
-  const authUser = session?.user ?? mockUser;
+  const authUser = session?.user ?? null;
   const [data, setData] = useState({ projects: [], tasks: [], risks: [], clients: [], users: [] });
   const [loading, setLoading] = useState(true);
   const [tick, setTick] = useState(0);

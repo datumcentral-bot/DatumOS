@@ -149,10 +149,8 @@ function getActiveSection(pathname) {
 
 export default function DirectorLayout({ children }) {
   const { data: session, status } = useSession();
-  // Auth bypass for testing: mock director session when no session cookie exists
-  const mockSession = { data: { user: { id: "director-local", email: "director@datumbim.com", name: "Director", role: "DIRECTOR" } }, status: "authenticated" };
-  const authSession = status === "authenticated" ? session : mockSession;
-  const authStatus = status === "authenticated" ? "authenticated" : "authenticated";
+  const authSession = session;
+  const authStatus = status;
   const router = useRouter();
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);
