@@ -78,6 +78,7 @@ const PUBLIC_PREFIXES = [
 // unauthenticated callers, because many handlers never call requireAuth().
 const PUBLIC_API_PREFIXES = [
   "/api/auth", // NextAuth sign-in / callbacks
+  "/api/neon-auth", // Neon Auth (Managed Better Auth) sign-up / sign-in / session
   "/api/contact", // public quote + enquiry form
   "/api/public", // public website lead capture
   "/api/newsletter", // public newsletter sign-up
@@ -97,7 +98,7 @@ export default async function middleware(req) {
   // Isolated operations release: legacy mutations cannot bypass revision and QA policies.
   if (pathname === '/operations/login') return NextResponse.next();
   if (pathname === '/api/operations/integration') return NextResponse.next(); // bearer checked in handler
-  if (!['GET','HEAD','OPTIONS'].includes(req.method) && !pathname.startsWith('/api/auth/') && !pathname.startsWith('/api/operations') && !['/api/contact','/api/public/lead'].includes(pathname)) {
+  if (!['GET','HEAD','OPTIONS'].includes(req.method) && !pathname.startsWith('/api/auth/') && !pathname.startsWith('/api/neon-auth/') && !pathname.startsWith('/api/operations') && !['/api/contact','/api/public/lead'].includes(pathname)) {
     return NextResponse.json({error:{code:'GOVERNED_WORKFLOW_REQUIRED',message:'Use the operations workflow for changes; legacy writes are disabled in this isolated release.'}}, {status:409});
   }
 
