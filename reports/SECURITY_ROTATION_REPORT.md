@@ -35,9 +35,18 @@ All 13 `authUser` accounts rotated with unique cryptographically strong password
 | Account emails, roles, active status preserved | Compliant |
 | Temporary passwords require change at first login | Not enforced by architecture — reset workflow needed |
 
-## 4. Proposed Password (Not Used)
+## 4. Director Password — User-Provided
 
-User proposed `Asadasad12345*` as a shared permanent password. **Not used** because:
+The user manually set the Director account password in both Localhost and Production (Neon) databases. This is a **security deviation** from the unique-password-per-account policy:
+
+- **Risk:** Shared/weak password increases account compromise risk
+- **Scope:** Director account only (`director@datumbim.com`)
+- **Other 12 accounts:** Retain unique rotated passwords from Phase E
+- **Recommendation:** Director should change this password at first login
+
+## 5. Original Proposed Password (Not Used for Other Accounts)
+
+User proposed `Asadasad12345*` as a shared permanent password across all accounts. **Not used** for the other 12 accounts because:
 - Shared password across all accounts = single point of failure
 - If one account's password leaks, all accounts are compromised
 - Violates principle of unique credentials per account
