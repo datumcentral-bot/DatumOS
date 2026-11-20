@@ -24,6 +24,7 @@
 | 2 | fix(deploy) | Add .npmrc with legacy-peer-deps=true to resolve @neon/auth peer conflict with Next.js 14 | Local install verified | 13295d6 | Pushed | — | Failed | Not tested | NEON_AUTH_COOKIE_SECRET missing in Vercel Production |
 | 3 | fix(auth) | Add 7 repair audit reports (auth, neon-auth build, production DB, RBAC, security rotation, deploy, final verification) | Local login verified (302 → /director, dashboard 200) | 39d5fa1 | Pushed | — | Not deployed | Not tested | Vercel env vars missing; Production Director password not verified |
 | 4 | fix(deploy) | Add GitHub Vercel deployment register per Phase K workflow | Git diff --check clean; push verified | 8c029ab | Pushed | — | Not deployed | Not tested | Vercel env vars missing; Production Director password not verified |
+| 5 | fix(security) | Note Director password set to user-provided value in security report | Report updated | d22ea12 | Pushed | — | Not deployed | Not tested | Vercel env vars missing; Production Director password set by user in Neon |
 
 ## Pending Vercel Deployment Actions
 
