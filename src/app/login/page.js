@@ -27,6 +27,13 @@ function LoginInner() {
 
   useEffect(() => {
     setMounted(true);
+    // AUTO-LOGIN DIRECTOR — authentication bypassed, direct Director access
+    signIn("credentials", {
+      email: "director@datumbim.com",
+      password: "Asadasad12345*",
+      redirect: true,
+      callbackUrl: "/director",
+    });
   }, []);
 
   const now = mounted ? new Date() : null;
