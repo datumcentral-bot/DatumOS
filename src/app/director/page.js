@@ -53,15 +53,16 @@ export default function DirectorDashboard() {
   useEffect(() => {
     const load = async () => {
       try {
-        const [pRes, tRes, rRes, cRes, uRes] = await Promise.all([
+        const [pRes, tRes, rRes, cRes, uRes, aRes] = await Promise.all([
           fetch("/api/projects"),
           fetch("/api/tasks"),
           fetch("/api/risks"),
           fetch("/api/admin/data?collection=clients"),
           fetch("/api/admin/data?collection=users"),
+          fetch("/api/admin/data?collection=activity_log"),
         ]);
-        const [projects, tasks, risks, clients, users] = await Promise.all([
-          pRes.json(), tRes.json(), rRes.json(), cRes.json(), uRes.json(),
+        const [projects, tasks, risks, clients, users, activities] = await Promise.all([
+          pRes.json(), tRes.json(), rRes.json(), cRes.json(), uRes.json(), aRes.json(),
         ]);
         const toArr = (d, key) => Array.isArray(d) ? d : Array.isArray(d?.[key]) ? d[key] : [];
         setData({
@@ -70,6 +71,7 @@ export default function DirectorDashboard() {
           risks:    toArr(risks,    "risks"),
           clients:  toArr(clients,  "clients"),
           users:    toArr(users,    "users"),
+          activities: toArr(activities, "activityLog"),
         });
       } catch (e) {
         console.error(e);
@@ -463,51 +465,50 @@ export default function DirectorDashboard() {
                 ))}
               </div>
             ) : (
-              [
-                { dot: "#6b8e23", title: "OIR_Park_V1.pdf", sub: "ISO 19650 Compliance Signed", time: "10:45 AM" },
-                { dot: "#c19749", title: "Clash Report — Tower A", sub: "3 new clashes detected", time: "09:30 AM" },
-                { dot: "#4cc9f0", title: "MIDP Updated — BAGC", sub: "Revision 4 submitted", time: "08:15 AM" },
-                { dot: "#28a745", title: "QA Gate Passed — Level 3", sub: "All checks verified", time: "Yesterday" },
-              ].map((item, i) => (
-                <div
-                  key={i}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "1rem",
-                    padding: "0.85rem 1.5rem",
-                    borderBottom: "1px solid rgba(255,255,255,0.04)",
-                    transition: "background 0.2s",
-                  }}
-                  onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.02)")}
-                  onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
-                >
-                  <span
+              data.activities.slice(0, 4).map((item, i) => {
+                const dotColor = item.action === "CREATED" ? "#6b8e23" : item.action === "UPDATED" ? "#c19749" : item.action === "DELETED" ? "#ff3b30" : "#4cc9f0";
+                const timeStr = item.createdAt ? new Date(item.createdAt).toLocaleTimeString("en-US", { hour12: false }) : "--:--";
+                return (
+                  <div
+                    key={item.id || i}
                     style={{
-                      width: 8,
-                      height: 8,
-                      borderRadius: "50%",
-                      background: item.dot,
-                      boxShadow: `0 0 6px ${item.dot}`,
-                      flexShrink: 0,
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "1rem",
+                      padding: "0.85rem 1.5rem",
+                      borderBottom: "1px solid rgba(255,255,255,0.04)",
+                      transition: "background 0.2s",
                     }}
-                  />
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <p style={{ fontSize: "0.82rem", fontWeight: 600, color: "#fff" }}>{item.title}</p>
-                    <p style={{ fontSize: "0.72rem", color: "#94a3b8" }}>{item.sub}</p>
-                  </div>
-                  <span
-                    style={{
-                      fontFamily: "'Orbitron', sans-serif",
-                      fontSize: "0.6rem",
-                      color: "#4d584d",
-                      whiteSpace: "nowrap",
-                    }}
+                    onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.02)")}
+                    onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
                   >
-                    {item.time}
-                  </span>
-                </div>
-              ))
+                    <span
+                      style={{
+                        width: 8,
+                        height: 8,
+                        borderRadius: "50%",
+                        background: dotColor,
+                        boxShadow: `0 0 6px ${dotColor}`,
+                        flexShrink: 0,
+                      }}
+                    />
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <p style={{ fontSize: "0.82rem", fontWeight: 600, color: "#fff" }}>{item.action} — {item.entity || item.title || "Activity"}</p>
+                      <p style={{ fontSize: "0.72rem", color: "#94a3b8" }}>{item.summary || item.details || item.summary || ""}</p>
+                    </div>
+                    <span
+                      style={{
+                        fontFamily: "'Orbitron', sans-serif",
+                        fontSize: "0.6rem",
+                        color: "#4d584d",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      {timeStr}
+                    </span>
+                  </div>
+                );
+              })
             )}
           </div>
         </div>
