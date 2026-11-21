@@ -85,6 +85,7 @@ const PUBLIC_API_PREFIXES = [
 ];
 
 function isPublicPath(pathname) {
+  if (pathname === "/") return true;
   return PUBLIC_PREFIXES.some((p) => pathname.startsWith(p));
 }
 
