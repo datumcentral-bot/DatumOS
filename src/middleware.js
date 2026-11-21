@@ -112,15 +112,21 @@ export default async function middleware(req) {
 
   const role = token.role;
 
-  // Check role-based access using canonical policy
-  const allowedPrefixes = ROLE_PATHS[role] ?? [];
-  const hasAccess = allowedPrefixes.some(
-    (prefix) => pathname === prefix || pathname.startsWith(prefix + "/")
-  );
+  // API routes only require authentication — role-based access is enforced
+  // server-side in each handler via withAuth()/requireAuth(). Do not apply
+  // PORTAL_ACCESS path rules to /api/* here, or authenticated calls would be
+  // redirected away from the API endpoint they are trying to reach.
+  if (!pathname.startsWith("/api/")) {
+    // Check role-based access using canonical policy
+    const allowedPrefixes = ROLE_PATHS[role] ?? [];
+    const hasAccess = allowedPrefixes.some(
+      (prefix) => pathname === prefix || pathname.startsWith(prefix + "/")
+    );
 
-  if (!hasAccess) {
-    const home = HOME_MAP[role] || "/login";
-    return NextResponse.redirect(new URL(home, req.url));
+    if (!hasAccess) {
+      const home = HOME_MAP[role] || "/login";
+      return NextResponse.redirect(new URL(home, req.url));
+    }
   }
 
   return NextResponse.next();
