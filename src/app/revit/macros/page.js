@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
+import { useSocket } from "@/lib/useSocket";
 
 const MIL = {
   bg: "#0a0e14",
@@ -18,7 +19,7 @@ const MIL = {
 
 export default function RevitMacrosPage() {
   const { data: session } = useSession();
-  const [macros, setMacros] = useState([]);
+  const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [response, setResponse] = useState(null);
 
@@ -34,13 +35,13 @@ export default function RevitMacrosPage() {
     }
   };
 
-  const executeMacro = async (scriptId) => {
+  const executeMacro = async (id) => {
     setLoading(true);
     try {
       const res = await fetch("/api/revit/macros", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ scriptId }),
+        body: JSON.stringify({ scriptId: id }),
       });
       const data = await res.json();
       setResponse(data);
@@ -68,7 +69,7 @@ export default function RevitMacrosPage() {
           borderBottom: `1px solid ${MIL.border}`,
         }}
       >
-        <span style={{ fontSize: "1.5rem" }}>⬢</span>
+        <span style={{ fontSize: "1.5rem" }}>⌨</span>
         <div>
           <h1 style={{ fontFamily: MIL.head, fontSize: "1.1rem", fontWeight: 700, color: "#fff", margin: 0 }}>
             REVIT MACROS
@@ -77,7 +78,6 @@ export default function RevitMacrosPage() {
         </div>
       </div>
 
-      {/* Category Filter */}
       <div style={{ marginBottom: "1rem" }}>
         <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
           <span style={{ color: "#94a3b8", fontFamily: MIL.font, fontSize: "0.65rem" }}>Filter by Category:</span>
@@ -117,7 +117,6 @@ export default function RevitMacrosPage() {
         </div>
       </div>
 
-      {/* Macros Grid */}
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: "1rem" }}>
         {loading ? (
           <div style={{ gridColumn: "1 / -1", padding: "2rem", textAlign: "center", color: MIL.green, fontFamily: MIL.head, fontSize: "0.7rem" }}>
