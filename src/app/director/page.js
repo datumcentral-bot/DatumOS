@@ -18,7 +18,7 @@ const QUICK_ACTIONS = [
 export default function DirectorDashboard() {
   const { data: session } = useSession();
   const authUser = session?.user ?? null;
-  const [data, setData] = useState({ projects: [], tasks: [], risks: [], clients: [], users: [] });
+  const [data, setData] = useState({ projects: [], tasks: [], risks: [], clients: [], users: [], activities: [] });
   const [loading, setLoading] = useState(true);
   const [tick, setTick] = useState(0);
   const [liveEvents, setLiveEvents] = useState([]);
@@ -465,7 +465,7 @@ export default function DirectorDashboard() {
                 ))}
               </div>
             ) : (
-              data.activities.slice(0, 4).map((item, i) => {
+              (data.activities || []).slice(0, 4).map((item, i) => {
                 const dotColor = item.action === "CREATED" ? "#6b8e23" : item.action === "UPDATED" ? "#c19749" : item.action === "DELETED" ? "#ff3b30" : "#4cc9f0";
                 const timeStr = item.createdAt ? new Date(item.createdAt).toLocaleTimeString("en-US", { hour12: false }) : "--:--";
                 return (
