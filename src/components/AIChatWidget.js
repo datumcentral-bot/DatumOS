@@ -59,7 +59,6 @@ function MessageBubble({ msg }) {
         lineHeight: 1.5,
         boxShadow: isUser ? "0 0 8px rgba(107,142,35,0.1)" : "none",
       }}>
-        {/* Render markdown-like bold */}
         {msg.content.split(/(\*\*[^*]+\*\*)/).map((part, i) =>
           part.startsWith("**") && part.endsWith("**")
             ? <strong key={i} style={{ color: MIL.gold }}>{part.slice(2, -2)}</strong>
@@ -88,7 +87,6 @@ export default function AIChatWidget() {
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
 
-  // Initial greeting
   useEffect(() => {
     setMessages([{
       role: "ASSISTANT",
@@ -168,7 +166,6 @@ export default function AIChatWidget() {
         }
       `}</style>
 
-      {/* Floating bubble */}
       <div
         onClick={() => setOpen(!open)}
         style={{
@@ -197,7 +194,6 @@ export default function AIChatWidget() {
         )}
       </div>
 
-      {/* Chat panel */}
       {open && (
         <div style={{
           position: "fixed", bottom: 92, right: 24, zIndex: 9997,
@@ -211,14 +207,12 @@ export default function AIChatWidget() {
           animation: "aiSlideUp 0.25s ease-out",
           overflow: "hidden",
         }}>
-          {/* Header */}
           <div style={{
             padding: "14px 16px",
             background: "rgba(107,142,35,0.08)",
             borderBottom: `1px solid ${MIL.border}`,
             display: "flex", alignItems: "center", gap: 10,
           }}>
-            {/* HUD brackets */}
             <div style={{ position: "relative", width: 36, height: 36 }}>
               <div style={{ width: 36, height: 36, borderRadius: "50%", background: "rgba(107,142,35,0.2)", border: "1px solid rgba(107,142,35,0.5)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1rem" }}>🤖</div>
               <div style={{ position: "absolute", top: -2, left: -2, width: 8, height: 8, borderTop: "2px solid #6b8e23", borderLeft: "2px solid #6b8e23" }} />
@@ -234,7 +228,6 @@ export default function AIChatWidget() {
             <button onClick={() => setOpen(false)} style={{ marginLeft: "auto", background: "none", border: "none", color: MIL.dim, cursor: "pointer", fontSize: "1rem", padding: 4 }}>✕</button>
           </div>
 
-          {/* Messages */}
           <div style={{ flex: 1, overflowY: "auto", padding: "12px 14px", scrollbarWidth: "thin", scrollbarColor: "rgba(107,142,35,0.3) transparent" }}>
             {messages.map((msg, i) => <MessageBubble key={i} msg={msg} />)}
             {loading && (
@@ -247,7 +240,6 @@ export default function AIChatWidget() {
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Quick questions */}
           {messages.length <= 1 && (
             <div style={{ padding: "0 14px 8px", display: "flex", flexWrap: "wrap", gap: 6 }}>
               {quickQuestions.map(q => (
@@ -259,7 +251,6 @@ export default function AIChatWidget() {
             </div>
           )}
 
-          {/* Input */}
           <div style={{ padding: "10px 14px", borderTop: `1px solid ${MIL.border}`, display: "flex", gap: 8 }}>
             <input
               ref={inputRef}
@@ -288,7 +279,6 @@ export default function AIChatWidget() {
             </button>
           </div>
 
-          {/* Footer */}
           <div style={{ padding: "4px 14px 8px", textAlign: "center", fontFamily: MIL.head, fontSize: "0.38rem", color: "rgba(138,155,176,0.5)", letterSpacing: 1 }}>
             DATUM STUDIOS · AI ASSISTANT · ISO 19650 COMPLIANT
           </div>
