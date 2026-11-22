@@ -15,13 +15,32 @@ function getActiveSectionLabel(navSections, pathname) {
   return navSections[0]?.label || null;
 }
 
-export default function PortalShell({ navSections, portalLabel, portalColor = "#6b8e23", children }) {
+function getRightActiveSectionLabel(rightNavSections, pathname) {
+  if (!rightNavSections) return null;
+  for (const section of rightNavSections) {
+    if (section.items && section.items.some((item) => pathname === item.href || pathname.startsWith(item.href + "/"))) {
+      return section.label;
+    }
+  }
+  return rightNavSections[0]?.label || null;
+}
+
+export default function PortalShell({
+  navSections,
+  rightNavSections,
+  portalLabel,
+  portalColor = "#6b8e23",
+  portalColorRight = "#4cc9f0",
+  showFooter = true,
+  children,
+}) {
   const { data: session, status } = useSession();
   const router = useRouter();
   const pathname = usePathname();
   const { isConnected } = useSocketContext();
   const [collapsed, setCollapsed] = useState(false);
   const [openSection, setOpenSection] = useState(() => getActiveSectionLabel(navSections, pathname || ""));
+  const [openRightSection, setOpenRightSection] = useState(() => getRightActiveSectionLabel(rightNavSections, pathname || ""));
   const [tick, setTick] = useState(0);
   const [mounted, setMounted] = useState(false);
   // Track previous pathname to detect cross-section navigation
@@ -75,11 +94,20 @@ export default function PortalShell({ navSections, portalLabel, portalColor = "#
   const glowColor = portalColor;
   const glowBg = `${portalColor}18`;
   const glowBorder = `${portalColor}40`;
+  const rightGlowColor = portalColorRight;
+  const rightGlowBg = `${portalColorRight}18`;
+  const rightGlowBorder = `${portalColorRight}40`;
 
   // Toggle: clicking header opens/closes that section (accordion — only one open at a time)
   const toggleSection = (label) => {
     if (collapsed) return;
     setOpenSection((prev) => (prev === label ? null : label));
+  };
+
+  // Toggle: clicking right header opens/closes that section
+  const toggleRightSection = (label) => {
+    if (collapsed) return;
+    setOpenRightSection((prev) => (prev === label ? null : label));
   };
 
   return (
@@ -99,7 +127,7 @@ export default function PortalShell({ navSections, portalLabel, portalColor = "#
           </button>
         </div>
 
-        {/* Nav — accordion */}
+        {/* Left Nav — accordion */}
         <nav style={{ flex: 1, overflowY: "auto", padding: "0.5rem 0.4rem" }}>
           {navSections.map((section) => {
             const isOpen = !collapsed && openSection === section.label;
@@ -163,7 +191,7 @@ export default function PortalShell({ navSections, portalLabel, portalColor = "#
                           fontWeight: isActive ? 600 : 400,
                           whiteSpace: "nowrap",
                         }}
-                        onMouseEnter={(e) => { if (!isActive) { e.currentTarget.style.background = glowBg; e.currentTarget.style.color = "#fff"; } }}
+                        onMouseEnter={(e) => { if (!isActive) { e.currentTarget.style.background = rightGlowBg; e.currentTarget.style.color = "#fff"; } }}
                         onMouseLeave={(e) => { if (!isActive) { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "#94a3b8"; } }}
                         title={collapsed ? item.label : undefined}
                       >
@@ -178,32 +206,156 @@ export default function PortalShell({ navSections, portalLabel, portalColor = "#
           })}
         </nav>
 
-        {/* Footer */}
-        <div style={{ padding: collapsed ? "0.75rem 0.4rem" : "0.75rem 0.75rem", borderTop: "1px solid rgba(107,142,35,0.15)" }}>
-          {!collapsed && session && (
-            <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.6rem" }}>
-              <div style={{ width: 26, height: 26, borderRadius: 2, background: glowBg, border: `1px solid ${glowBorder}`, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "'Orbitron', sans-serif", fontSize: "0.6rem", color: glowColor, flexShrink: 0 }}>
-                {session.user?.name?.charAt(0) || "?"}
-              </div>
-              <div style={{ minWidth: 0 }}>
-                <p style={{ fontFamily: "'Orbitron', sans-serif", fontSize: "0.55rem", color: "#fff", letterSpacing: "1px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                  {session.user?.name?.toUpperCase() || "OPERATOR"}
-                </p>
-                <p style={{ fontFamily: "'Orbitron', sans-serif", fontSize: "0.45rem", color: glowColor, letterSpacing: "1px" }}>
-                  {session.user?.role || "MEMBER"}
-                </p>
-              </div>
+        {/* Right Sidebar — optional */}
+        {rightNavSections && rightNavSections.length > 0 && (
+          <aside
+            style={{
+              position: "fixed",
+              right: 0,
+              top: 56,
+              bottom: 0,
+              width: collapsed ? 56 : 260,
+              background: "rgba(13,17,23,0.98)",
+              borderLeft: "1px solid rgba(107,142,35,0.15)",
+              display: "flex",
+              flexDirection: "column",
+              zIndex: 100,
+              flexShrink: 0,
+              transition: "width 0.3s cubic-bezier(0.4,0,0.2,1)",
+              overflow: "hidden",
+            }}
+          >
+            {/* Right Header */}
+            <div style={{ padding: collapsed ? "1rem 0.5rem" : "1.25rem 1.25rem", borderBottom: "1px solid rgba(107,142,35,0.15)", display: "flex", alignItems: "center", justifyContent: collapsed ? "center" : "space-between" }}>
+              {!collapsed && (
+                <div>
+                  <p style={{ fontFamily: "'Orbitron', sans-serif", fontSize: "0.75rem", fontWeight: 800, color: "#fff", letterSpacing: "2px" }}>DatumBIM</p>
+                  <p style={{ fontFamily: "'Orbitron', sans-serif", fontSize: "0.5rem", color: rightGlowColor, letterSpacing: "1.5px", marginTop: 2 }}>{portalLabel}</p>
+                </div>
+              )}
+              <button onClick={() => setCollapsed(!collapsed)} style={{ background: "none", border: "none", color: "#4d584d", cursor: "pointer", fontSize: "0.8rem", padding: 4, flexShrink: 0 }}>
+                {collapsed ? "▶" : "◀"}
+              </button>
             </div>
-          )}
-          <div style={{ display: "flex", gap: "4px" }}>
-            <Link href="/console" style={{ flex: 1, background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 2, color: "#94a3b8", padding: "0.4rem", fontFamily: "'Orbitron', sans-serif", fontSize: "0.55rem", letterSpacing: "1px", cursor: "pointer", textDecoration: "none", display: "flex", alignItems: "center", justifyContent: "center" }} title="Console">
-              ⬡
-            </Link>
-            <button onClick={() => signOut({ callbackUrl: "/login" })} style={{ flex: 1, background: "rgba(255,59,48,0.08)", border: "1px solid rgba(255,59,48,0.2)", borderRadius: 2, color: "#ff3b30", padding: "0.4rem", fontFamily: "'Orbitron', sans-serif", fontSize: "0.55rem", letterSpacing: "1px", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }} title="End Session">
-              ⏻
-            </button>
+
+            {/* Right Nav — accordion */}
+            <nav style={{ flex: 1, overflowY: "auto", padding: "0.5rem 0.4rem" }}>
+              {rightNavSections.map((section) => {
+                const isOpen = !collapsed && openRightSection === section.label;
+                const hasActive = section.items && section.items.some((item) => pathname === item.href || pathname.startsWith(item.href + "/"));
+                const isSingleSection = rightNavSections.length === 1;
+
+                return (
+                  <div key={section.label} style={{ marginBottom: "2px" }}>
+                    {/* Section header — clickable toggle */}
+                    {!isSingleSection ? (
+                      <button
+                        onClick={() => toggleRightSection(section.label)}
+                        title={collapsed ? section.label : undefined}
+                        style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: collapsed ? "center" : "space-between", padding: collapsed ? "0.6rem" : "0.5rem 0.6rem", background: hasActive ? `${rightGlowColor}10` : "transparent", border: "none", borderRadius: 3, cursor: collapsed ? "default" : "pointer", transition: "background 0.2s", gap: "0.4rem" }}
+                      >
+                        {collapsed ? (
+                          <span style={{ fontSize: "0.7rem", color: hasActive ? rightGlowColor : "#4d584d" }}>{section.label.charAt(0)}</span>
+                        ) : (
+                          <>
+                            <span style={{ fontFamily: "'Orbitron', sans-serif", fontSize: "0.5rem", color: hasActive ? rightGlowColor : "#4d584d", textTransform: "uppercase", letterSpacing: "2px", fontWeight: 700, textAlign: "left" }}>{section.label}</span>
+                            <span style={{ fontSize: "0.55rem", color: hasActive ? rightGlowColor : "#4d584d", transition: "transform 0.25s", transform: isOpen ? "rotate(90deg)" : "rotate(0deg)", flexShrink: 0 }}>▶</span>
+                          </>
+                        )}
+                      </button>
+                    ) : (
+                      !collapsed && (
+                        <p style={{ padding: "0.5rem 0.6rem 0.25rem", fontFamily: "'Orbitron', sans-serif", fontSize: "0.5rem", color: "#4d584d", textTransform: "uppercase", letterSpacing: "2px", fontWeight: 700 }}>
+                          {section.label}
+                        </p>
+                      )
+                    )}
+
+                    {/* Items */}
+                    <div style={{
+                      overflow: "hidden",
+                      maxHeight: isSingleSection || isOpen || collapsed ? `${(section.items?.length || 0) * 44}px` : "0px",
+                      transition: isSingleSection ? "none" : "max-height 0.3s cubic-bezier(0.4,0,0.2,1)",
+                      opacity: isSingleSection || isOpen || collapsed ? 1 : 0,
+                    }}>
+                      {(section.items || []).map((item) => {
+                        const isActive = pathname === item.href || pathname.startsWith(item.href + "/");
+                        return (
+                          <Link
+                            key={item.href}
+                            href={item.href}
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "0.6rem",
+                              padding: collapsed ? "0.6rem" : isSingleSection ? "0.55rem 0.7rem" : "0.5rem 0.7rem 0.5rem 1.1rem",
+                              justifyContent: collapsed ? "center" : "flex-start",
+                              color: isActive ? rightGlowColor : "#94a3b8",
+                              textDecoration: "none",
+                              borderRadius: 2,
+                              marginBottom: 1,
+                              background: isActive ? rightGlowBg : "transparent",
+                              boxShadow: isActive ? `inset 3px 0 0 ${rightGlowColor}` : "none",
+                              transition: "all 0.15s",
+                              fontSize: "0.8rem",
+                              fontFamily: "'Rajdhani', sans-serif",
+                              fontWeight: isActive ? 600 : 400,
+                              whiteSpace: "nowrap",
+                            }}
+                            onMouseEnter={(e) => { if (!isActive) { e.currentTarget.style.background = rightGlowBg; e.currentTarget.style.color = "#fff"; } }}
+                            onMouseLeave={(e) => { if (!isActive) { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "#94a3b8"; } }}
+                            title={collapsed ? item.label : undefined}
+                          >
+                            <span style={{ fontSize: "0.8rem", flexShrink: 0, filter: isActive ? `drop-shadow(0 0 4px ${rightGlowColor})` : "none" }}>{item.icon}</span>
+                            {!collapsed && item.label}
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  </div>
+                );
+              })}
+            </nav>
+          </aside>
+        )}
+
+        {/* Footer */}
+        {showFooter && (
+          <div style={{
+            marginTop: "auto",
+            padding: "1.5rem",
+            borderTop: "1px solid rgba(107,142,35,0.15)",
+            background: "rgba(13,17,23,0.5)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            flexShrink: 0,
+          }}>
+            {!collapsed && session && (
+              <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                <div style={{ width: 26, height: 26, borderRadius: 2, background: glowBg, border: `1px solid ${glowBorder}`, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "'Orbitron', sans-serif", fontSize: "0.6rem", color: glowColor, flexShrink: 0 }}>
+                  {session.user?.name?.charAt(0) || "?"}
+                </div>
+                <div style={{ minWidth: 0 }}>
+                  <p style={{ fontFamily: "'Orbitron', sans-serif", fontSize: "0.55rem", color: "#fff", letterSpacing: "1px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                    {session.user?.name?.toUpperCase() || "OPERATOR"}
+                  </p>
+                  <p style={{ fontFamily: "'Orbitron', sans-serif", fontSize: "0.45rem", color: glowColor, letterSpacing: "1px" }}>
+                    {session.user?.role || "MEMBER"}
+                  </p>
+                </div>
+              </div>
+            )}
+            <div style={{ display: "flex", gap: "4px" }}>
+              <Link href="/console" style={{ flex: 1, background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 2, color: "#94a3b8", padding: "0.4rem", fontFamily: "'Orbitron', sans-serif", fontSize: "0.55rem", letterSpacing: "1px", cursor: "pointer", textDecoration: "none", display: "flex", alignItems: "center", justifyContent: "center" }} title="Console">
+                ⬡
+              </Link>
+              <button onClick={() => signOut({ callbackUrl: "/login" })} style={{ flex: 1, background: "rgba(255,59,48,0.08)", border: "1px solid rgba(255,59,48,0.2)", borderRadius: 2, color: "#ff3b30", padding: "0.4rem", fontFamily: "'Orbitron', sans-serif", fontSize: "0.55rem", letterSpacing: "1px", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }} title="End Session">
+                ⏻
+              </button>
+            </div>
           </div>
-        </div>
+        )}
       </aside>
 
       {/* Main */}

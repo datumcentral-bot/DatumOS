@@ -4,7 +4,6 @@ import { useState, useEffect, useCallback } from "react";
 import { useSession } from "next-auth/react";
 import { useSocket } from "@/lib/useSocket";
 import LiveToast from "@/components/LiveToast";
-import AIChatWidget from "@/components/AIChatWidget";
 
 const QUICK_ACTIONS = [
   { label: "NEW PROJECT", href: "/director/portfolio", icon: "◈" },
@@ -14,23 +13,12 @@ const QUICK_ACTIONS = [
   { label: "OPEN CRM", href: "/director/crm", icon: "◇" },
   { label: "RISK REGISTER", href: "/director/risks", icon: "⚠" },
   { label: "COMMAND CHANNEL", href: "/director/communication", icon: "◉" },
-  { label: "REVIT MODEL", href: "/revit", icon: "◈" },
-  { label: "REVIT MCP", href: "/revit/mcp", icon: "🔧" },
-  { label: "REVIT ELEMENT", href: "/revit/element", icon: "🔍" },
-  { label: "REVIT SCHEDULES", href: "/revit/schedules", icon: "📋" },
-  { label: "REVIT MACROS", href: "/revit/macros", icon: "⌨" },
-  { label: "WAR ROOM", href: "/war-room", icon: "⚔" },
-  { label: "AI AGENTS", href: "/ai/agents", icon: "✦" },
-  { label: "BIM ISO 19650", href: "/bim/processor", icon: "◎" },
-  { label: "BIM PLUGIN", href: "/bim/plugin", icon: "🔌" },
-  { label: "ZAMEEN BIM", href: "/zameen", icon: "🏗" },
-  { label: "AUDIT TRAIL", href: "/audit/trail", icon: "⌗" },
 ];
 
 export default function DirectorDashboard() {
   const { data: session } = useSession();
   const authUser = session?.user ?? null;
-  const [data, setData] = useState({ projects: [], tasks: [], risks: [], clients: [], users: [], activities: [], revit: null, bim: null });
+  const [data, setData] = useState({ projects: [], tasks: [], risks: [], clients: [], users: [], activities: [] });
   const [loading, setLoading] = useState(true);
   const [tick, setTick] = useState(0);
   const [liveEvents, setLiveEvents] = useState([]);
@@ -49,11 +37,6 @@ export default function DirectorDashboard() {
         const toArr = (d, key) => Array.isArray(d) ? d : Array.isArray(d?.[key]) ? d[key] : [];
         setData(prev => ({ ...prev, tasks: toArr(d, 'tasks') }));
       }).catch(() => {});
-    } else if (ev.module === 'activities') {
-      fetch('/api/admin/data?collection=activity_log').then(r => r.json()).then(d => {
-        const toArr = (d, key) => Array.isArray(d) ? d : Array.isArray(d?.[key]) ? d[key] : [];
-        setData(prev => ({ ...prev, activities: toArr(d, 'activityLog') }));
-      }).catch(() => {});
     } else if (ev.module === 'leads') {
       // leads count shown on dashboard — no direct field but triggers a visual refresh
     }
@@ -70,18 +53,16 @@ export default function DirectorDashboard() {
   useEffect(() => {
     const load = async () => {
       try {
-        const [pRes, tRes, rRes, cRes, uRes, aRes, bimRes, isoRes] = await Promise.all([
+        const [pRes, tRes, rRes, cRes, uRes, aRes] = await Promise.all([
           fetch("/api/projects"),
           fetch("/api/tasks"),
           fetch("/api/risks"),
           fetch("/api/admin/data?collection=clients"),
           fetch("/api/admin/data?collection=users"),
           fetch("/api/admin/data?collection=activity_log"),
-          fetch("/api/bim/analysis?filePath=" + encodeURIComponent("C:/Projects/DatumOS/Model.rvt")),
-          fetch("/api/iso19650?containerId=BIM-001"),
         ]);
-        const [projects, tasks, risks, clients, users, activities, bim, iso] = await Promise.all([
-          pRes.json(), tRes.json(), rRes.json(), cRes.json(), uRes.json(), aRes.json(), bimRes.json(), isoRes.json(),
+        const [projects, tasks, risks, clients, users, activities] = await Promise.all([
+          pRes.json(), tRes.json(), rRes.json(), cRes.json(), uRes.json(), aRes.json(),
         ]);
         const toArr = (d, key) => Array.isArray(d) ? d : Array.isArray(d?.[key]) ? d[key] : [];
         setData({
@@ -91,8 +72,6 @@ export default function DirectorDashboard() {
           clients:  toArr(clients,  "clients"),
           users:    toArr(users,    "users"),
           activities: toArr(activities, "activityLog"),
-          revit: bim.error ? null : bim,
-          bim: iso.error ? null : iso,
         });
       } catch (e) {
         console.error(e);
@@ -101,7 +80,8 @@ export default function DirectorDashboard() {
       }
     };
     load();
-    // Near-real-time refresh: poll every 15s to keep all data slices current.
+    // Near-real-time refresh: Socket.IO cannot run on Vercel (no custom
+    // server), so poll every 15s to keep all five data slices current.
     const iv = setInterval(load, 15000);
     return () => clearInterval(iv);
   }, []);
@@ -116,9 +96,6 @@ export default function DirectorDashboard() {
   const deliveryVelocity = data.tasks.length > 0
     ? Math.round((data.tasks.filter((t) => t.status === "COMPLETE" || t.status === "VERIFIED").length / data.tasks.length) * 100)
     : null;
-
-  const revitBridgeAlive = data.revit && !data.revit.error ? true : false;
-  const bimComplianceActive = data.bim && !data.bim.error ? true : false;
 
   const KPIS = [
     {
@@ -162,35 +139,12 @@ export default function DirectorDashboard() {
       icon: "⚠",
       accentLeft: criticalRisks > 0,
     },
-    {
-      label: "REVIT BRIDGE",
-      value: loading ? "—" : (revitBridgeAlive ? "ALIVE" : "OFFLINE"),
-      trend: revitBridgeAlive ? "CONNECTED" : "DISCONNECTED",
-      trendDir: revitBridgeAlive ? "positive" : "negative",
-      color: revitBridgeAlive ? "#6b8e23" : "#ff3b30",
-      glow: revitBridgeAlive ? "rgba(107,142,35,0.12)" : "rgba(255,59,48,0.12)",
-      border: revitBridgeAlive ? "rgba(107,142,35,0.25)" : "rgba(255,59,48,0.25)",
-      icon: "◈",
-    },
-    {
-      label: "ISO 19650",
-      value: loading ? "—" : (bimComplianceActive ? "COMPLIANT" : "PENDING"),
-      trend: bimComplianceActive ? "ACTIVE" : "INACTIVE",
-      trendDir: bimComplianceActive ? "positive" : "neutral",
-      color: bimComplianceActive ? "#6b8e23" : "#c19749",
-      glow: bimComplianceActive ? "rgba(107,142,35,0.12)" : "rgba(193,151,73,0.12)",
-      border: bimComplianceActive ? "rgba(107,142,35,0.25)" : "rgba(193,151,73,0.25)",
-      icon: "◎",
-    },
   ];
 
   const MONTHS = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN"];
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
-      {/* AI Chat Widget (floating) */}
-      <AIChatWidget />
-
       {/* Page title */}
       <div
         style={{
@@ -244,7 +198,7 @@ export default function DirectorDashboard() {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(3, 1fr)",
+          gridTemplateColumns: "repeat(4, 1fr)",
           gap: "1rem",
         }}
       >
@@ -642,8 +596,6 @@ export default function DirectorDashboard() {
                 { label: "PROJECTS", value: loading ? "—" : data.projects.length },
                 { label: "TEAM",     value: loading ? "—" : data.users.length },
                 { label: "CLIENTS",  value: loading ? "—" : data.clients.length },
-                { label: "REVIT",    value: loading ? "—" : (revitBridgeAlive ? "LIVE" : "OFFLINE") },
-                { label: "BIM ISO",  value: loading ? "—" : (bimComplianceActive ? "YES" : "NO") },
               ].map((s) => (
                 <div
                   key={s.label}
