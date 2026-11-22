@@ -111,12 +111,11 @@ export default function ZameenPage() {
                           borderRadius: "50%",
                           background:
                             t.status === "COMPLETED" ? MIL.green : t.status === "PENDING" ? MIL.gold : MIL.blue,
-                            display: "inline-block",
-                            marginRight: "0.5rem",
-                          }}
-                        />
-                        {t.status}
-                      </td>
+                          display: "inline-block",
+                          marginRight: "0.5rem",
+                        }}
+                      />
+                      {t.status}
                     </td>
                   </tr>
                 ))}
