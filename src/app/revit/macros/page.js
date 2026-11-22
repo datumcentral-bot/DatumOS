@@ -19,7 +19,7 @@ const MIL = {
 
 export default function RevitMacrosPage() {
   const { data: session } = useSession();
-  const [data, setData] = useState([]);
+  const [macros, setMacros] = useState([]);
   const [loading, setLoading] = useState(true);
   const [response, setResponse] = useState(null);
 
@@ -193,8 +193,7 @@ export default function RevitMacrosPage() {
                 EXECUTE MACRO
               </button>
             </div>
-          ))}
-        )}
+          )))}
       </div>
 
       {response && (

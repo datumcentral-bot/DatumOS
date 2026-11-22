@@ -10,6 +10,19 @@ const STATUS_OPTS = ["DRAFT","SENT","PAID","OVERDUE","CANCELLED","PARTIAL"];
 const CURRENCY_OPTS = ["AED","USD","GBP","EUR","SAR","QAR","KWD"];
 const EMPTY = { projectId:'', clientId:'', type:"INVOICE", title:"", amount:"", currency:"AED", status:"DRAFT", dueDate:"", invoiceNo:"", notes:"" };
 
+const MIL = {
+  bg: "#0a0e14",
+  panel: "rgba(10,14,20,0.97)",
+  border: "rgba(107,142,35,0.3)",
+  green: "#6b8e23",
+  gold: "#c19749",
+  text: "#f0f2f5",
+  dim: "#8a9bb0",
+  blue: "#4a9eff",
+  font: "'Rajdhani', sans-serif",
+  head: "'Orbitron', sans-serif",
+};
+
 export default function FinancialControlPage() {
   const { data: session } = useSession();
   const [data, setData] = useState([]);
