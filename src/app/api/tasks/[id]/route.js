@@ -51,6 +51,16 @@ export async function PATCH(req, { params }) {
       return NextResponse.json({ error: "actualHrs must be a non-negative number." }, { status: 400 });
     }
 
+    if (updateData.status === "DONE") {
+      const checklist = await prisma.taskChecklistItem.findMany({ where: { taskId: id } });
+      if (checklist.some((item) => !item.checked)) {
+        return NextResponse.json({
+          ok: false,
+          error: "QA gate: all checklist items must be checked before marking Done.",
+        }, { status: 422 });
+      }
+    }
+
     const updated = await prisma.task.update({
       where: { id },
       data: updateData,
