@@ -145,6 +145,7 @@ export default function RevitSchedulesPage() {
                 <label key={s.id} style={{ display: "flex", alignItems: "center", gap: "0.4rem", marginRight: "0.8rem", cursor: "pointer" }}>
                   <input
                     type="checkbox"
+                    name="schedule"
                     value={s.id}
                     style={{ accentColor: MIL.green }}
                   />
