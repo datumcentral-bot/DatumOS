@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server'
 import { writeFile, mkdir } from 'fs/promises'
 import { join, extname } from 'path'
 import { randomUUID } from 'crypto'
-import { guard } from '@/lib/auth';
+import { guard, ROLES } from '@/lib/auth';
 import { errorResponse } from "@/lib/api-errors";
 
 // Allowed file types
@@ -26,12 +26,17 @@ const ALLOWED_TYPES = {
 const MAX_SIZE = 50 * 1024 * 1024 // 50MB
 
 export async function POST(req) {
-  const denied = await guard();
+  const denied = await guard(ROLES.DIRECTOR, ROLES.MEMBER, ROLES.CLIENT);
   if (denied) return denied;
   try {
     const formData = await req.formData()
     const file = formData.get('file')
-    const category = formData.get('category') || 'general' // cde, model-production, general
+    const category = formData.get('category') || 'general'
+    // Category is used in a filesystem path; accept only a single safe slug.
+    // This prevents ../ traversal and absolute-path segments.
+    if (typeof category !== 'string' || !/^[a-z0-9][a-z0-9_-]{0,39}$/i.test(category)) {
+      return NextResponse.json({ error: 'Invalid upload category.' }, { status: 400 })
+    }
 
     if (!file || typeof file === 'string') {
       return NextResponse.json({ error: 'No file provided' }, { status: 400 })
