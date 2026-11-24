@@ -1,32 +1,57 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { requireAuth } from "@/lib/auth";
+import { requireRole, taskScopeWhere, ROLES } from "@/lib/auth";
 import { errorResponse } from "@/lib/api-errors";
 
-// PATCH /api/tasks/[id] — update task status, priority, assignee, etc.
+export const dynamic = "force-dynamic";
+
+// PATCH /api/tasks/[id] — Directors may edit task fields; Members may update
+// only their assigned task's execution fields.
 export async function PATCH(req, { params }) {
   let session;
   try {
-    session = await requireAuth();
+    session = await requireRole(ROLES.DIRECTOR, ROLES.MEMBER);
   } catch (err) {
-    return errorResponse(err, req)
+    return errorResponse(err, req);
   }
 
-  const { id } = params;
-  const body = await req.json();
-
   try {
-    const updateData = {};
-    if (body.status !== undefined)      updateData.status = body.status;
-    if (body.priority !== undefined)    updateData.priority = body.priority;
-    if (body.assigneeId !== undefined)  updateData.assigneeId = body.assigneeId;
-    if (body.title !== undefined)       updateData.title = body.title;
-    if (body.description !== undefined) updateData.description = body.description;
-    if (body.dueDate !== undefined)     updateData.dueDate = body.dueDate ? new Date(body.dueDate) : null;
-    if (body.cdeState !== undefined)    updateData.cdeState = body.cdeState;
-    if (body.actualHrs !== undefined)   updateData.actualHrs = parseFloat(body.actualHrs);
+    const { id } = params;
+    const scope = taskScopeWhere(session);
+    const task = await prisma.task.findFirst({
+      where: { AND: [{ id }, scope] },
+      select: { id: true, title: true },
+    });
+    if (!task) return NextResponse.json({ error: "Task not found or access denied" }, { status: 404 });
 
-    const task = await prisma.task.update({
+    const body = await req.json();
+    const updateData = {};
+
+    if (session.user.role === ROLES.DIRECTOR) {
+      if (body.status !== undefined) updateData.status = body.status;
+      if (body.priority !== undefined) updateData.priority = body.priority;
+      if (body.assigneeId !== undefined) updateData.assigneeId = body.assigneeId;
+      if (body.title !== undefined) updateData.title = body.title;
+      if (body.description !== undefined) updateData.description = body.description;
+      if (body.dueDate !== undefined) updateData.dueDate = body.dueDate ? new Date(body.dueDate) : null;
+      if (body.cdeState !== undefined) updateData.cdeState = body.cdeState;
+      if (body.actualHrs !== undefined) updateData.actualHrs = Number(body.actualHrs);
+    } else {
+      const permitted = ["status", "actualHrs", "cdeState"];
+      const forbidden = Object.keys(body).filter((key) => !permitted.includes(key));
+      if (forbidden.length) {
+        return NextResponse.json({ error: "Members may update only status, actualHrs, and cdeState on assigned tasks." }, { status: 403 });
+      }
+      if (body.status !== undefined) updateData.status = body.status;
+      if (body.actualHrs !== undefined) updateData.actualHrs = Number(body.actualHrs);
+      if (body.cdeState !== undefined) updateData.cdeState = body.cdeState;
+    }
+
+    if (updateData.actualHrs !== undefined && (!Number.isFinite(updateData.actualHrs) || updateData.actualHrs < 0)) {
+      return NextResponse.json({ error: "actualHrs must be a non-negative number." }, { status: 400 });
+    }
+
+    const updated = await prisma.task.update({
       where: { id },
       data: updateData,
       include: {
@@ -35,30 +60,29 @@ export async function PATCH(req, { params }) {
       },
     });
 
-    // Log activity
     await prisma.activityLog.create({
       data: {
         actor: session.user.name || session.user.email,
         action: "UPDATE",
         entity: "Task",
         entityId: id,
-        summary: `Task "${task.title}" updated${body.status ? ` → ${body.status}` : ""}`,
-        portal: "workspace",
+        summary: `Task "${updated.title}" updated${body.status ? ` → ${body.status}` : ""}`,
+        portal: session.user.role === ROLES.DIRECTOR ? "director" : "workspace",
       },
-    }).catch(() => {}); // non-blocking
+    }).catch(() => {});
 
-    return NextResponse.json(task);
+    return NextResponse.json(updated);
   } catch (e) {
-    return errorResponse(e, req)
+    return errorResponse(e, req);
   }
 }
 
-// DELETE /api/tasks/[id]
+// DELETE /api/tasks/[id] — destructive task deletion is Director-only.
 export async function DELETE(req, { params }) {
   try {
-    await requireAuth();
+    await requireRole(ROLES.DIRECTOR);
   } catch (err) {
-    return errorResponse(err, req)
+    return errorResponse(err, req);
   }
 
   const { id } = params;
@@ -68,6 +92,6 @@ export async function DELETE(req, { params }) {
     await prisma.task.delete({ where: { id } });
     return NextResponse.json({ ok: true });
   } catch (e) {
-    return errorResponse(e, req)
+    return errorResponse(e, req);
   }
 }
