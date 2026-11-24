@@ -46,10 +46,12 @@ export async function POST(req) {
   }
   try {
     const body = await req.json();
+    const memberId = session.user.role === ROLES.MEMBER ? getMemberEntityId(session) : null;
+    if (session.user.role === ROLES.MEMBER && !memberId) return NextResponse.json({ error: "Member account is not linked to a team identity" }, { status: 403 });
     if (!body.taskId) return NextResponse.json({ error: "taskId is required" }, { status: 400 });
     const task = await prisma.task.findFirst({
       where: session.user.role === ROLES.MEMBER
-        ? { AND: [{ id: body.taskId }, { assigneeId: getMemberEntityId(session) }, { project: projectScopeWhere(session) }] }
+        ? { AND: [{ id: body.taskId }, { assigneeId: memberId }, { project: projectScopeWhere(session) }] }
         : { id: body.taskId },
       select: { id: true },
     });
@@ -57,7 +59,7 @@ export async function POST(req) {
     const data = await prisma.timeEntry.create({
       data: {
         ...body,
-        userId: session.user.role === ROLES.MEMBER ? getMemberEntityId(session) : body.userId,
+        userId: session.user.role === ROLES.MEMBER ? memberId : body.userId,
       },
       include: { user: { select: { name: true } } },
     });
