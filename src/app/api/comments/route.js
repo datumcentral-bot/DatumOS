@@ -79,7 +79,7 @@ const POST = withAuth(async (req, ctx, session) => {
   const data = await prisma.comment.create({
     data: {
       body: typeof body.body === 'string' ? body.body : '',
-      authorId,
+      authorId: author.id,
       taskId: body.taskId || null,
       projectId: body.projectId || null,
       meetingId: body.meetingId || null,
