@@ -29,6 +29,9 @@ function scopeForClient(session) {
 }
 
 const GET = withAuth(async (req, _ctx, session) => {
+  if (![ROLES.DIRECTOR, ROLES.MEMBER, ROLES.CLIENT].includes(session?.user?.role)) {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  }
   const { searchParams } = new URL(req.url);
   const status = searchParams.get("status");
 
@@ -64,8 +67,7 @@ const POST = withAuth(
   },
   // Only staff may raise an invoice. A CLIENT cannot create billing records.
   ROLES.DIRECTOR,
-  ROLES.MEMBER,
-  ROLES.REVIT
+  ROLES.MEMBER
 );
 
 export { GET, POST };
