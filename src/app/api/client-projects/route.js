@@ -84,7 +84,7 @@ const POST = withAuth(async (req) => {
     return errorResponse(e, req)}
 }, ...STAFF)
 
-const PUT = withAuth(async (req) => {
+const PUT = withAuth(async (req, _ctx, session) => {
   try {
     const b = await req.json()
     const { id, files, deliverables, subAssignments, bep, eirAir, progress, isoStatus, projectType, stage, scopeSummary, requirements, health, ...rest } = b
@@ -93,7 +93,7 @@ const PUT = withAuth(async (req) => {
 
     // Members may update only projects assigned to their linked team identity.
     const allowed = await prisma.project.findFirst({
-      where: { AND: [{ id }, projectScopeWhere(await (await import('@/lib/auth')).getSession())] },
+      where: { AND: [{ id }, projectScopeWhere(session)] },
       select: { id: true }
     })
     if (!allowed) return NextResponse.json({ error: 'Not found' }, { status: 404 })
