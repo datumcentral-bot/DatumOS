@@ -74,7 +74,7 @@ export default function AuditTrailPage() {
           <h1 style={{ fontFamily: MIL.head, fontSize: "1.1rem", fontWeight: 700, color: "#fff", margin: 0 }}>
             AUDIT TRAIL
           </h1>
-          <p style={{ fontSize: "0.7rem", color: MIL.dim, margin: 0 }}">BIM Action History & Event Log</p>
+          <p style={{ fontSize: "0.7rem", color: MIL.dim, margin: 0 }}>BIM Action History & Event Log</p>
         </div>
       </div>
 
