@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { readFile } from 'fs/promises';
 import path from 'path';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
+import { authOptions, guard } from '@/lib/auth';
 
 export const dynamic = "force-dynamic";
 
@@ -33,8 +33,10 @@ const FILES = {
 };
 
 export async function GET(request) {
-  // Session-gated — the director section is behind auth, so its
-  // API is too (consistent with the dcortex-proxy relay).
+  // These whitelisted files contain internal architecture and programme
+  // information; expose them only to internal Director/Member staff.
+  const denied = await guard('DIRECTOR', 'MEMBER');
+  if (denied) return denied;
   const session = await getServerSession(authOptions);
   if (!session?.user) {
     return NextResponse.json({ error: 'Unauthorized', available: false }, { status: 401 });
