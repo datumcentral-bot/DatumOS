@@ -76,21 +76,6 @@ export async function GET(req) {
             orderBy: { issueDate: "desc" }, take: 100,
             include: { client: true, project: true, lineItems: true },
           }));
-      case "approvals":
-      case "document_approvals": {
-        const appr = await prisma.approval.create({ data: { documentId: body.documentId, projectId: body.projectId, status: body.status || "PENDING", approverName: body.approverName, comment: body.comment, reviewedAt: body.reviewedAt ? new Date(body.reviewedAt) : null } });
-        return NextResponse.json(appr, { status: 201 });
-      }
-      case "documents":
-      case "document_vault": {
-        const doc = await prisma.document.create({ data: { title: body.title, projectId: body.projectId, divisionCode: body.divisionCode, cdeState: body.cdeState || "S0", revision: body.revision || "A", fileType: body.fileType, fileUrl: body.fileUrl, notes: body.notes } });
-        return NextResponse.json(doc, { status: 201 });
-      }
-      case "clashes":
-      case "bim_coordination": {
-        const clash = await prisma.clashDetection.create({ data: { projectId: body.projectId, title: body.title, disciplineA: body.disciplineA, disciplineB: body.disciplineB, status: body.status || "OPEN", severity: body.severity || "MEDIUM", location: body.location, assignedTo: body.assignedTo, resolvedAt: body.resolvedAt ? new Date(body.resolvedAt) : null } });
-        return NextResponse.json(clash, { status: 201 });
-      }
         case "financial_control":
           return NextResponse.json(await prisma.invoice.findMany({
             orderBy: { issueDate: "desc" }, take: 100,
