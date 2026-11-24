@@ -22,8 +22,10 @@ export async function GET(req) {
     try {
       switch (collection) {
         // ── Core models ──────────────────────────────────────────────────────
-        case "users":
-          return NextResponse.json(await prisma.user.findMany({ orderBy: { name: "asc" } }));
+        case "users": {
+          const users = await prisma.user.findMany({ orderBy: { name: "asc" } });
+          return NextResponse.json(users.map(({ password, passwordHash, ...safe }) => safe));
+        }
         case "clients":
           return NextResponse.json(await prisma.client.findMany({ orderBy: { companyName: "asc" } }));
         case "projects":
@@ -70,10 +72,10 @@ export async function GET(req) {
             include: { project: { select: { id: true, code: true, name: true } } },
           }));
         case "invoices":
-      case "billing_and_invoices": {
-        const inv = await prisma.invoice.create({ data: { invoiceNo: body.invoiceNo || `INV-${Date.now()}`, projectId: body.projectId, clientId: body.clientId, amount: parseFloat(body.amount) || 0, currency: body.currency || "AED", status: body.status || "DRAFT", issueDate: body.issueDate ? new Date(body.issueDate) : new Date(), dueDate: body.dueDate ? new Date(body.dueDate) : null, description: body.description } });
-        return NextResponse.json(inv, { status: 201 });
-      }
+          return NextResponse.json(await prisma.invoice.findMany({
+            orderBy: { issueDate: "desc" }, take: 100,
+            include: { client: true, project: true, lineItems: true },
+          }));
       case "approvals":
       case "document_approvals": {
         const appr = await prisma.approval.create({ data: { documentId: body.documentId, projectId: body.projectId, status: body.status || "PENDING", approverName: body.approverName, comment: body.comment, reviewedAt: body.reviewedAt ? new Date(body.reviewedAt) : null } });
@@ -202,15 +204,13 @@ export async function GET(req) {
           }));
         case "org_chart":
         case "enterprise_org_chart":
-          return NextResponse.json(await prisma.user.findMany({
+        case "project_team": {
+          const users = await prisma.user.findMany({
             orderBy: { name: "asc" },
             include: { assignments: { include: { project: { select: { id: true, code: true, name: true } } } } },
-          }));
-        case "project_team":
-          return NextResponse.json(await prisma.user.findMany({
-            orderBy: { name: "asc" },
-            include: { assignments: { include: { project: { select: { id: true, code: true, name: true } } } } },
-          }));
+          });
+          return NextResponse.json(users.map(({ password, passwordHash, ...safe }) => safe));
+        }
         case "monitoring":
         case "production_monitor":
           return NextResponse.json({
@@ -247,7 +247,7 @@ export async function GET(req) {
     ["newsletter", prisma.newsletterSubscriber ? prisma.newsletterSubscriber.findMany({ orderBy: { createdAt: "desc" }, take: 50 }) : null],
     ["clients", prisma.client.findMany({ orderBy: { companyName: "asc" } })],
     ["projects", prisma.project.findMany({ orderBy: { createdAt: "desc" }, include: { client: true } })],
-    ["members", prisma.user.findMany({ orderBy: { name: "asc" } })],
+    ["members", prisma.user.findMany({ orderBy: { name: "asc" } }).then((rows) => rows.map(({ password, passwordHash, ...safe }) => safe))],
     ["divisions", prisma.division ? prisma.division.findMany({ orderBy: { code: "asc" } }) : null],
     ["tasks", prisma.task.findMany({ orderBy: { createdAt: "desc" }, take: 100, include: { assignee: true, project: { select: { id: true, code: true, name: true } } } })],
     ["clashes", prisma.clashDetection.findMany({ orderBy: { createdAt: "desc" }, take: 50, include: { project: { select: { id: true, code: true, name: true } } } })],
