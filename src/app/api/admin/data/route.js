@@ -208,7 +208,7 @@ export async function GET(req) {
             leads: await prisma.lead.findMany({ orderBy: { createdAt: "desc" }, take: 50 }),
             clients: await prisma.client.findMany({ orderBy: { companyName: "asc" } }),
             projects: await prisma.project.findMany({ orderBy: { createdAt: "desc" }, include: { client: true } }),
-            users: await prisma.user.findMany({ orderBy: { name: "asc" } }),
+            users: await prisma.user.findMany({ orderBy: { name: "asc" } }).then((rows) => rows.map(({ password, passwordHash, ...safe }) => safe)),
             risks: await prisma.risk.findMany({ orderBy: { createdAt: "desc" } }),
             invoices: await prisma.invoice.findMany({ orderBy: { issueDate: "desc" }, take: 50, include: { client: true, project: true } }),
           });
