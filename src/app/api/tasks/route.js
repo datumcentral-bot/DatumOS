@@ -9,7 +9,7 @@
  */
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { requireAuth, taskScopeWhere, ROLES } from "@/lib/auth";
+import { requireAuth, requireRole, taskScopeWhere, ROLES } from "@/lib/auth";
 import { errorResponse } from "@/lib/api-errors";
 
 export const dynamic = "force-dynamic";
@@ -86,7 +86,7 @@ export async function POST(req) {
 export async function PATCH(req) {
   let session;
   try {
-    session = await requireAuth();
+    session = await requireRole(ROLES.DIRECTOR, ROLES.MEMBER);
   } catch (err) {
     return errorResponse(err, req)
   }
@@ -103,10 +103,11 @@ export async function PATCH(req) {
 
   // Update checklist item
   if (checklistItemId !== undefined) {
-    await prisma.taskChecklistItem.update({
-      where: { id: checklistItemId },
+    const changed = await prisma.taskChecklistItem.updateMany({
+      where: { id: checklistItemId, taskId },
       data: { checked: !!checked },
     });
+    if (!changed.count) return NextResponse.json({ error: "Checklist item not found" }, { status: 404 });
     return NextResponse.json({ ok: true });
   }
 
