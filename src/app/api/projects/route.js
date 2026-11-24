@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { withAuth, ROLES, getClientEntityId } from "@/lib/auth";
+import { withAuth, ROLES, projectScopeWhere } from "@/lib/auth";
 
 // SECURITY FIX (2026-10-10): no in-handler authorisation previously.
 // Same class of defect as /api/invoices — the edge middleware proved only that
@@ -13,12 +13,13 @@ export const dynamic = "force-dynamic";
 const GET = withAuth(async (req, _ctx, session) => {
   const { searchParams } = new URL(req.url);
   const status = searchParams.get("status");
-  const where = {};
+  // Enforce role-based record scope at the data layer:
+  // DIRECTOR = all projects; MEMBER = assigned projects only;
+  // CLIENT = own tenant only; REVIT = no general project-list access.
+  const where = { ...projectScopeWhere(session) };
 
-  if (session?.user?.role === ROLES.CLIENT) {
-    const clientId = getClientEntityId(session);
-    where.clientId = clientId || "__NONE__";
-  } else {
+  // Only Directors may broaden/filter the portfolio by client ID.
+  if (session?.user?.role === ROLES.DIRECTOR) {
     const clientId = searchParams.get("clientId");
     if (clientId) where.clientId = clientId;
   }
@@ -34,7 +35,7 @@ const GET = withAuth(async (req, _ctx, session) => {
     orderBy: { createdAt: "desc" },
   });
   return NextResponse.json(data);
-});
+}, ROLES.DIRECTOR, ROLES.MEMBER);
 
 const POST = withAuth(
   async (req) => {
@@ -52,8 +53,7 @@ const POST = withAuth(
   },
   // Staff only. A CLIENT cannot create projects.
   ROLES.DIRECTOR,
-  ROLES.MEMBER,
-  ROLES.REVIT
+  ROLES.MEMBER
 );
 
 export { GET, POST };
