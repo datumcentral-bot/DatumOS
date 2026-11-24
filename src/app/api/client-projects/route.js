@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
-import { withAuth, ROLES, getClientEntityId } from '@/lib/auth'
+import { withAuth, ROLES, getClientEntityId, projectScopeWhere } from '@/lib/auth'
 import { errorResponse } from "@/lib/api-errors";
 
 // SECURITY FIX (2026-10-10): this is the endpoint the CLIENT PORTAL itself
@@ -36,15 +36,15 @@ function ownClientId(session) {
 const GET = withAuth(async (req, _ctx, session) => {
   try {
     const { searchParams } = new URL(req.url)
-    const where = {}
+    const where = { ...projectScopeWhere(session) }
     const own = ownClientId(session)
 
     if (own) {
       // A client is pinned to its own records. A supplied clientId is ignored,
       // so it cannot be used to select another tenant.
       where.clientId = own
-    } else {
-      // Staff may filter, because they are permitted to see everything.
+    } else if (session?.user?.role === ROLES.DIRECTOR) {
+      // Only Directors may browse or filter the complete client portfolio.
       const clientId = searchParams.get('clientId')
       if (clientId) where.clientId = clientId
     }
@@ -91,8 +91,14 @@ const PUT = withAuth(async (req) => {
 
     if (!id) return NextResponse.json({ error: 'Project id is required.' }, { status: 400 })
 
-    // `clientId` is stripped from the update. Previously it was spread straight
-    // into `data`, which let any caller move a project to a different tenant.
+    // Members may update only projects assigned to their linked team identity.
+    const allowed = await prisma.project.findFirst({
+      where: { AND: [{ id }, projectScopeWhere(await (await import('@/lib/auth')).getSession())] },
+      select: { id: true }
+    })
+    if (!allowed) return NextResponse.json({ error: 'Not found' }, { status: 404 })
+
+    // `clientId` is stripped from the update so ownership cannot be reassigned.
     const { clientId: _ignoredClientId, ...safeRest } = rest
 
     const project = await prisma.project.update({
