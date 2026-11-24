@@ -72,7 +72,7 @@ export default function BIMPluginPage() {
           <h1 style={{ fontFamily: MIL.head, fontSize: "1.1rem", fontWeight: 700, color: "#fff", margin: 0 }}>
             BIM PLUGIN
           </h1>
-          <p style={{ fontSize: "0.7rem", color: MIL.dim, margin: 0 }}">BIM Plugin - ISO 19650 Information Container Management</p>
+          <p style={{ fontSize: "0.7rem", color: MIL.dim, margin: 0 }}>BIM Plugin - ISO 19650 Information Container Management</p>
         </div>
       </div>
 
