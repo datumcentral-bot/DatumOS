@@ -5,7 +5,7 @@
   "description": "DatumOS — Custom ERP + Client Portal for Datum Studios Engineering Consultancy",
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && next build",
+    "build": "npm test && prisma generate && next build",
     "start": "node server.js",
     "lint": "next lint",
     "test": "node --test src/lib/roles.test.mjs tests/extraction.test.mjs",
