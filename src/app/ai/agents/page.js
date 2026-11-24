@@ -87,7 +87,7 @@ export default function AIAgentsPage() {
 
       {/* Stats */}
       <div style={{ marginBottom: "1.5rem", display: "flex", gap: "1rem" }}>
-        {[stats && [
+        {stats ? [
           { label: "AGENTS", value: stats.totalAgents, color: MIL.blue },
           { label: "ONLINE", value: stats.onlineAgents, color: MIL.green },
           { label: "TOTAL TASKS", value: stats.totalTasks, color: MIL.blue },
