@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { guard } from '@/lib/auth';
+import { getServerSession } from 'next-auth';
+import { authOptions, guard } from '@/lib/auth';
 import { errorResponse } from "@/lib/api-errors";
 
 export const dynamic = "force-dynamic";
@@ -77,12 +78,16 @@ export async function POST(req) {
   const denied = await guard();
   if (denied) return denied;
   try {
+    const session = await getServerSession(authOptions);
+    const identity = session?.user?.id || session?.user?.email;
+    if (!identity) return NextResponse.json({ error: 'User identity unavailable' }, { status: 403 });
     const body = await req.json();
     const { message, sessionId, history = [] } = body;
 
-    if (!message || !sessionId) {
-      return NextResponse.json({ error: 'message and sessionId required' }, { status: 400 });
+    if (typeof message !== 'string' || !message.trim() || typeof sessionId !== 'string' || !/^[a-zA-Z0-9._:-]{1,128}$/.test(sessionId)) {
+      return NextResponse.json({ error: 'A valid message and sessionId are required' }, { status: 400 });
     }
+    const scopedSessionId = `${identity}:${sessionId}`;
 
     const apiKey = process.env.OPENAI_API_KEY;
     let reply;
@@ -105,8 +110,8 @@ export async function POST(req) {
     // Persist messages
     await prisma.aIChatMessage.createMany({
       data: [
-        { sessionId, role: 'USER', content: message },
-        { sessionId, role: 'ASSISTANT', content: reply },
+        { sessionId: scopedSessionId, role: 'USER', content: message },
+        { sessionId: scopedSessionId, role: 'ASSISTANT', content: reply },
       ],
     });
 
@@ -119,12 +124,15 @@ export async function POST(req) {
 export async function GET(req) {
   const denied = await guard();
   if (denied) return denied;
+  const session = await getServerSession(authOptions);
+  const identity = session?.user?.id || session?.user?.email;
+  if (!identity) return NextResponse.json({ error: 'User identity unavailable' }, { status: 403 });
   const { searchParams } = new URL(req.url);
   const sessionId = searchParams.get('sessionId');
-  if (!sessionId) return NextResponse.json({ error: 'sessionId required' }, { status: 400 });
+  if (!sessionId || !/^[a-zA-Z0-9._:-]{1,128}$/.test(sessionId)) return NextResponse.json({ error: 'Valid sessionId required' }, { status: 400 });
 
   const messages = await prisma.aIChatMessage.findMany({
-    where: { sessionId },
+    where: { sessionId: `${identity}:${sessionId}` },
     orderBy: { createdAt: 'asc' },
   });
   return NextResponse.json(messages);
