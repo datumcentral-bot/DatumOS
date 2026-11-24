@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
-import { guard, getSession, ROLES, getClientEntityId, projectScopeWhere } from '@/lib/auth';
+import { guard, getSession, ROLES, projectScopeWhere } from '@/lib/auth';
 import { errorResponse } from "@/lib/api-errors";
 
 export const dynamic = "force-dynamic";
@@ -10,8 +10,8 @@ export async function GET(req, { params }) { try {
   const session = await getSession();
   const data = await prisma.project.findFirst({ where: { AND: [{ id: params.id }, projectScopeWhere(session)] }, include: { client: true, assignments: { include: { user: { select: { name: true, title: true, avatarHue: true } } } }, tasks: { include: { assignee: { select: { name: true } } }, orderBy: { orderIndex: 'asc' } }, milestones: { orderBy: { dueDate: 'asc' } }, deliverables: true, projectFiles: { orderBy: { uploadedAt: 'desc' } }, beps: true, midps: { include: { deliverables: true } }, eirs: { include: { sections: true } }, airs: { include: { sections: true } }, cdeDocs: { orderBy: { createdAt: 'desc' } }, clashDetections: { orderBy: { createdAt: 'desc' } }, _count: { select: { tasks: true, milestones: true, cdeDocs: true, clashDetections: true, risks: true } } } })
   if (!data) return NextResponse.json({ error: 'Not found' }, { status: 404 })
-  // Tenant scoping: a CLIENT may only read its own project. Return 404 (not
-  // 403) so the existence of another tenant's project is not disclosed.
+  // Role-based project scope is applied in the database query; inaccessible
+  // projects return 404 so their existence is not disclosed.
   return NextResponse.json(data)
  } catch (err) { return errorResponse(err, req); }}
 export async function PUT(req, { params }) { try {
