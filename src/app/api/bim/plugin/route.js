@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { guard, getSession } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { errorResponse } from "@/lib/api-errors";
+import { ApiError, errorResponse } from "@/lib/api-errors";
 import { broadcast } from "@/lib/broadcast";
 
 export const dynamic = "force-dynamic";
@@ -77,15 +77,28 @@ export async function POST(req) {
   if (denied) return denied;
 
   try {
-    const body = await req.json();
-    const containerId = typeof body?.containerId === "string" ? body.containerId.trim() : "";
+    let body;
+    try {
+      body = await req.json();
+    } catch {
+      throw new ApiError(400, "Request body must be valid JSON");
+    }
+    if (!body || typeof body !== "object" || Array.isArray(body)) {
+      throw new ApiError(400, "Request body must be a JSON object");
+    }
+    if (body.action !== "create_container") {
+      throw new ApiError(400, "Unsupported action");
+    }
+
+    const containerId = typeof body.containerId === "string" ? body.containerId.trim() : "";
     const projectId = typeof body?.projectId === "string" ? body.projectId.trim() : "";
     const name = typeof body?.name === "string" ? body.name.trim() : "";
     const discipline = typeof body?.discipline === "string" ? body.discipline.trim() : "";
     const phase = typeof body?.phase === "string" ? body.phase.trim() : "";
-    const metadata = body?.metadata && typeof body.metadata === "object" && !Array.isArray(body.metadata)
-      ? body.metadata
-      : {};
+    const metadata = body.metadata === undefined ? {} : body.metadata;
+    if (!metadata || typeof metadata !== "object" || Array.isArray(metadata)) {
+      throw new ApiError(400, "metadata must be a JSON object");
+    }
 
     if (!/^[A-Za-z0-9][A-Za-z0-9._-]{2,63}$/.test(containerId)) {
       return NextResponse.json({ error: "containerId must be 3-64 characters using letters, numbers, dot, underscore or hyphen" }, { status: 400 });
