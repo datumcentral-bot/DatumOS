@@ -21,7 +21,7 @@ export const ROLE_LIST = Object.freeze(Object.values(ROLES));
  * identity (email), so all four roles can be in the same room at once.
  */
 export const PORTAL_ACCESS = {
-  DIRECTOR: ["/operations", "/director", "/workspace", "/client", "/revit", "/console", "/live"],
+  DIRECTOR: ["/operations", "/director", "/workspace", "/client", "/revit", "/console", "/bim", "/live"],
   MEMBER: ["/operations", "/workspace", "/console", "/live"],
   CLIENT: ["/client", "/console", "/live"],
   REVIT: ["/revit", "/console", "/live"],
