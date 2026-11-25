@@ -225,6 +225,7 @@ model Project {
   acceptances              Acceptance[]
   handovers                Handover[]
   digitalTwins             DigitalTwin[]
+  bimInformationContainers BimInformationContainer[]
 }
 
 model ProjectAssignment {
@@ -413,6 +414,23 @@ model Deliverable {
   format      String?
   createdAt   DateTime  @default(now())
   project     Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+}
+
+model BimInformationContainer {
+  id          String   @id @default(cuid())
+  containerId String   @unique
+  projectId   String
+  name        String
+  discipline  String
+  phase       String
+  stage       String   @default("WIP")
+  metadata    Json?
+  createdBy   String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([projectId, createdAt])
 }
 
 model Bep {
