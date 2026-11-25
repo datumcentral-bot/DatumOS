@@ -17,7 +17,7 @@ test("PORTAL_ACCESS includes REVIT portal and shared communication", () => {
 });
 
 test("DIRECTOR can access all four portals + console", () => {
-  for (const p of ["/director", "/workspace", "/client", "/revit", "/console"]) {
+  for (const p of ["/director", "/workspace", "/client", "/revit", "/console", "/bim/plugin"]) {
     assert.equal(canAccessPath("DIRECTOR", p), true, `DIRECTOR should access ${p}`);
   }
 });
