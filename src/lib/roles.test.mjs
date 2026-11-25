@@ -17,7 +17,7 @@ test("PORTAL_ACCESS includes REVIT portal and shared communication", () => {
 });
 
 test("DIRECTOR can access all four portals + console", () => {
-  for (const p of ["/director", "/workspace", "/client", "/revit", "/console"]) {
+  for (const p of ["/director", "/workspace", "/client", "/revit", "/console", "/bim/plugin"]) {
     assert.equal(canAccessPath("DIRECTOR", p), true, `DIRECTOR should access ${p}`);
   }
 });
@@ -28,6 +28,7 @@ test("MEMBER restricted to workspace + console (no director/client/revit)", () =
   assert.equal(canAccessPath("MEMBER", "/director"), false);
   assert.equal(canAccessPath("MEMBER", "/client"), false);
   assert.equal(canAccessPath("MEMBER", "/revit"), false);
+  assert.equal(canAccessPath("MEMBER", "/bim/plugin"), false);
 });
 
 test("CLIENT restricted to client + console (no director/workspace/revit)", () => {
@@ -36,6 +37,7 @@ test("CLIENT restricted to client + console (no director/workspace/revit)", () =
   assert.equal(canAccessPath("CLIENT", "/director"), false);
   assert.equal(canAccessPath("CLIENT", "/workspace"), false);
   assert.equal(canAccessPath("CLIENT", "/revit"), false);
+  assert.equal(canAccessPath("CLIENT", "/bim/plugin"), false);
 });
 
 test("REVIT restricted to revit + console (no director/workspace/client)", () => {
@@ -44,6 +46,7 @@ test("REVIT restricted to revit + console (no director/workspace/client)", () =>
   assert.equal(canAccessPath("REVIT", "/director"), false);
   assert.equal(canAccessPath("REVIT", "/workspace"), false);
   assert.equal(canAccessPath("REVIT", "/client"), false);
+  assert.equal(canAccessPath("REVIT", "/bim/plugin"), false);
 });
 
 test("no role / unknown role denied everywhere", () => {
