@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const SEQUENCES = [
   {
@@ -43,6 +43,11 @@ export default function OutreachPage() {
   const [previewVars, setPreviewVars] = useState({ company: "ADNOC", name: "Ahmed Al-Rashid" });
   const [toast, setToast] = useState(null);
   const [editMode, setEditMode] = useState(false);
+  const [activities, setActivities] = useState([]);
+
+  useEffect(() => {
+    fetch("/api/outreach").then(r => r.json()).then(d => setActivities(Array.isArray(d) ? d : [])).catch(() => {});
+  }, []);
   const [sequences, setSequences] = useState(SEQUENCES);
 
   const applyVars = (text) => text.replace(/\{company\}/g, previewVars.company).replace(/\{name\}/g, previewVars.name);
