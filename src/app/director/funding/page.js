@@ -31,7 +31,7 @@ export default function FundingTrackerPage() {
   const totalFunding = lines.reduce((s, l) => s + l.amount, 0);
   const totalReceived = lines.reduce((s, l) => s + l.received, 0);
   const totalPending = totalFunding - totalReceived;
-  const runway = Math.round(totalReceived / burnRate);
+  const runway = burnRate > 0 ? Math.round(totalReceived / burnRate) : null;
 
   // Monthly cash flow — from actual invoices/expenses only
   const cashFlow = MONTHS.slice(0, 6).map((m) => ({
@@ -104,10 +104,10 @@ export default function FundingTrackerPage() {
       {/* Stats */}
       <div style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:"0.75rem", marginBottom:"1.25rem" }}>
         {[
-          { label:"TOTAL FUNDING", value:`AED ${(totalFunding/1000).toFixed(0)}K`, color:"#6b8e23" },
-          { label:"RECEIVED", value:`AED ${(totalReceived/1000).toFixed(0)}K`, color:"#4ade80" },
-          { label:"PENDING", value:`AED ${(totalPending/1000).toFixed(0)}K`, color:"#ff9500" },
-          { label:"RUNWAY", value:`${runway} MOS`, color:"#c19749" },
+          { label:"TOTAL FUNDING", value:`PKR ${(totalFunding/1000).toFixed(0)}K`, color:"#6b8e23" },
+          { label:"RECEIVED", value:`PKR ${(totalReceived/1000).toFixed(0)}K`, color:"#4ade80" },
+          { label:"PENDING", value:`PKR ${(totalPending/1000).toFixed(0)}K`, color:"#ff9500" },
+          { label:"RUNWAY", value: runway != null ? `${runway} MOS` : "Pending Data", color:"#c19749" },
         ].map(s => (
           <div key={s.label} style={{ ...S.card, textAlign:"center" }}>
             <div style={{ fontFamily:"'Orbitron',sans-serif", fontSize:"1.3rem", color:s.color, fontWeight:800 }}>{s.value}</div>
@@ -122,11 +122,11 @@ export default function FundingTrackerPage() {
         <div style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:"1rem" }}>
           <div>
             <div style={{ fontSize:"0.7rem", color:"#4d584d", marginBottom:4 }}>MONTHLY BURN</div>
-            <div style={{ fontFamily:"'Orbitron',sans-serif", fontSize:"1.2rem", color:"#ff9500" }}>AED {burnRate.toLocaleString()}</div>
+            <div style={{ fontFamily:"'Orbitron',sans-serif", fontSize:"1.2rem", color:"#ff9500" }}>PKR {burnRate.toLocaleString()}</div>
           </div>
           <div>
             <div style={{ fontSize:"0.7rem", color:"#4d584d", marginBottom:4 }}>CASH ON HAND</div>
-            <div style={{ fontFamily:"'Orbitron',sans-serif", fontSize:"1.2rem", color:"#4ade80" }}>AED {totalReceived.toLocaleString()}</div>
+            <div style={{ fontFamily:"'Orbitron',sans-serif", fontSize:"1.2rem", color:"#4ade80" }}>PKR {totalReceived.toLocaleString()}</div>
           </div>
           <div>
             <div style={{ fontSize:"0.7rem", color:"#4d584d", marginBottom:4 }}>RUNWAY</div>
@@ -151,8 +151,8 @@ export default function FundingTrackerPage() {
             {cashFlow.map((m, i) => (
               <div key={i} style={{ flex:1, display:"flex", flexDirection:"column", alignItems:"center", gap:2 }}>
                 <div style={{ width:"100%", display:"flex", gap:2, alignItems:"flex-end", height:100 }}>
-                  <div style={{ flex:1, background:"rgba(107,142,35,0.6)", borderRadius:"2px 2px 0 0", height:`${(m.income/maxCF)*100}%`, minHeight:4 }} title={`Income: AED ${m.income.toLocaleString()}`} />
-                  <div style={{ flex:1, background:"rgba(255,59,48,0.5)", borderRadius:"2px 2px 0 0", height:`${(m.expense/maxCF)*100}%`, minHeight:4 }} title={`Expense: AED ${m.expense.toLocaleString()}`} />
+                  <div style={{ flex:1, background:"rgba(107,142,35,0.6)", borderRadius:"2px 2px 0 0", height:`${(m.income/maxCF)*100}%`, minHeight:4 }} title={`Income: PKR ${m.income.toLocaleString()}`} />
+                  <div style={{ flex:1, background:"rgba(255,59,48,0.5)", borderRadius:"2px 2px 0 0", height:`${(m.expense/maxCF)*100}%`, minHeight:4 }} title={`Expense: PKR ${m.expense.toLocaleString()}`} />
                 </div>
                 <div style={{ fontFamily:"'Orbitron',sans-serif", fontSize:"0.45rem", color:"#4d584d" }}>{m.month}</div>
               </div>
@@ -208,9 +208,9 @@ export default function FundingTrackerPage() {
                     <td style={{ padding:"0.75rem" }}>
                       <span style={{ fontFamily:"'Orbitron',sans-serif", fontSize:"0.5rem", color:TYPE_COLORS[l.type], border:`1px solid ${TYPE_COLORS[l.type]}`, borderRadius:2, padding:"2px 6px" }}>{l.type}</span>
                     </td>
-                    <td style={{ padding:"0.75rem", color:"#c19749", fontFamily:"'Orbitron',sans-serif", fontSize:"0.75rem" }}>AED {l.amount.toLocaleString()}</td>
+                    <td style={{ padding:"0.75rem", color:"#c19749", fontFamily:"'Orbitron',sans-serif", fontSize:"0.75rem" }}>PKR {l.amount.toLocaleString()}</td>
                     <td style={{ padding:"0.75rem" }}>
-                      <div style={{ fontSize:"0.75rem", color:"#4ade80" }}>AED {l.received.toLocaleString()}</div>
+                      <div style={{ fontSize:"0.75rem", color:"#4ade80" }}>PKR {l.received.toLocaleString()}</div>
                       <div style={{ height:3, background:"rgba(255,255,255,0.06)", borderRadius:2, marginTop:3, overflow:"hidden" }}>
                         <div style={{ height:"100%", width:`${pct}%`, background:"#4ade80", borderRadius:2 }} />
                       </div>
@@ -238,7 +238,7 @@ export default function FundingTrackerPage() {
           <div style={{ background:"#0d1117", border:"1px solid rgba(107,142,35,0.3)", borderRadius:6, padding:"2rem", width:460, maxWidth:"90vw" }}>
             <h3 style={{ fontFamily:"'Orbitron',sans-serif", fontSize:"0.8rem", color:"#6b8e23", letterSpacing:"2px", marginBottom:"1.5rem" }}>{editLine ? "EDIT" : "+ ADD"} FUNDING LINE</h3>
             <div style={{ display:"flex", flexDirection:"column", gap:"0.9rem" }}>
-              {[["NAME *","name","text"],["AMOUNT (AED) *","amount","number"],["RECEIVED (AED)","received","number"],["DATE","date","date"]].map(([label, key, type]) => (
+              {[["NAME *","name","text"],["AMOUNT (PKR) *","amount","number"],["RECEIVED (PKR)","received","number"],["DATE","date","date"]].map(([label, key, type]) => (
                 <div key={key}>
                   <label style={{ fontSize:"0.65rem", color:"#4d584d", display:"block", marginBottom:4 }}>{label}</label>
                   <input type={type} value={form[key]} onChange={e => setForm(p => ({...p, [key]:e.target.value}))} style={S.input} />

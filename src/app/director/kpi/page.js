@@ -91,7 +91,7 @@ export default function KpiPage() {
           <FormRow>
             <Field label="Value"><Input type="number" step="0.01" value={form.value||0} onChange={e => setForm(p => ({...p, value: e.target.value}))} /></Field>
             <Field label="Target"><Input type="number" step="0.01" value={form.target||""} onChange={e => setForm(p => ({...p, target: e.target.value}))} placeholder="Optional" /></Field>
-            <Field label="Unit"><Input value={form.unit||""} onChange={e => setForm(p => ({...p, unit: e.target.value}))} placeholder="%, hrs, AED..." /></Field>
+            <Field label="Unit"><Input value={form.unit||""} onChange={e => setForm(p => ({...p, unit: e.target.value}))} placeholder="%, hrs, PKR..." /></Field>
           </FormRow>
           <FormRow>
             <Field label="Period"><Input type="date" value={form.period?.split("T")[0]||""} onChange={e => setForm(p => ({...p, period: e.target.value}))} /></Field>

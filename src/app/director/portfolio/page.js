@@ -129,7 +129,7 @@ export default function PortfolioPage() {
             </Field>
           </FormRow>
           <FormRow>
-            <Field label="Contract Value (USD)"><Input type="number" value={form.contractValue} onChange={f("contractValue")} placeholder="0" /></Field>
+            <Field label="Contract Value (PKR)"><Input type="number" value={form.contractValue} onChange={f("contractValue")} placeholder="0" /></Field>
             <Field label="Progress (%)"><Input type="number" min="0" max="100" value={form.progress} onChange={f("progress")} placeholder="0" /></Field>
           </FormRow>
           <Field label="Description"><Textarea value={form.description} onChange={f("description")} rows={2} /></Field>
