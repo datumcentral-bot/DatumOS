@@ -24,6 +24,8 @@ const GET = withAuth(async (req, _ctx, session) => {
     if (clientId) where.clientId = clientId;
   }
   if (status) where.status = status;
+  // B1.18: Default to ACTIVE only — archived projects excluded from operational views.
+  if (!status) where.status = "ACTIVE";
 
   const data = await prisma.project.findMany({
     where,

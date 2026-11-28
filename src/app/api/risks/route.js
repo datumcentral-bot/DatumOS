@@ -10,8 +10,9 @@ export async function GET(req) {
   try {
     const { searchParams } = new URL(req.url)
     const projectId = searchParams.get('projectId')
-    const where = projectId ? { projectId } : {}
-    const data = await prisma.risk.findMany({ where, include: { project: { select: { name: true } } }, orderBy: { riskScore: 'desc' } })
+    // B1.18: Default to risks on ACTIVE projects only.
+    const where = projectId ? { projectId } : { project: { status: 'ACTIVE' } }
+    const data = await prisma.risk.findMany({ where, include: { project: { select: { name: true, status: true } } }, orderBy: { riskScore: 'desc' } })
     return NextResponse.json(data)
   } catch(e) { return errorResponse(e, req)}
 }

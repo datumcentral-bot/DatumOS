@@ -92,7 +92,7 @@ export default function DirectorDashboard() {
 
   const openTasks    = data.tasks.filter((t) => t.status !== "COMPLETE" && t.status !== "VERIFIED").length;
   const criticalRisks = data.risks.filter((r) => r.impact === "Critical" || r.impact === "High" || r.severity === "CRITICAL" || r.severity === "HIGH").length;
-  const activeProjects = data.projects.filter((p) => p.status !== "COMPLETE" && p.status !== "CLOSED").length;
+  const activeProjects = data.projects.filter((p) => p.status === "ACTIVE").length;
   const deliveryVelocity = data.tasks.length > 0
     ? Math.round((data.tasks.filter((t) => t.status === "COMPLETE" || t.status === "VERIFIED").length / data.tasks.length) * 100)
     : null;

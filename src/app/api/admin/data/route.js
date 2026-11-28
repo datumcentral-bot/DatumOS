@@ -27,10 +27,13 @@ export async function GET(req) {
           return NextResponse.json(users.map(({ password, passwordHash, ...safe }) => safe));
         }
         case "clients":
-          return NextResponse.json(await prisma.client.findMany({ orderBy: { companyName: "asc" } }));
+          // B1.18: Only active clients in operational views.
+          return NextResponse.json(await prisma.client.findMany({ where: { status: "ACTIVE" }, orderBy: { companyName: "asc" } }));
         case "projects":
         case "project_portfolio":
+          // B1.18: Only active projects in operational portfolio.
           return NextResponse.json(await prisma.project.findMany({
+            where: { status: "ACTIVE" },
             orderBy: { createdAt: "desc" },
             include: { client: true, divisions: { include: { division: true } }, _count: { select: { tasks: true, documents: true } } },
           }));
@@ -83,7 +86,11 @@ export async function GET(req) {
           }));
         case "activity":
         case "activity_log":
-          return NextResponse.json(await prisma.activityLog.findMany({ orderBy: { createdAt: "desc" }, take: 100 }));
+          // B1.18: Recent activity only (last 7 days), excluding old B2B outreach.
+          return NextResponse.json(await prisma.activityLog.findMany({
+            where: { createdAt: { gte: new Date(Date.now() - 7 * 86400000) } },
+            orderBy: { createdAt: "desc" }, take: 20,
+          }));
         case "risks":
         case "risk_register":
           return NextResponse.json(await prisma.risk.findMany({
@@ -199,15 +206,15 @@ export async function GET(req) {
         case "monitoring":
         case "production_monitor":
           return NextResponse.json({
-            tasks: await prisma.task.findMany({ orderBy: { createdAt: "desc" }, take: 50, include: { assignee: true, project: { select: { id: true, code: true, name: true } } } }),
-            projects: await prisma.project.findMany({ orderBy: { createdAt: "desc" }, take: 20, include: { client: true } }),
-            activity: await prisma.activityLog.findMany({ orderBy: { createdAt: "desc" }, take: 20 }),
+            tasks: await prisma.task.findMany({ where: { project: { status: "ACTIVE" } }, orderBy: { createdAt: "desc" }, take: 50, include: { assignee: true, project: { select: { id: true, code: true, name: true } } } }),
+            projects: await prisma.project.findMany({ where: { status: "ACTIVE" }, orderBy: { createdAt: "desc" }, take: 20, include: { client: true } }),
+            activity: await prisma.activityLog.findMany({ where: { createdAt: { gte: new Date(Date.now() - 7 * 86400000) } }, orderBy: { createdAt: "desc" }, take: 20 }),
           });
         case "admin_panel":
           return NextResponse.json({
             leads: await prisma.lead.findMany({ orderBy: { createdAt: "desc" }, take: 50 }),
-            clients: await prisma.client.findMany({ orderBy: { companyName: "asc" } }),
-            projects: await prisma.project.findMany({ orderBy: { createdAt: "desc" }, include: { client: true } }),
+            clients: await prisma.client.findMany({ where: { status: "ACTIVE" }, orderBy: { companyName: "asc" } }),
+            projects: await prisma.project.findMany({ where: { status: "ACTIVE" }, orderBy: { createdAt: "desc" }, include: { client: true } }),
             users: await prisma.user.findMany({ orderBy: { name: "asc" } }).then((rows) => rows.map(({ password, passwordHash, ...safe }) => safe)),
             risks: await prisma.risk.findMany({ orderBy: { createdAt: "desc" } }),
             invoices: await prisma.invoice.findMany({ orderBy: { issueDate: "desc" }, take: 50, include: { client: true, project: true } }),
@@ -230,8 +237,8 @@ export async function GET(req) {
     ["leads", prisma.lead.findMany({ orderBy: { createdAt: "desc" }, take: 50 })],
     ["quoteRequests", prisma.quoteRequest ? prisma.quoteRequest.findMany({ orderBy: { createdAt: "desc" }, take: 50 }) : null],
     ["newsletter", prisma.newsletterSubscriber ? prisma.newsletterSubscriber.findMany({ orderBy: { createdAt: "desc" }, take: 50 }) : null],
-    ["clients", prisma.client.findMany({ orderBy: { companyName: "asc" } })],
-    ["projects", prisma.project.findMany({ orderBy: { createdAt: "desc" }, include: { client: true } })],
+    ["clients", prisma.client.findMany({ where: { status: "ACTIVE" }, orderBy: { companyName: "asc" } })],
+    ["projects", prisma.project.findMany({ where: { status: "ACTIVE" }, orderBy: { createdAt: "desc" }, include: { client: true } })],
     ["members", prisma.user.findMany({ orderBy: { name: "asc" } }).then((rows) => rows.map(({ password, passwordHash, ...safe }) => safe))],
     ["divisions", prisma.division ? prisma.division.findMany({ orderBy: { code: "asc" } }) : null],
     ["tasks", prisma.task.findMany({ orderBy: { createdAt: "desc" }, take: 100, include: { assignee: true, project: { select: { id: true, code: true, name: true } } } })],

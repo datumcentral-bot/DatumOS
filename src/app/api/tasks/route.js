@@ -23,6 +23,8 @@ export async function GET(req) {
   }
 
   const where = taskScopeWhere(session);
+  // B1.18: Only tasks on ACTIVE projects in operational views.
+  where.project = { status: "ACTIVE" };
   const tasks = await prisma.task.findMany({
     where,
     include: {
