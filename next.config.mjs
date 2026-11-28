@@ -29,8 +29,8 @@ const nextConfig = {
   distDir: process.env.DATUM_DEMO_ISOLATED === "1" ? ".next-live-demo" : ".next",
   reactStrictMode: true,
   allowedDevOrigins: ["*.trycloudflare.com", "trycloudflare.com"],
-  eslint: { ignoreDuringBuilds: true },
-  typescript: { ignoreBuildErrors: true },
+  eslint: { ignoreDuringBuilds: false },
+  typescript: { ignoreBuildErrors: false },
   experimental: {
     workerThreads: false,
     cpus: 1,

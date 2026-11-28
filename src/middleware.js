@@ -1,4 +1,4 @@
-/**
+﻿/**
  * DatumOS — Next.js Edge Middleware
  * Protects portal routes and enforces role-based access control.
  *
@@ -13,7 +13,17 @@
  *   /workspace/* → DIRECTOR or MEMBER
  *   /client/*    → DIRECTOR or CLIENT
  *   /console     → any authenticated user
+ *
+ * Public API endpoints:
+ *   /api/auth           - NextAuth sign-in / callbacks
+ *   /api/neon-auth      - Neon Auth (Managed Better Auth) sign-up / sign-in / session
+ *   /api/contact        - public quote + enquiry form
+ *   /api/public         - public website lead capture
+ *   /api/newsletter     - public newsletter sign-up
+ *   /api/status         - system status check
+ *   /api/health         - health check endpoint
  */
+
 import { getToken } from "next-auth/jwt";
 import { NextResponse } from "next/server";
 // Canonical role/path policy from src/lib/roles.mjs — keeps the edge runtime
@@ -26,20 +36,17 @@ import { PORTAL_ACCESS as ROLE_PATHS, HOME_MAP } from "@/lib/roles.mjs";
 // unset in a deployment, every session cookie became forgeable — including a
 // cookie claiming role: DIRECTOR. Anyone who saw the old value should still
 // treat it as compromised.
-//
 // The auth handler in src/app/api/auth/[...nextauth]/route.js already refuses to
 // start without NEXTAUTH_SECRET, so this fallback contradicted it: the handler
 // failed closed while the edge middleware used the published key. Both now fail
 // closed together.
-//
 // No secret value is rotated by this change and no replacement is introduced.
 // Consequences of deploying it, stated precisely:
 //   * Where NEXTAUTH_SECRET IS set  -> unchanged behaviour, and no session is
 //     invalidated, because the fallback was never reached in the first place.
 //   * Where it is NOT set -> the edge middleware now denies protected traffic
 //     instead of accepting forgeable cookies. That is the intended fail-closed
-//     behaviour, and it is also a hard stop for anyone relying on the published
-//     key.
+//     behaviour, and it is also a hard stop for anyone relying on the published key.
 // Production session invalidation is NOT expected, but it cannot be asserted
 // without confirming the production environment variable. See the risk register.
 const SECRET = process.env.NEXTAUTH_SECRET;
@@ -49,6 +56,7 @@ if (!SECRET) {
     "[middleware] NEXTAUTH_SECRET is not set. Refusing to evaluate session tokens; protected routes are denied."
   );
 }
+
 const COOKIE_NAME = "next-auth.session-token";
 
 // Public path prefixes — no auth required
@@ -77,11 +85,13 @@ const PUBLIC_PREFIXES = [
 // allowance exposed internal records (invoices, projects, financial, SOPs) to
 // unauthenticated callers, because many handlers never call requireAuth().
 const PUBLIC_API_PREFIXES = [
-  "/api/auth", // NextAuth sign-in / callbacks
-  "/api/neon-auth", // Neon Auth (Managed Better Auth) sign-up / sign-in / session
-  "/api/contact", // public quote + enquiry form
-  "/api/public", // public website lead capture
-  "/api/newsletter", // public newsletter sign-up
+  "/api/auth",          // NextAuth sign-in / callbacks
+  "/api/neon-auth",     // Neon Auth (Managed Better Auth) sign-up / sign-in / session
+  "/api/contact",       // public quote + enquiry form
+  "/api/public",        // public website lead capture
+  "/api/newsletter",    // public newsletter sign-up
+  "/api/status",        // system status check
+  "/api/health",        // health check endpoint
 ];
 
 function isPublicPath(pathname) {
@@ -143,6 +153,6 @@ export const config = {
      * returned the app shell instead of the video. Keep this list in step with
      * anything added to public/.
      */
-    "/((?!_next/static|_next/image|favicon\\.ico|icon\\.png|apple-icon\\.png|manifest\\.json|.*\\.(?:svg|png|jpg|jpeg|gif|webp|avif|ico|css|js|mjs|map|woff|woff2|ttf|eot|otf|mp4|webm|ogv|mov|m4v|vtt|srt|txt|xml|json|pdf|zip)).*)",
+    "/((?!_next/static|_next/image|favicon\.ico|icon\.png|apple-icon\.png|manifest\.json|.*\.(?:svg|png|jpg|jpeg|gif|webp|avif|ico|css|js|mjs|map|woff|woff2|ttf|eot|otf|mp4|webm|ogv|mov|m4v|vtt|srt|txt|xml|json|pdf|zip)).*)",
   ],
 };

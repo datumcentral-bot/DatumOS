@@ -57,7 +57,7 @@ export async function GET(request, { params }) {
       return Response.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    const { path } = params
+    const { path } = await params
     const apiPath = '/' + path.join('/')
     console.log('[dcortex-proxy] API path:', safeApiPath(apiPath))
 
@@ -84,7 +84,7 @@ export async function POST(request, { params }) {
       return Response.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    const { path } = params
+    const { path } = await params
     const apiPath = '/' + path.join('/')
 
     if (apiPath === '/ai/chat') {
