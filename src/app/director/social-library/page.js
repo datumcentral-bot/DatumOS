@@ -1,33 +1,27 @@
 "use client";
-import { useState } from "react";
-
-const PLATFORMS = ["ALL", "LINKEDIN", "INSTAGRAM", "TWITTER", "FACEBOOK"];
-const PLATFORM_COLORS = { LINKEDIN:"#0077b5", INSTAGRAM:"#e1306c", TWITTER:"#1da1f2", FACEBOOK:"#1877f2" };
-const PLATFORM_LIMITS = { LINKEDIN:3000, INSTAGRAM:2200, TWITTER:280, FACEBOOK:63206 };
-
-const HASHTAG_SUGGESTIONS = {
-  LINKEDIN: ["#BIM", "#DigitalConstruction", "#ISO19650", "#AEC", "#BuildingInformationModeling", "#ConstructionTech", "#UAE", "#Dubai", "#SmartBuilding"],
-  INSTAGRAM: ["#BIM", "#Architecture", "#Construction", "#Dubai", "#UAE", "#DigitalDesign", "#AEC", "#Engineering", "#BuildingDesign"],
-  TWITTER: ["#BIM", "#AEC", "#ConstructionTech", "#ISO19650", "#UAE"],
-  FACEBOOK: ["#BIM", "#Construction", "#Engineering", "#Dubai", "#UAE"],
-};
-
-const INITIAL_POSTS = [
-  { id:1, platform:"LINKEDIN", title:"ISO 19650 Compliance Guide", content:"🏗️ Navigating ISO 19650 compliance doesn't have to be complex.\n\nAt Datum Studios, we've helped 15+ projects achieve full ISO 19650 Part 2 compliance in the UAE.\n\nHere's our 5-step framework:\n\n1️⃣ Define your EIR (Employer's Information Requirements)\n2️⃣ Establish your CDE on Autodesk Construction Cloud\n3️⃣ Create a compliant BEP (BIM Execution Plan)\n4️⃣ Set up MIDP/TIDP workflows\n5️⃣ Implement regular model audits\n\nThe result? Fewer clashes, faster delivery, and happier clients.\n\nWhat's your biggest BIM challenge? Drop it in the comments 👇\n\n#BIM #ISO19650 #DigitalConstruction #UAE #AEC", status:"PUBLISHED", scheduledDate:"", tags:["BIM","ISO19650","UAE"] },
-  { id:2, platform:"LINKEDIN", title:"BIM ROI Statistics", content:"📊 The numbers don't lie.\n\nBIM adoption in the UAE construction sector:\n\n✅ 30% reduction in project costs\n✅ 40% fewer design clashes\n✅ 25% faster project delivery\n✅ 50% reduction in RFIs\n\nAt Datum Studios, we've seen these results firsthand across our portfolio of AED 2B+ in managed projects.\n\nReady to transform your construction workflow?\n\nDM us or visit https://datumos.vercel.app/\n\n#BIM #ConstructionTech #UAE #ROI #DigitalConstruction", status:"DRAFT", scheduledDate:"2026-07-15", tags:["BIM","ROI","UAE"] },
-  { id:3, platform:"INSTAGRAM", title:"Project Showcase — ADNOC Tower", content:"🏢 Proud to share our latest BIM milestone!\n\nADNOC Tower — Dubai\n📐 Full ISO 19650 BIM delivery\n🔍 Zero critical clashes at handover\n⚡ 35% faster coordination vs traditional methods\n\nOur team of BIM specialists worked tirelessly to deliver a fully coordinated model across all disciplines.\n\nSwipe to see the coordination process ➡️\n\n#BIM #Dubai #UAE #Architecture #Construction #DigitalConstruction #AEC #Engineering", status:"PUBLISHED", scheduledDate:"", tags:["BIM","Dubai","Architecture"] },
-  { id:4, platform:"TWITTER", title:"BIM Tip of the Day", content:"💡 BIM Tip: Always define your LOD (Level of Development) requirements BEFORE starting modeling.\n\nLOD 100 → Conceptual\nLOD 200 → Schematic\nLOD 300 → Design Development\nLOD 350 → Construction\nLOD 400 → Fabrication\n\nSave this for your next project! 🔖\n\n#BIM #AEC #ConstructionTech #ISO19650", status:"DRAFT", scheduledDate:"2026-07-12", tags:["BIM","AEC","Tips"] },
-];
-
-function Toast({ msg, onClose }) {
-  const { useEffect } = require("react");
-  useEffect(() => { const t = setTimeout(onClose, 2500); return () => clearTimeout(t); }, [onClose]);
-  return <div style={{ position:"fixed", bottom:24, right:24, background:"#1a2a1a", border:"1px solid #6b8e23", borderRadius:4, padding:"0.75rem 1.25rem", color:"#a2d033", fontFamily:"'Rajdhani',sans-serif", fontSize:"0.9rem", zIndex:9999 }}>✓ {msg}</div>;
-}
+import { useState, useEffect } from "react";
 
 export default function SocialLibraryPage() {
-  const [posts, setPosts] = useState(INITIAL_POSTS);
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState("ALL");
+
+  useEffect(() => {
+    fetch("/api/social-library").then(r => r.json()).then(d => {
+      const c = (d.campaigns || []).map(camp => ({ id:camp.id, platform:"LINKEDIN", title:camp.name||"Campaign", content:camp.description||"", status:camp.status||"DRAFT", scheduledDate:camp.startDate||"", tags:[] }));
+      setPosts(c);
+    }).catch(() => {}).finally(() => setLoading(false));
+  }, []);
+
+  const PLATFORMS = ["ALL", "LINKEDIN", "INSTAGRAM", "TWITTER", "FACEBOOK"];
+  const PLATFORM_COLORS = { LINKEDIN:"#0077b5", INSTAGRAM:"#e1306c", TWITTER:"#1da1f2", FACEBOOK:"#1877f2" };
+  const PLATFORM_LIMITS = { LINKEDIN:3000, INSTAGRAM:2200, TWITTER:280, FACEBOOK:63206 };
+  const HASHTAG_SUGGESTIONS = {
+    LINKEDIN: ["#BIM", "#DigitalConstruction", "#ISO19650", "#AEC", "#UAE"],
+    INSTAGRAM: ["#BIM", "#Architecture", "#Construction", "#Dubai", "#UAE"],
+    TWITTER: ["#BIM", "#AEC", "#ConstructionTech", "#ISO19650", "#UAE"],
+    FACEBOOK: ["#BIM", "#Construction", "#Engineering", "#Dubai", "#UAE"],
+  };
   const [statusFilter, setStatusFilter] = useState("ALL");
   const [view, setView] = useState("GRID"); // GRID | CALENDAR
   const [selected, setSelected] = useState(null);
