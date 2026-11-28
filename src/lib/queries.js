@@ -63,8 +63,11 @@ export async function getOutreach() {
 }
 
 // --- Projects (portfolio / workspace) ---------------------------------------
+// B1.18: Single active project mode — only HURL-001 is operational.
+// Historical projects are preserved with status ARCHIVED.
 export async function getProjects() {
   return prisma.project.findMany({
+    where: { status: "ACTIVE" },
     include: {
       client: true,
       divisions: { include: { division: true } },
@@ -96,11 +99,12 @@ export async function getProjectByCode(code) {
 }
 
 // --- Finance -----------------------------------------------------------------
+// B1.18: Only active project in finance context.
 export async function getFinance() {
   const [invoices, expenses, projects] = await Promise.all([
     prisma.invoice.findMany({ include: { project: true, client: true, lineItems: true }, orderBy: { issueDate: "desc" } }),
     prisma.expense.findMany({ include: { project: true }, orderBy: { date: "desc" } }),
-    prisma.project.findMany(),
+    prisma.project.findMany({ where: { status: "ACTIVE" } }),
   ]);
   return { invoices, expenses, projects };
 }
@@ -247,8 +251,10 @@ export async function getFeaturedProjects(limit = 6) {
 }
 
 // --- Clients (directory) ----------------------------------------------------
+// B1.18: Only active clients in operational directory.
 export async function getClients() {
   return prisma.client.findMany({
+    where: { status: "ACTIVE" },
     include: {
       projects: {
         include: {
