@@ -138,7 +138,7 @@ export default function ProspectsPage() {
               <div style={{ fontSize: "0.75rem", color: MIL.dim, marginTop: 2 }}>{p.contactName}</div>
               <div style={{ display: "flex", justifyContent: "space-between", marginTop: 4 }}>
                 <span style={{ fontFamily: MIL.head, fontSize: "0.45rem", color: STAGE_COLOR[p.stage] || MIL.dim, letterSpacing: 1 }}>{p.stage?.replace(/_/g, " ")}</span>
-                <span style={{ fontFamily: MIL.head, fontSize: "0.5rem", color: MIL.gold }}>AED {((p.estValue || 0) / 1000).toFixed(0)}K</span>
+                <span style={{ fontFamily: MIL.head, fontSize: "0.5rem", color: MIL.gold }}>PKR {((p.estValue || 0) / 1000).toFixed(0)}K</span>
               </div>
             </div>
           ))}
@@ -175,7 +175,7 @@ export default function ProspectsPage() {
                   { key: "contactPhone", label: "Phone", type: "text" },
                   { key: "country", label: "Country", type: "text" },
                   { key: "source", label: "Source", type: "text" },
-                  { key: "estValue", label: "Est. Value (AED)", type: "number" },
+                  { key: "estValue", label: "Est. Value (PKR)", type: "number" },
                 ].map(f => (
                   <div key={f.key}>
                     <label style={{ fontFamily: MIL.head, fontSize: "0.5rem", color: MIL.dim, letterSpacing: 1, display: "block", marginBottom: 4 }}>{f.label}</label>

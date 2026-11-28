@@ -193,10 +193,10 @@ export default function SalesPoolPage() {
       {/* Stats */}
       <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 10, marginBottom: 16 }}>
         {[
-          { label: "TOTAL PIPELINE", value: `AED ${(totalValue / 1000).toFixed(0)}K`, color: MIL.text },
-          { label: "WEIGHTED VALUE", value: `AED ${(weightedPipeline / 1000).toFixed(0)}K`, color: MIL.gold },
+          { label: "TOTAL PIPELINE", value: `PKR ${(totalValue / 1000).toFixed(0)}K`, color: MIL.text },
+          { label: "WEIGHTED VALUE", value: `PKR ${(weightedPipeline / 1000).toFixed(0)}K`, color: MIL.gold },
           { label: "WIN RATE", value: `${winRate}%`, color: MIL.green },
-          { label: "AVG DEAL SIZE", value: `AED ${(avgDealSize / 1000).toFixed(0)}K`, color: "#60a5fa" },
+          { label: "AVG DEAL SIZE", value: `PKR ${(avgDealSize / 1000).toFixed(0)}K`, color: "#60a5fa" },
         ].map(s => (
           <div key={s.label} style={{ background: MIL.panel, border: `1px solid ${MIL.border}`, borderRadius: 4, padding: "10px 12px", textAlign: "center" }}>
             <div style={{ fontFamily: MIL.head, fontSize: "0.45rem", color: MIL.dim, letterSpacing: 1.5, marginBottom: 4 }}>{s.label}</div>
@@ -262,7 +262,7 @@ export default function SalesPoolPage() {
 
                 {/* Value + stage */}
                 <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 8 }}>
-                  <span style={{ fontFamily: MIL.head, fontSize: "0.65rem", color: MIL.gold }}>AED {((lead.estValue || 0) / 1000).toFixed(0)}K</span>
+                  <span style={{ fontFamily: MIL.head, fontSize: "0.65rem", color: MIL.gold }}>PKR {((lead.estValue || 0) / 1000).toFixed(0)}K</span>
                   <span style={{ fontSize: "0.75rem", color: MIL.dim }}>{lead.stage?.replace(/_/g, " ")}</span>
                 </div>
 
@@ -311,7 +311,7 @@ export default function SalesPoolPage() {
             {[
               { key: "company", label: "Company *", type: "text" },
               { key: "contactName", label: "Contact Name", type: "text" },
-              { key: "estValue", label: "Est. Value (AED)", type: "number" },
+              { key: "estValue", label: "Est. Value (PKR)", type: "number" },
               { key: "source", label: "Source", type: "text" },
             ].map(f => (
               <div key={f.key} style={{ marginBottom: 12 }}>

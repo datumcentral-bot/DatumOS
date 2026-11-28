@@ -37,7 +37,7 @@ const S = {
   btnCancel: { background: "transparent", color: "#6b7a5a", border: "1px solid #3a4a30", borderRadius: 4, padding: "8px 18px", cursor: "pointer", fontSize: "0.8rem" },
 };
 
-function fmt(n) { return "AED " + Number(n || 0).toLocaleString(); }
+function fmt(n) { return "PKR " + Number(n || 0).toLocaleString(); }
 
 export default function CrmPage() {
   const { data: session } = useSession();
@@ -145,7 +145,7 @@ export default function CrmPage() {
               </div>
               <div style={S.row}>
                 <div style={S.field}><label style={S.label}>Country</label><input style={S.input} value={form.country} onChange={f("country")} placeholder="UAE" /></div>
-                <div style={S.field}><label style={S.label}>Est. Value (AED)</label><input style={S.input} type="number" value={form.estValue} onChange={f("estValue")} placeholder="250000" /></div>
+                <div style={S.field}><label style={S.label}>Est. Value (PKR)</label><input style={S.input} type="number" value={form.estValue} onChange={f("estValue")} placeholder="250000" /></div>
               </div>
               <div style={S.row}>
                 <div style={S.field}><label style={S.label}>Source</label><select style={S.input} value={form.source} onChange={f("source")}><option value="">Select source...</option>{SOURCES.map(s => <option key={s} value={s}>{s}</option>)}</select></div>
