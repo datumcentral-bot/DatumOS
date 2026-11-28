@@ -162,11 +162,11 @@ export async function getDivisions() {
 }
 
 // --- Client portal (scoped to a single signed-in client) --------------------
-// For the local MVP we sign in a demo client (Meridian Architects).
+// For the single-project configuration the canonical client is HURL.
 export async function getPortalClient(companyName) {
   const client = companyName
     ? await prisma.client.findFirst({ where: { companyName } })
-    : await prisma.client.findFirst({ orderBy: { companyName: "asc" } });
+    : await prisma.client.findFirst({ where: { companyName: "HURL" } });
   if (!client) return null;
   return prisma.client.findUnique({
     where: { id: client.id },
