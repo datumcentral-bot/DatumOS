@@ -33,7 +33,7 @@ export default function HurlProposalPage() {
       <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 10 }}>
         <StatCard label="PROJECT AREA" value={content.projectCoverage} />
         <StatCard label="DURATION" value={content.duration} />
-        <StatCard label="FEE" value="PKR 600,000" />
+        <StatCard label="FEE" value="PKR 1,500,000" />
         <StatCard label="STATUS" value={proposal.status} />
       </div>
 
