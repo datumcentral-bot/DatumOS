@@ -12,29 +12,32 @@ const TYPE_COLORS = { BOOTSTRAP:"#6b8e23", REVENUE:"#4ade80", INVESTMENT:"#c1974
 const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 
 export default function FundingTrackerPage() {
-  const [lines, setLines] = useState([
-    { id:1, name:"Client Revenue — ADNOC Tower", type:"REVENUE", amount:285000, received:210000, date:"2026-03-01", status:"ACTIVE", notes:"Monthly retainer + milestone payments" },
-    { id:2, name:"Client Revenue — BAGC HQ", type:"REVENUE", amount:145000, received:145000, date:"2026-01-15", status:"COMPLETED", notes:"Full payment received" },
-    { id:3, name:"Seed Investment — Founders", type:"INVESTMENT", amount:500000, received:500000, date:"2025-06-01", status:"COMPLETED", notes:"Initial capital injection" },
-    { id:4, name:"NEOM Pavilion Contract", type:"REVENUE", amount:320000, received:80000, date:"2026-05-01", status:"ACTIVE", notes:"25% upfront, balance on milestones" },
-    { id:5, name:"UAE Innovation Grant", type:"GRANT", amount:75000, received:0, date:"2026-07-01", status:"PENDING", notes:"Application submitted — awaiting approval" },
-  ]);
+  const [lines, setLines] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [editLine, setEditLine] = useState(null);
   const [form, setForm] = useState({ name:"", type:"REVENUE", amount:"", received:"", date:"", notes:"" });
   const [toast, setToast] = useState(null);
-  const [burnRate] = useState(85000); // monthly burn
+  const [burnRate] = useState(0);
+
+  useEffect(() => {
+    fetch("/api/funding").then(r => r.json()).then(d => {
+      const inv = (d.invoices || []).map(i => ({ id:i.id, name:i.description||i.invoiceNo||"Invoice", type:"REVENUE", amount:i.amount||0, received:i.status==="PAID"?i.amount:0, date:i.issueDate, status:i.status||"ACTIVE", notes:i.notes||"" }));
+      const exp = (d.expenses || []).map(e => ({ id:e.id, name:e.category||"Expense", type:"EXPENSE", amount:e.amount||0, received:0, date:e.date, status:"ACTIVE", notes:e.notes||"" }));
+      setLines([...inv, ...exp]);
+    }).catch(() => {}).finally(() => setLoading(false));
+  }, []);
 
   const totalFunding = lines.reduce((s, l) => s + l.amount, 0);
   const totalReceived = lines.reduce((s, l) => s + l.received, 0);
   const totalPending = totalFunding - totalReceived;
   const runway = Math.round(totalReceived / burnRate);
 
-  // Monthly cash flow (last 6 months)
-  const cashFlow = MONTHS.slice(0, 6).map((m, i) => ({
+  // Monthly cash flow — from actual invoices/expenses only
+  const cashFlow = MONTHS.slice(0, 6).map((m) => ({
     month: m,
-    income: Math.round(30000 + Math.random() * 80000),
-    expense: Math.round(60000 + Math.random() * 30000),
+    income: 0,
+    expense: 0,
   }));
 
   // Pie chart data
