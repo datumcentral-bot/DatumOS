@@ -3,6 +3,8 @@ import { prisma } from '@/lib/prisma';
 import { getServerSession } from 'next-auth';
 import { authOptions, guard } from '@/lib/auth';
 import { errorResponse } from "@/lib/api-errors";
+import { createGateway } from '@ai-sdk/gateway';
+import { generateText } from 'ai';
 
 export const dynamic = "force-dynamic";
 
@@ -53,7 +55,26 @@ function fallbackChat(message) {
   return "I can help you with **project status**, **invoices**, **BIM coordination**, **timelines**, **team contacts**, and **document access**. Could you provide more details about your query? For complex or urgent matters, I'll connect you with your project manager.";
 }
 
-// ─── OpenAI chat ───────────────────────────────────────────────────────────
+// ─── Vercel AI Gateway chat ───────────────────────────────────────────────────
+const aiGateway = createGateway({
+  apiKey: process.env.AI_GATEWAY_API_KEY,
+});
+
+async function aiGatewayChat(messages) {
+  const model = aiGateway(process.env.AI_GATEWAY_MODEL ?? 'google/gemini-2.5-flash-lite');
+  const { text } = await generateText({
+    model,
+    messages: [
+      { role: 'system', content: SYSTEM_PROMPT },
+      ...messages.slice(-10),
+    ],
+    temperature: 0.5,
+    maxTokens: 200,
+  });
+  return text.trim();
+}
+
+// ─── OpenAI chat ──────────────────────────────────────────────────────────────
 async function openAIChat(messages, apiKey) {
   const res = await fetch('https://api.openai.com/v1/chat/completions', {
     method: 'POST',
@@ -89,15 +110,38 @@ export async function POST(req) {
     }
     const scopedSessionId = `${identity}:${sessionId}`;
 
-    const apiKey = process.env.OPENAI_API_KEY;
+    const aiGatewayKey = process.env.AI_GATEWAY_API_KEY;
+    const openAiKey = process.env.OPENAI_API_KEY;
     let reply;
     let usedAI = false;
 
-    if (apiKey && apiKey.startsWith('sk-')) {
+    if (aiGatewayKey) {
       try {
         const msgs = history.map(m => ({ role: m.role.toLowerCase(), content: m.content }));
         msgs.push({ role: 'user', content: message });
-        reply = await openAIChat(msgs, apiKey);
+        reply = await aiGatewayChat(msgs);
+        usedAI = true;
+      } catch (e) {
+        console.warn('[ai] AI Gateway chat unavailable, falling back to OpenAI', { error: e?.name ?? 'UnknownError' });
+        if (openAiKey && openAiKey.startsWith('sk-')) {
+          try {
+            const msgs = history.map(m => ({ role: m.role.toLowerCase(), content: m.content }));
+            msgs.push({ role: 'user', content: message });
+            reply = await openAIChat(msgs, openAiKey);
+            usedAI = true;
+          } catch (e2) {
+            console.warn('[ai] OpenAI chat unavailable, using fallback', { error: e2?.name ?? 'UnknownError' });
+            reply = fallbackChat(message);
+          }
+        } else {
+          reply = fallbackChat(message);
+        }
+      }
+    } else if (openAiKey && openAiKey.startsWith('sk-')) {
+      try {
+        const msgs = history.map(m => ({ role: m.role.toLowerCase(), content: m.content }));
+        msgs.push({ role: 'user', content: message });
+        reply = await openAIChat(msgs, openAiKey);
         usedAI = true;
       } catch (e) {
         console.warn('[ai] OpenAI chat unavailable, using fallback', { error: e?.name ?? 'UnknownError' });
